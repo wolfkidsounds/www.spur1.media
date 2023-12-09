@@ -13,9 +13,10 @@ class PostType extends AbstractType
     {
         $builder
             ->add('Title')
+            ->add('Type')
             ->add('URL')
             ->add('Image')
-            ->add('Type')
+            ->add('Date')
         ;
     }
 

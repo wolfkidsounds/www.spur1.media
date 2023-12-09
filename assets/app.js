@@ -3,7 +3,7 @@ import '@popperjs/core';
 import 'bootstrap';
 
 // NODE MODULES CSS
-
+import '@fortawesome/fontawesome-free/css/all.css'
 
 // CSS
 import './fonts/fonts.css';

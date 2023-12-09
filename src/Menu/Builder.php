@@ -6,7 +6,7 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class MenuBuilder extends AbstractController
+class Builder extends AbstractController
 {
     private $factory;
 
@@ -15,11 +15,11 @@ class MenuBuilder extends AbstractController
         $this->factory = $factory;
     }
 
-    public function sidebar(): ItemInterface
+    public function navigation(): ItemInterface
     {
         $menu = $this->factory->createItem('navigation');
 
-        $menu->addChild('OrbiterSession', [
+        $menu->addChild('Orbiter Session', [
             'route' => 'app_orbitersession'
         ]);
 

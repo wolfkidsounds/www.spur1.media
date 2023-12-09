@@ -1,0 +1,13 @@
+@import './_template/grid.css';
+
+body {
+    background: #f0f0f0;
+}
+
+.logo svg {
+    fill:#3c3c3b;
+}
+
+.logo svg:hover {
+    fill:#e04242;
+}

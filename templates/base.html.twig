@@ -2,8 +2,11 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+
+        <title>{% block title %}Spur1-Media{% endblock %}</title>
+
+        <link rel="icon" href="{{ asset('build/images/spur1_cropped.svg') }}">
+
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -11,8 +14,19 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container mt-3 p-0">
+            {% include('./partials/header.html.twig') %}
+        </div>
+        <div class="container py-3 px-5">
+
+            {% block body %}{% endblock %}
+
+        </div>
+        <div class="container">
+            {% include('./partials/footer.html.twig') %}
+        </div>
     </body>
 </html>

@@ -1,9 +1,18 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+// NODE MODULES JS
+import '@popperjs/core';
+import 'bootstrap';
 
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+// NODE MODULES CSS
+
+
+// CSS
+import './fonts/fonts.css';
+
+// JS
+import './js/app.js';
+
+// SCSS
+import './scss/app.scss';
+
+// CSS
+import './css/app.css';

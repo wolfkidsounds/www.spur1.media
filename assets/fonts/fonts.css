@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "Gothic";
+    src: url("./trade-gothic-no-20-condensed-bold.ttf") format("truetype");
+    src: local("Gothic"),
+        url("./trade-gothic-no-20-condensed-bold.ttf") format("truetype"),
+        url("./trade-gothic-no-20-condensed-bold.otf") format("opentype"),
+        url("./trade-gothic-no-20-condensed-bold.woff") format("woff");
+}

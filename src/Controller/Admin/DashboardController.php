@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Main\Post;
 use App\Entity\User;
+use App\Entity\Main\Post;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -25,7 +25,7 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Spur1 Media');
+            ->setTitle('Spur1-Media');
     }
     public function configureCrud(): Crud
     {
@@ -38,9 +38,9 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::section('System');
-        yield MenuItem::linkToCrud('User', 'fas fa-user', User::class);
+        //yield MenuItem::linkToCrud('User', 'fas fa-user', User::class);
         yield MenuItem::section('Content');
-        yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
+        //yield MenuItem::linkToCrud('Post', 'fas fa-list', Post::class);
         yield MenuItem::section('Media');
         yield MenuItem::linkToRoute('Media', 'fa fa-picture-o', 'media.index');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
@@ -50,7 +50,7 @@ class DashboardController extends AbstractDashboardController
     {
         return parent::configureUserMenu($user)
             ->addMenuItems([
-                MenuItem::linkToRoute('Back to Spur1-Media', 'fa-solid fa-arrow-left', 'app_index'),
+                MenuItem::linkToRoute('Back to Spur1-Media', 'fa-solid fa-arrow-left', 'app_main_index'),
             ]);
     }
 

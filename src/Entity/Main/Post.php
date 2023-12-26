@@ -1,6 +1,6 @@
-<?php
+<?php //src/Entity/Main/Post.php
 
-namespace App\Entity;
+namespace App\Entity\Main;
 
 use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;

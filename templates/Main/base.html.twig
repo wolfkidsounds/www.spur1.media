@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ title }}{% endblock %}
+
+{% block body %}
+    {% include('Main/_partials/offcanvas.html.twig') %}
+    <div class="container">
+        {% include('Main/_partials/header.html.twig') %}
+        {% block content %}{% endblock %}
+        {% include('Main/_partials/footer.html.twig') %}
+    </div>
+{% endblock %}

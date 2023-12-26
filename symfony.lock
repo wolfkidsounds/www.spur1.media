@@ -123,16 +123,16 @@
             "./tests/bootstrap.php"
         ]
     },
-    "stof/doctrine-extensions-bundle": {
-        "version": "1.10",
+    "symfony/apache-pack": {
+        "version": "1.0",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
             "branch": "main",
-            "version": "1.2",
-            "ref": "e805aba9eff5372e2d149a9ff56566769e22819d"
+            "version": "1.0",
+            "ref": "efb318193e48384eb5c5aadff15396ed698f8ffc"
         },
         "files": [
-            "./config/packages/stof_doctrine_extensions.yaml"
+            "./public/.htaccess"
         ]
     },
     "symfony/console": {

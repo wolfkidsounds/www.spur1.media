@@ -3,9 +3,9 @@ import '@popperjs/core';
 import 'bootstrap';
 
 // NODE MODULES CSS
-import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/css/all.css';
 
-// CSS
+// FONTS
 import './fonts/fonts.css';
 
 // JS

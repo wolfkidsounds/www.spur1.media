@@ -1,0 +1,145 @@
+name: Staging Deployment
+
+on:
+  push:
+    branches: [ "staging" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build And Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup PHP
+      uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
+      with:
+        php-version: '8.1'
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Enable Maintenance Mode (Upload Maintenance PHP)
+      uses: bayssmekanique/action-simple-file-upload@v2
+      with:
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        host: ${{ secrets.FTP_SERVER }}
+        src: public/maintenance.php
+        dest: ${{ secrets.STAGING_BASE_PATH }}/${{ secrets.REMOTE_MAINTENANCE_FILE }}
+        secure: true
+        verbose: true
+
+    - name: Set Up Environment Variables
+      run: |
+        echo "APP_ENV=prod" >> $GITHUB_ENV
+        echo "APP_SECRET=${{ secrets.APP_STAGING_SECRET }}" >> $GITHUB_ENV
+        echo "APP_DEBUG=1" >> $GITHUB_ENV
+
+        echo "DATABASE_URL=${{ secrets.STAGING_DATABASE_URL }}" >> $GITHUB_ENV
+        echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> $GITHUB_ENV
+        echo "MAILER_DSN=${{ secrets.MAILER_DSN }}" >> $GITHUB_ENV
+
+        echo "FILE_STORAGE_PATH='public/uploads'" >> .env
+        echo "HOST=${{ secrets.APP_HOST }}" >> $GITHUB_ENV
+        
+
+    - name: Dump .env
+      run: |
+        rm -f .env
+        echo "APP_ENV=prod" >> .env
+        echo "APP_SECRET=${{ secrets.APP_STAGING_SECRET }}" >> .env
+        echo "APP_DEBUG=1" >> .env
+
+        echo "DATABASE_URL='${{ secrets.STAGING_DATABASE_URL }}'" >> .env
+        echo "MESSENGER_TRANSPORT_DSN=${{ secrets.MESSENGER_TRANSPORT_DSN }}" >> .env
+        echo "MAILER_DSN=${{ secrets.MAILER_DSN }}" >> .env
+        
+        echo "FILE_STORAGE_PATH='public/uploads'" >> .env
+        echo "HOST='${{ secrets.APP_HOST }}'" >> .env
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install Composer
+      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev --optimize-autoloader
+
+    - name: Generate Keys
+      run: APP_RUNTIME_ENV=prod php bin/console secrets:generate-keys
+
+    - name: Dump Environment Vars To Production
+      run: |
+        composer dump-env prod
+
+    - name: Clear Cache, Install Assets, Warm Up Cache
+      run: |
+        php bin/console cache:clear --no-warmup
+        php bin/console assets:install
+        php bin/console cache:warmup
+
+    - name: Use Node.js 18.16.1
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.16.1
+
+    - name: Clear npm cache
+      run: npm cache clean --force
+
+    - name: Install NPM
+      run: npm install --force
+
+    - name: Build Encore
+      run: |
+       npm run build
+
+    - name: 📂 Deploy Files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+          timeout: 20000
+          server: ${{ secrets.FTP_SERVER }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./
+          protocol: ftps
+          server-dir: ${{ secrets.STAGING_BASE_PATH }}/
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          dry-run: false
+          exclude: |
+              **/data*/**
+              **/.git*
+              **/.git*/**
+              **/.github*/**
+              **/.vscode/**
+              **/assets*/**
+              **/node_modules*/**
+              **/test*/**
+              **/.env.test*
+              **/docker-compose*
+              **/install.bat*
+              **/package*
+              **/phpunit*
+              **/README.md
+              **/symfony.exe
+              **/webpack.config.js
+              **/public/maintenance.php
+              **/var/cache/dev/**
+              **/var/log/**
+
+    - name: Disable Maintenance Mode (Upload Public Index PHP)
+      uses: bayssmekanique/action-simple-file-upload@v2
+      with:
+        user: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        host: ${{ secrets.FTP_SERVER }}
+        src: public/index.php
+        dest: ${{ secrets.STAGING_BASE_PATH }}/${{ secrets.REMOTE_MAINTENANCE_FILE }}
+        secure: true
+        verbose: true

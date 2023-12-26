@@ -7,6 +7,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "agence-adeliom/easy-media-bundle": "2.*",
         "doctrine/doctrine-bundle": "^2.11",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
@@ -89,7 +90,11 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "endpoint": [
+                "https://api.github.com/repos/agence-adeliom/symfony-recipes/contents/index.json?ref=flex/main",
+                "flex://defaults"
+            ],
+            "allow-contrib": true,
             "require": "6.4.*"
         }
     },

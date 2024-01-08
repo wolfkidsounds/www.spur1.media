@@ -1,0 +1,41 @@
+:root {
+    --icon-color:var(--dropdown-settings-icon-color);
+    --font-color:var(--sidebar-menu-color);
+}
+
+.media-manager__toolbar {
+    background:initial;
+}
+
+.easy-media-widget #new-upload, 
+.media-manager #new-upload {
+    --gradient:none;
+    background:initial;
+    background-image:none;
+}
+
+.easy-media-widget #new-upload:before, 
+.media-manager #new-upload:before {
+    background-image:none;
+}
+
+.easy-media-widget .button, 
+.media-manager .button {
+    color:var(--icon-color);
+}
+
+.easy-media-widget .__box-delete span.delete:after, 
+.easy-media-widget .__box-delete span.delete:before, 
+.easy-media-widget .media-right span.delete:after, 
+.easy-media-widget .media-right span.delete:before, 
+.easy-media-widget button.delete:after, 
+.easy-media-widget button.delete:before, 
+.media-manager .__box-delete span.delete:after, 
+.media-manager .__box-delete span.delete:before, 
+.media-manager .media-right span.delete:after, 
+.media-manager .media-right span.delete:before, 
+.media-manager button.delete:after, 
+.media-manager button.delete:before {
+    background-color:#fff !important;
+    color:#fff;
+}

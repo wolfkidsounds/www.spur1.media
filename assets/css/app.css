@@ -9,22 +9,6 @@ body {
     background: #f0f0f0;
 }
 
-.navbar-brand svg path {
-    fill:var(--spur1-gray);
-}
-
-.navbar-brand svg:hover,
-.navbar-brand svg path {
-    fill:var(--spur1-red) !important;
-}
-
-.navigation {
-    font-size:24px;
-    color:var(--spur1-gray);
-}
-
-.navbar-nav .nav-link.active, 
-.navbar-nav .nav-link.show, 
-.navbar-nav .nav-link:hover {
-    color:var(--spur1-red);
+.logo {
+    height:32px !important;
 }

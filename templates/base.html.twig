@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-bs-theme="light" data-lang="en" lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Spur1-Media{% endblock %}</title>
@@ -14,16 +14,6 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container mt-3 p-0">
-            {% include('./partials/header.html.twig') %}
-        </div>
-
-        <div class="container py-3 px-5">
-            {% block body %}{% endblock %}
-        </div>
-        
-        <div class="container">
-            {% include('./partials/footer.html.twig') %}
-        </div>
+        {% block body %}{% endblock %}        
     </body>
 </html>

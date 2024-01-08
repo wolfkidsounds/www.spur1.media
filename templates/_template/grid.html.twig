@@ -17,7 +17,7 @@
                             </div>
                             #}  
                             {% if post.image %}
-                                <img class="post-img img-fluid rounded" src="{{ asset('uploads/images/' ~ post.image) }}"></img>
+                                {{ easy_media(post.image, 'reference', {'class': 'post-img img-fluid rounded'}) }} {# <img class="post-img img-fluid rounded" src="{{ asset('uploads/images/' ~ post.image) }}"></img> #}
                             {% else %}
                                 <div class="post-img img-fluid rounded"></div>
                             {% endif %}

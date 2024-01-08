@@ -1,6 +1,6 @@
 .post {
     transition:all .5s ease;
-    opacity:.9;
+    opacity:.85;
 }
 
 .post:hover {

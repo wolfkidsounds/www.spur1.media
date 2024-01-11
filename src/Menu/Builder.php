@@ -89,7 +89,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Admin', [
-            'route' => 'app_main_index'
+            'route' => 'admin'
         ]);
 
         $menu->addChild('Backstage', [

@@ -12,3 +12,11 @@ body {
 .logo {
     height:32px !important;
 }
+
+.text-color-spur1-red {
+    color:var(--spur1-red);
+}
+
+.text-color-spur1-gray {
+    color:var(--spur1-gray);
+}

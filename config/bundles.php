@@ -19,4 +19,5 @@ return [
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
     Adeliom\EasyCommonBundle\EasyCommonBundle::class => ['all' => true],
     Adeliom\EasyMediaBundle\EasyMediaBundle::class => ['all' => true],
+    Novaway\Bundle\FeatureFlagBundle\NovawayFeatureFlagBundle::class => ['all' => true],
 ];

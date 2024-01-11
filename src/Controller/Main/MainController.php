@@ -14,12 +14,6 @@ class MainController extends BaseController
         return 'Main';
     }
 
-    #[Route('/admin')]
-    public function redirectToAdmin(): Response
-    {
-        return $this->redirectToRoute('admin');
-    }
-
     #[Route('/backstage')]
     public function redirectToBackstage()
     {

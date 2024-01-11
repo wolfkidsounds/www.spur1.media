@@ -13,6 +13,11 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        admin:
+            provider: app_user_provider
+            host: ^admin.%app.host%
+
         main:
             lazy: true
             provider: app_user_provider
@@ -22,8 +27,8 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app_index
+        
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -34,12 +39,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: [ROLE_ADMIN], host: '%app.host%' }
-        # - { path: ^/admin, roles: [ROLE_ADMIN], host: 'archive.%app.host%' }
-        # - { path: ^/admin, roles: [ROLE_ADMIN], host: 'play.%app.host%' }
-        # - { path: ^/admin, roles: [ROLE_ADMIN], host: 'artists.%app.host%' }
-        # - { path: ^/admin, roles: [ROLE_ADMIN], host: 'backstage.%app.host%' }
-        # - { path: ^/, roles: [ROLE_ARTIST], host: 'backstage.%app.host%' }
+        - { path: ^/admin, roles: [ROLE_ADMIN] }
         
 
 when@test:

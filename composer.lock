@@ -1723,16 +1723,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.8.8",
+            "version": "v4.8.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "a20064f6dd5079c682c512a197cdf7058abaa1f3"
+                "reference": "89991bb68127f7a862d79758eb4fffc8e10a8e73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/a20064f6dd5079c682c512a197cdf7058abaa1f3",
-                "reference": "a20064f6dd5079c682c512a197cdf7058abaa1f3",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/89991bb68127f7a862d79758eb4fffc8e10a8e73",
+                "reference": "89991bb68127f7a862d79758eb4fffc8e10a8e73",
                 "shasum": ""
             },
             "require": {
@@ -1805,7 +1805,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.8.8"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.8.9"
             },
             "funding": [
                 {
@@ -1813,7 +1813,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-01-03T18:31:59+00:00"
+            "time": "2024-01-09T18:54:55+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -3764,16 +3764,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.7.3",
+            "version": "1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419"
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419",
-                "reference": "3219c6ee25c9ea71e3d9bbaf39c67c9ebd499419",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/fad452781b3d774e3337b0c0b245dd8e5a4455fc",
+                "reference": "fad452781b3d774e3337b0c0b245dd8e5a4455fc",
                 "shasum": ""
             },
             "require": {
@@ -3816,9 +3816,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.7.3"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.8.0"
             },
-            "time": "2023-08-12T11:01:26+00:00"
+            "time": "2024-01-11T11:49:22+00:00"
         },
         {
             "name": "phpstan/phpdoc-parser",

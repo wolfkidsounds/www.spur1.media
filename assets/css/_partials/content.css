@@ -1,0 +1,14 @@
+[data-sidebar='open'] .content {
+    margin-left: calc(var(--spur1-sidebar-width-open) + 1rem);
+    width: calc(100vw - var(--spur1-sidebar-width-open) - 2rem);
+}
+
+[data-sidebar='closed'] .content {
+    margin-left: calc(var(--spur1-sidebar-width-closed) + 1rem);
+    width: calc(100vw - var(--spur1-sidebar-width-closed) - 2rem);
+}
+
+.content {
+    overflow-x: auto;
+    overflow-y: hidden;
+}

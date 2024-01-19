@@ -1,4 +1,8 @@
 @import './_template/grid.css';
+@import './_partials/sidebar.css';
+@import './_partials/header.css';
+
+@import './_partials/content.css';
 
 :root {
     --spur1-red: #e04242;

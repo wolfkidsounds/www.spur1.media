@@ -1,17 +1,12 @@
 <!DOCTYPE html>
-<html data-bs-theme="light" data-lang="en" lang="en">
+<html data-bs-theme="light" data-theme="light" data-lang="en" lang="en" data-sidebar="open">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Spur1-Media{% endblock %}</title>
         <link rel="icon" href="{{ asset('build/images/spur1_cropped.svg') }}">
 
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
+        {% block javascripts %}{% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}        

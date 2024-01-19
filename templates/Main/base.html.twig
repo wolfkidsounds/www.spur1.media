@@ -3,10 +3,22 @@
 {% block title %}{{ parent() }} | {{ title }}{% endblock %}
 
 {% block body %}
-    {% include('Main/_partials/offcanvas.html.twig') %}
-    <div class="container">
-        {% include('Main/_partials/header.html.twig') %}
-        {% block content %}{% endblock %}
-        {% include('Main/_partials/footer.html.twig') %}
+    <div class="main">
+        {% include('_partials/_sidebar.html.twig') %}
+        {# {% include('_partials/_header.html.twig') %} #}
+
+        <div class="content mt-3">
+            {% block content %}{% endblock %}
+        </div>
     </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
 {% endblock %}

@@ -1,0 +1,15 @@
+[data-sidebar='open'] header {
+    margin-left: calc(var(--spur1-sidebar-width-open) + 1rem);
+    width: calc(100vw - var(--spur1-sidebar-width-open) - 2rem);
+}
+
+[data-sidebar='closed'] header {
+    margin-left: calc(var(--spur1-sidebar-width-closed) + 1rem);
+    width: calc(100vw - var(--spur1-sidebar-width-closed) - 2rem);
+}
+
+.header {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: var(--spur1-sidebar-height-top);
+}

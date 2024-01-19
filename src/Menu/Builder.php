@@ -22,35 +22,40 @@ class Builder extends AbstractController
         $menu->addChild('Orbiter Session', [
             'route' => 'app_main_orbitersession',
             'extras' => [
-                'icon' => 'fa-solid fa-record-vinyl'
+                'icon' => 'fa-solid fa-record-vinyl',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Podcast', [
             'route' => 'app_main_podcast',
             'extras' => [
-                'icon' => 'fa-solid fa-podcast'
+                'icon' => 'fa-solid fa-podcast',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Radio', [
             'route' => 'app_main_radio',
             'extras' => [
-                'icon' => 'fa-solid fa-radio'
+                'icon' => 'fa-solid fa-radio',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Teletime', [
             'route' => 'app_main_radio',
             'extras' => [
-                'icon' => 'fa-solid fa-phone'
+                'icon' => 'fa-solid fa-phone',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Windowlicker', [
             'route' => 'app_main_windowlicker',
             'extras' => [
-                'icon' => 'fa-brands fa-windows'
+                'icon' => 'fa-brands fa-windows',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
@@ -62,23 +67,38 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Producer Meeting', [
-            'route' => 'app_main_index'
+            'route' => 'app_main_index',
+            'extras' => [
+                'class' => 'opacity-25 pe-none',
+            ]
         ]);
 
         $menu->addChild('Artist Database', [
-            'route' => 'app_main_index'
+            'route' => 'app_main_index',
+            'extras' => [
+                'class' => 'opacity-25 pe-none',
+            ]
         ]);
 
         $menu->addChild('Events', [
-            'route' => 'app_main_index'
+            'route' => 'app_main_index',
+            'extras' => [
+                'class' => 'opacity-25 pe-none',
+            ]
         ]);
 
         $menu->addChild('Records', [
-            'route' => 'app_main_index'
+            'route' => 'app_main_index',
+            'extras' => [
+                'class' => 'opacity-25 pe-none',
+            ]
         ]);
 
         $menu->addChild('Player', [
-            'route' => 'app_main_index'
+            'route' => 'app_main_index',
+            'extras' => [
+                'class' => 'opacity-25 pe-none',
+            ]
         ]);
 
         return $menu;
@@ -91,14 +111,16 @@ class Builder extends AbstractController
         $menu->addChild('Profile', [
             'route' => 'admin',
             'extras' => [
-                'icon' => 'fa-solid fa-user'
+                'icon' => 'fa-solid fa-user',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Settings', [
             'route' => 'admin',
             'extras' => [
-                'icon' => 'fa-solid fa-gear'
+                'icon' => 'fa-solid fa-gear',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
@@ -119,14 +141,16 @@ class Builder extends AbstractController
         $menu->addChild('Backstage', [
             'route' => 'app_main_index',
             'extras' => [
-                'icon' => 'fa-solid fa-gauge-high'
+                'icon' => 'fa-solid fa-gauge-high',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('API', [
             'route' => 'app_main_index',
             'extras' => [
-                'icon' => 'fa-solid fa-code-compare'
+                'icon' => 'fa-solid fa-code-compare',
+                'class' => 'opacity-25 pe-none',
             ]
         ]);
 

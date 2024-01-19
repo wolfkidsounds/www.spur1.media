@@ -81,7 +81,7 @@
 
 {% block linkElement %}
 {% import _self as knp_menu %}
-    <a class="nav-link{%- if matcher.isCurrent(item) %} active{% endif %}" href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes) }}>
+    <a class="nav-link{%- if matcher.isCurrent(item) %} active{% endif %} {% if item.extras.class is defined %} {{ item.extras.class }}{% endif %}" href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes) }}>
         {% if item.extras.icon is defined %}
             <i class="{{ item.extras.icon }} me-2"></i>
             {{ block('label')|upper }}

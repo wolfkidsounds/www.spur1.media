@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Repository\Artists;
+namespace App\Repository;
 
-use App\Entity\Artists\Artist;
+use App\Entity\Artist;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

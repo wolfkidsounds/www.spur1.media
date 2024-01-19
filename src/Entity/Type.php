@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Entity\Artists;
+namespace App\Entity;
 
-use App\Repository\Artists\ArtistRepository;
+use App\Repository\TypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ArtistRepository::class)]
-class Artist
+#[ORM\Entity(repositoryClass: TypeRepository::class)]
+class Type
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

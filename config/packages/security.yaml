@@ -1,4 +1,12 @@
 security:
+    role_hierarchy:
+        ROLE_ADMIN: [ ROLE_USER ]
+
+        ACCESS_MEDIA: [ ROLE_USER, ROLE_ADMIN ]
+        ACCESS_MEDIA_RADIO: [ ROLE_USER, ROLE_ADMIN, ACCESS_MEDIA ]
+
+        ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ACCESS_MEDIA, ACCESS_MEDIA_RADIO ]
+
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
@@ -40,6 +48,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin, roles: [ROLE_ADMIN] }
+        
+    access_decision_manager:
+            strategy: unanimous
         
 
 when@test:

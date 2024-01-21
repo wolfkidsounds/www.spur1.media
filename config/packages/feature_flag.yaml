@@ -7,11 +7,16 @@ novaway_feature_flag:
                 features:
                     main: true
                     admin: true
-                    archive: false
-                    backstage: false
+
+                    content: true
+                    content_radio: true
+
                     records: false
+                    backstage: false
+                    
                     events: false
-                    api: false
                     artists: false
                     player: false
+
+                    api: false
                     cloud: false

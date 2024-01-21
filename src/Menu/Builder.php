@@ -39,7 +39,7 @@ class Builder extends AbstractController
             'route' => 'app_main_radio',
             'extras' => [
                 'icon' => 'fa-solid fa-radio',
-                'class' => 'opacity-25 pe-none',
+                'class' => '',
             ]
         ]);
 

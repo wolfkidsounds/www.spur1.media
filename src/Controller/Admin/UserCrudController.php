@@ -31,16 +31,18 @@ class UserCrudController extends AbstractCrudController
         ->allowMultipleChoices()
         ->renderAsBadges()
         ->setChoices([
-            'Administrator' => 'ROLE_ADMIN',
             'Benutzer' => 'ROLE_USER',
-            'Editor' => 'ROLE_EDITOR',
-            '_MEDIA' => 'ACCESS_MEDIA',
-            '_RECORDS' => 'ACCESS_RECORDS',
-            '_EVENTS' => 'ACCESS_EVENTS',
-            '_API' => 'ACCESS_API',
-            '_ARTISTS' => 'ACCESS_ARTISTS',
-            '_PLAYER' => 'ACCESS_PLAYER',
-            '_CLOUD' => 'ACCESS_CLOUD',
+
+            'Access Spur1-Admin' => 'ROLE_ADMIN',
+            'All-Access Spur1-Media' => 'ACCESS_MEDIA',
+            'Access Spur1-Radio' => 'ACCESS_MEDIA_RADIO',
+
+            'All-Access Spur1-Records' => 'ACCESS_RECORDS',
+            'All-Access Spur1-Events' => 'ACCESS_EVENTS',
+            'All-Access Spur1-Api' => 'ACCESS_API',
+            'All-Access Spur1-Artists' => 'ACCESS_ARTISTS',
+            'All-Access Spur1-Player' => 'ACCESS_PLAYER',
+            'All-Access Spur1-Cloud' => 'ACCESS_CLOUD',
         ]);
         yield TextField::new('password', 'Passwort')
         ->hideOnIndex()

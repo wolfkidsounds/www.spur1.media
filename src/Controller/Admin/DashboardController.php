@@ -4,10 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\Radio;
+use App\Entity\Artist;
 use App\Entity\Main\Post;
 use App\Entity\Main\Type;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
@@ -38,68 +40,73 @@ class DashboardController extends AbstractDashboardController
         ;
     }
 
+    public function configureCrud(): Crud
+    {
+        return parent::configureCrud()
+            ->addFormTheme('@EasyMedia/form/easy-media.html.twig')
+        ;
+    }
+
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-gauge');
 
         yield MenuItem::section('System');
         yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class)
-            ->setPermission('ROLE_ADMIN');     
+            ->setPermission('ROLE_ADMIN');
+        
 
-        if($this->featureManager->isEnabled('content')) {
-            yield MenuItem::section('Spur1-Media')
-                ->setPermission('ACCESS_MEDIA');
+        if($this->featureManager->isEnabled('content') || $this->featureManager->isEnabled('debug')) {
+            yield MenuItem::section('Content')
+                ->setPermission('ROLE_ACCESS_MEDIA');
 
             yield MenuItem::subMenu('Spur1-Media', 'spur1-icon spur1-logo')
-                ->setPermission('ACCESS_MEDIA')
+                ->setPermission('ROLE_ACCESS_MEDIA')
                 ->setSubItems([
-                    MenuItem::linkToCrud('Radio', 'fa fa-radio', Radio::class)->setPermission('ACCESS_MEDIA_RADIO')
+                    MenuItem::linkToCrud('Radio', 'fa fa-radio', Radio::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA_RADIO')
+            ]);
+
+            yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')
+                ->setPermission('ROLE_ACCESS_RECORDS')
+                ->setSubItems([
+                    MenuItem::linkToRoute('Spur1-Records', 'fa fa-record-vinyl', 'admin_records')
+                        ->setPermission('ROLE_ACCESS_RECORDS'),
+                    MenuItem::linkToRoute('Spur1-Backstage', 'fa fa-chart-pie', 'admin_backstage')
+                        ->setPermission('ROLE_ACCESS_BACKSTAGE'),
+            ]);
+
+            yield MenuItem::subMenu('Spur1-Events', 'fa fa-calendar-days')
+                ->setPermission('ROLE_ACCESS_EVENTS')
+                ->setSubItems([
+                    MenuItem::linkToRoute('Spur1-Events', 'fa fa-calendar-days', 'admin_events')
+                        ->setPermission('ROLE_ACCESS_EVENTS'),
+            ]);
+
+            yield MenuItem::subMenu('Spur1-Artists', 'fa fa-database')
+                ->setPermission('ROLE_ACCESS_ARTISTS')
+                ->setSubItems([
+                    MenuItem::linkToCrud('Artists', 'fa fa-music', Artist::class)
+                        ->setPermission('ROLE_ACCESS_ARTISTS'),
+            ]);
+
+            yield MenuItem::subMenu('Spur1-Player', 'fa fa-play')
+                ->setPermission('ROLE_ACCESS_PLAYER')
+                ->setSubItems([
+                    MenuItem::linkToRoute('Spur1-Player', 'fa fa-play', 'admin_play')
+                        ->setPermission('ROLE_ACCESS_PLAYER'),
             ]);
         }
 
-        if($this->featureManager->isEnabled('records')){
-            yield MenuItem::section('Spur1-Records')
-                ->setPermission('ACCESS_RECORDS');
-            yield MenuItem::linkToRoute('Spur1-Records', 'fa fa-record-vinyl', 'admin_records')
-                ->setPermission('ACCESS_RECORDS');
-            yield MenuItem::linkToRoute('Spur1-Backstage', 'fa fa-chart-pie', 'admin_backstage')
-                ->setPermission('ACCESS_BACKSTAGE');
-        }
+        yield MenuItem::section('Media');
+        yield MenuItem::linkToRoute('Medias', 'fa fa-picture-o', 'media.index');
 
-        if($this->featureManager->isEnabled('events')){
-            yield MenuItem::section('Spur1-Events')
-                ->setPermission('ACCESS_EVENTS');
-            yield MenuItem::linkToRoute('Spur1-Events', 'fa fa-calendar-days', 'admin_events')
-                ->setPermission('ACCESS_EVENTS');
-        }
-
-        if($this->featureManager->isEnabled('api')){
-            yield MenuItem::section('Spur1-API')
-                ->setPermission('ACCESS_API');
-            yield MenuItem::linkToRoute('Spur1-API', 'fa fa-server', 'admin_api')
-                ->setPermission('ACCESS_API');
-        }
-
-        if($this->featureManager->isEnabled('artists')) {
-            yield MenuItem::section('Spur1-Artist Database')
-                ->setPermission('ACCESS_ARTISTS');
-            yield MenuItem::linkToRoute('Spur1-Artist Database', 'fa fa-database', 'admin_artists')
-                ->setPermission('ACCESS_ARTISTS');
-        }
-
-        if($this->featureManager->isEnabled('player')) {
-            yield MenuItem::section('Spur1-Player')
-                ->setPermission('ACCESS_PLAYER');
-            yield MenuItem::linkToRoute('Spur1-Player', 'fa fa-play', 'admin_play')
-                ->setPermission('ACCESS_PLAYER');
-        }
-
-        if($this->featureManager->isEnabled('cloud')) {
-            yield MenuItem::section('Spur1-Cloud')
-                ->setPermission('ACCESS_CLOUD');
-            yield MenuItem::linkToRoute('Spur1-Cloud', 'fa fa-cloud', 'admin_cloud')
-                ->setPermission('ACCESS_CLOUD');
-        }
+        yield MenuItem::section('Cloud')
+            ->setPermission('ROLE_ACCESS_CLOUD');
+        yield MenuItem::linkToRoute('Spur1-Cloud', 'fa fa-cloud', 'admin_cloud')
+            ->setPermission('ROLE_ACCESS_CLOUD');
+        yield MenuItem::linkToRoute('Spur1-API', 'fa fa-server', 'admin_api')
+            ->setPermission('ROLE_ACCESS_API');
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

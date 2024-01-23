@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RadioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -18,13 +20,21 @@ class Radio
     private ?string $Title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $URL = null;
+    private ?string $YouTubeUrl = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $Date = null;
+
+    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'Radios')]
+    private Collection $Artists;
+
+    public function __construct()
+    {
+        $this->Artists = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,14 +53,14 @@ class Radio
         return $this;
     }
 
-    public function getURL(): ?string
+    public function getYouTubeURL(): ?string
     {
-        return $this->URL;
+        return $this->YouTubeUrl;
     }
 
-    public function setURL(?string $URL): static
+    public function setYouTubeURL(?string $YouTubeUrl): static
     {
-        $this->URL = $URL;
+        $this->YouTubeUrl = $YouTubeUrl;
 
         return $this;
     }
@@ -75,6 +85,30 @@ class Radio
     public function setDate(\DateTimeInterface $Date): static
     {
         $this->Date = $Date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->Artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->Artists->contains($artist)) {
+            $this->Artists->add($artist);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        $this->Artists->removeElement($artist);
 
         return $this;
     }

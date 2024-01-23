@@ -20,3 +20,5 @@ novaway_feature_flag:
 
                     api: false
                     cloud: false
+
+                    debug: true

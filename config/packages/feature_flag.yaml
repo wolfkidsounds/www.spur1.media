@@ -10,6 +10,7 @@ novaway_feature_flag:
 
                     content: true
                     content_radio: true
+                    content_windowlicker: true
 
                     records: false
                     backstage: false

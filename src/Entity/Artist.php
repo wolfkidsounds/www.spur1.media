@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ArtistRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ArtistRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
+#[UniqueEntity('Name')]
 class Artist
 {
     #[ORM\Id]
@@ -18,12 +21,26 @@ class Artist
     #[ORM\Column(length: 255)]
     private ?string $Name = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Slug = null;
+
+    // Content
     #[ORM\ManyToMany(targetEntity: Radio::class, mappedBy: 'Artists')]
     private Collection $Radios;
+
+    #[ORM\ManyToMany(targetEntity: Windowlicker::class, mappedBy: 'Artists')]
+    private Collection $Windowlickers;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Image = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Description = null;
 
     public function __construct()
     {
         $this->Radios = new ArrayCollection();
+        $this->Windowlickers = new ArrayCollection();
     }
 
     public function __toString()
@@ -71,6 +88,69 @@ class Artist
         if ($this->Radios->removeElement($radio)) {
             $radio->removeArtist($this);
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Windowlicker>
+     */
+    public function getWindowlickers(): Collection
+    {
+        return $this->Windowlickers;
+    }
+
+    public function addWindowlicker(Windowlicker $windowlicker): static
+    {
+        if (!$this->Windowlickers->contains($windowlicker)) {
+            $this->Windowlickers->add($windowlicker);
+            $windowlicker->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWindowlicker(Windowlicker $windowlicker): static
+    {
+        if ($this->Windowlickers->removeElement($windowlicker)) {
+            $windowlicker->removeArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(?string $Slug): static
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): static
+    {
+        $this->Image = $Image;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): static
+    {
+        $this->Description = $Description;
 
         return $this;
     }

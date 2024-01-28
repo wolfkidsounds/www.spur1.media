@@ -1,7 +1,8 @@
 security:
     role_hierarchy:
-        ROLE_ACCESS_MEDIA: [ ROLE_USER, ROLE_ADMIN, ROLE_ACCESS_RECORDS, ROLE_ACCESS_MEDIA_RADIO, ROLE_ACCESS_MEDIA_RECORDS, ROLE_ACCESS_BACKSTAGE, ROLE_ACCESS_EVENTS, ROLE_ACCESS_ARTISTS, ROLE_ACCESS_PLAYER, ROLE_ACCESS_CLOUD ]
-        ROLE_ACCESS_MEDIA_RADIO: [ ROLE_USER, ROLE_ADMIN, ROLE_ACCESS_MEDIA ]
+        ROLE_ACCESS_MEDIA: [ ROLE_USER, ROLE_ADMIN, ROLE_ACCESS_RECORDS, ROLE_ACCESS_MEDIA_RADIO, ROLE_ACCESS_MEDIA_WINDOWLICKER, ROLE_ACCESS_MEDIA_RECORDS, ROLE_ACCESS_BACKSTAGE, ROLE_ACCESS_EVENTS, ROLE_ACCESS_ARTISTS, ROLE_ACCESS_PLAYER, ROLE_ACCESS_CLOUD ]
+        ROLE_ACCESS_MEDIA_RADIO: [ ROLE_USER, ROLE_ADMIN ]
+        ROLE_ACCESS_MEDIA_WINDOWLICKER: [ ROLE_USER, ROLE_ADMIN ]
 
         ROLE_DEV: [ ROLE_USER, ROLE_ADMIN, ROLE_ACCESS_MEDIA, ROLE_ACCESS_API ]
 
@@ -48,7 +49,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: [ROLE_ADMIN] }
+        - { path: ^/admin, roles: [ ROLE_ADMIN ] }
         
     access_decision_manager:
             strategy: unanimous

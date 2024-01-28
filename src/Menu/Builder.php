@@ -20,7 +20,7 @@ class Builder extends AbstractController
         $menu = $this->factory->createItem('navSidebar');
 
         $menu->addChild('Orbiter Session', [
-            'route' => 'app_main_orbitersession',
+            'route' => 'app_main_index',
             'extras' => [
                 'icon' => 'fa-solid fa-record-vinyl',
                 'class' => 'opacity-25 pe-none',
@@ -28,7 +28,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Podcast', [
-            'route' => 'app_main_podcast',
+            'route' => 'app_main_index',
             'extras' => [
                 'icon' => 'fa-solid fa-podcast',
                 'class' => 'opacity-25 pe-none',
@@ -44,7 +44,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Teletime', [
-            'route' => 'app_main_radio',
+            'route' => 'app_main_index',
             'extras' => [
                 'icon' => 'fa-solid fa-phone',
                 'class' => 'opacity-25 pe-none',
@@ -55,7 +55,6 @@ class Builder extends AbstractController
             'route' => 'app_main_windowlicker',
             'extras' => [
                 'icon' => 'fa-brands fa-windows',
-                'class' => 'opacity-25 pe-none',
             ]
         ]);
 
@@ -141,7 +140,7 @@ class Builder extends AbstractController
         $menu->addChild('Backstage', [
             'route' => 'app_main_index',
             'extras' => [
-                'icon' => 'fa-solid fa-gauge-high',
+                'icon' => 'fa-solid fa-chart-pie',
                 'class' => 'opacity-25 pe-none',
             ]
         ]);

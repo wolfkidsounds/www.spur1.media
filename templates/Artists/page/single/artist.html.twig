@@ -1,0 +1,33 @@
+{% extends 'Artists/_template/single.html.twig' %}
+{% block single_title %}{{ post.Name }}{% endblock %}
+{% set left_width = 9 %}
+{% set right_width = 3 %}
+{% block single_content_area %}
+    <h5>{{'Description'|trans}}</h5>
+    {% if post.Description %}{{ post.Description|raw }}{% else %}<div>{{ 'This Artist has not yet provided a description'|trans }}</div>{% endif %}
+{% endblock %}
+{% block single_description_area %}
+<h5>{{'Related Posts'|trans}}</h5>
+{% endblock %}
+{% block single_details_area %}
+    <div class="row mb-3">
+        <h5>{{'Tags'|trans}}</h5>
+        {# 
+        <div class="d-flex flex-wrap gap-1 ps-3">
+        {% if post.Tags|length > 0 %}
+            {% for tag in post.Tags %}
+                <a href="" class="icon-link text-decoration-none"><span class="badge bg-dark"><i class="fa-solid fa-tag me-2"></i>{{ tag.Name }} ({{ tag.Format }})</span></a>
+            {% endfor %}
+        {% else %}
+            <div class="">{{ 'We could not find any Tags related to this post'|trans }}</div>
+        {% endif %}
+        </div>
+        #}
+    </div>
+{% endblock %}
+
+{% block single_bottom_area %}
+<div class="p-3">
+    <h5>{{'Social Media'|trans}}</h5>
+</div>
+{% endblock %}

@@ -4,10 +4,10 @@
 
 {% block body %}
     <div class="main overflow-hidden">
-        {% include('Main/_partials/header.html.twig') %}
-        {% include('Main/_partials/sidebar.hml.twig') %}
+        {% include('Artists/_partials/sidebar.hml.twig') %}
+        {# {% include('_partials/_header.html.twig') %} #}
 
-        <div id="content" class="content p-3 overflow-hidden" data-simplebar>
+        <div class="content p-3 mt-3 overflow-hidden">
             {% block content %}{% endblock %}
         </div>
     </div>

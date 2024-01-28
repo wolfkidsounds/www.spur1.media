@@ -31,9 +31,19 @@ class Radio
     #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'Radios')]
     private Collection $Artists;
 
+    #[ORM\Column(length: 255)]
+    private ?string $Slug = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Description = null;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'Radios')]
+    private Collection $Tags;
+
     public function __construct()
     {
         $this->Artists = new ArrayCollection();
+        $this->Tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +119,54 @@ class Radio
     public function removeArtist(Artist $artist): static
     {
         $this->Artists->removeElement($artist);
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(string $Slug): static
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): static
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->Tags;
+    }
+
+    public function addTag(Tag $tag): static
+    {
+        if (!$this->Tags->contains($tag)) {
+            $this->Tags->add($tag);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): static
+    {
+        $this->Tags->removeElement($tag);
 
         return $this;
     }

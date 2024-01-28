@@ -2,11 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
+use App\Entity\Location;
 use App\Entity\Main\Post;
 use App\Entity\Main\Type;
+use App\Entity\TagFormat;
+use App\Entity\Windowlicker;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -54,6 +58,15 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('System');
         yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class)
             ->setPermission('ROLE_ADMIN');
+        yield MenuItem::subMenu('Settings', 'fa fa-gear')
+            ->setPermission('ROLE_ACCESS_MEDIA')
+            ->setSubItems([
+                MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
+                MenuItem::linkToCrud('Tag-Formats', 'fa fa-tag', TagFormat::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA')
+        ]);
+        
         
 
         if($this->featureManager->isEnabled('content') || $this->featureManager->isEnabled('debug')) {
@@ -64,7 +77,11 @@ class DashboardController extends AbstractDashboardController
                 ->setPermission('ROLE_ACCESS_MEDIA')
                 ->setSubItems([
                     MenuItem::linkToCrud('Radio', 'fa fa-radio', Radio::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA_RADIO')
+                        ->setPermission('ROLE_ACCESS_MEDIA_RADIO'),
+                    MenuItem::linkToCrud('Windowlicker', 'fa-brands fa-windows', Windowlicker::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
+                    MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER')
             ]);
 
             yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')

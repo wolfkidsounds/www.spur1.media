@@ -38,6 +38,7 @@ class UserCrudController extends AbstractCrudController
             'Access Spur1-Admin' => 'ROLE_ADMIN',
             'All-Access Spur1-Media' => 'ROLE_ACCESS_MEDIA',
             'Access Spur1-Radio' => 'ROLE_ACCESS_MEDIA_RADIO',
+            'Access Spur1-Windowlicker' => 'ROLE_ACCESS_MEDIA_WINDOWLICKER',
 
             'Developer' => 'ROLE_DEV',
 
@@ -56,6 +57,7 @@ class UserCrudController extends AbstractCrudController
         ->setFormTypeOption("upload", true)
         ->setFormTypeOption("rename", true)
         ->setFormTypeOption("metas", true)
+        ->setFormTypeOption("move", true)
         ->setColumns(8);
 
         yield FormField::addRow();

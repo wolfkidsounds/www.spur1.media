@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin\Media;
 
-use App\Entity\Radio;
+use App\Entity\Windowlicker;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
@@ -10,17 +10,16 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class RadioCrudController extends AbstractCrudController
+class WindowlickerCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Radio::class;
+        return Windowlicker::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -38,7 +37,7 @@ class RadioCrudController extends AbstractCrudController
         yield FormField::addRow();
         yield EasyMediaField::new('Image')
         ->setFormTypeOption("restrictions_uploadTypes", ["image/*"])
-        ->setFormTypeOption("restrictions_path", "Radio/Thumbnails/")
+        ->setFormTypeOption("restrictions_path", "Windowicker/Thumbnails/")
         ->setFormTypeOption("upload", true)
         ->setFormTypeOption("rename", true)
         ->setFormTypeOption("metas", true)
@@ -50,6 +49,7 @@ class RadioCrudController extends AbstractCrudController
         ->hideOnIndex()
         ->setColumns(8);
 
+        yield FormField::addRow();
         yield AssociationField::new('Tags')
         ->autocomplete()
         ->hideOnIndex()
@@ -57,6 +57,12 @@ class RadioCrudController extends AbstractCrudController
 
         yield FormField::addFieldset('Artists');
         yield AssociationField::new('Artists')
+        ->autocomplete()
+        ->hideOnIndex()
+        ->setColumns(8);
+
+        yield FormField::addFieldset('Location');
+        yield AssociationField::new('Location')
         ->autocomplete()
         ->hideOnIndex()
         ->setColumns(8);

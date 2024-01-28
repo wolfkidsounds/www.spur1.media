@@ -1,8 +1,14 @@
-@import './_template/grid.css';
-@import './_partials/sidebar.css';
 @import './_partials/header.css';
+@import './_partials/sidebar.css';
+
+@import './_partials/dropdown-menu.css';
+
+@import './_template/grid.css';
+@import './_template/single.css';
 
 @import './_partials/content.css';
+
+@import './_partials/simplebar.css';
 
 :root {
     --spur1-red: #e04242;
@@ -23,4 +29,13 @@ body {
 
 .text-color-spur1-gray {
     color:var(--spur1-gray);
+}
+
+.img-cover {
+    object-fit: cover !important;
+    background-size: cover !important;
+}
+
+.bg-light-75 {
+    background:rgba(255,255,255,.75);
 }

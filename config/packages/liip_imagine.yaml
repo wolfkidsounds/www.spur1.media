@@ -2,3 +2,44 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+
+    # configure resolvers
+    resolvers:
+
+        # setup the default resolver
+        default:
+
+            # use the default web path
+            web_path: ~
+
+    # your filter sets are defined here
+    filter_sets:
+
+        # use the default cache configuration
+        cache: ~
+
+        # the name of the "filter set"
+        thumbnail_small:
+            # adjust the image quality to 50%
+            quality: 90
+
+            filters:
+
+                # use and setup the "scale" filter
+                scale:
+
+                    # input 1200x1600px -> output 750x1000px (relative down-scale)
+                    dim: [ 265, 265 ]
+
+        # the name of the "filter set"
+        thumbnail:
+            # adjust the image quality to 50%
+            quality: 90
+
+            filters:
+
+                # use and setup the "scale" filter
+                scale:
+
+                    # input 1200x1600px -> output 750x1000px (relative down-scale)
+                    dim: [ 1080, 1080 ]

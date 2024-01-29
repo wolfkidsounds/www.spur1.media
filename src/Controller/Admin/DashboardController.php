@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
 use App\Entity\Location;
+use App\Entity\Teletime;
 use App\Entity\Main\Post;
 use App\Entity\Main\Type;
 use App\Entity\TagFormat;
@@ -81,7 +82,9 @@ class DashboardController extends AbstractDashboardController
                     MenuItem::linkToCrud('Windowlicker', 'fa-brands fa-windows', Windowlicker::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
                     MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
-                        ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER')
+                        ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
+                    MenuItem::linkToCrud('Teletime', 'fa-solid fa-phone', Teletime::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_TELETIME'),
             ]);
 
             yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')

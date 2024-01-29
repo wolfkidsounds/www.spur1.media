@@ -1,13 +1,7 @@
-@import './sidebar/nav.css';
-
 :root {
-    --spur1-sidebar-width-open: 300px;
+    --spur1-sidebar-width-open: 250px;
     --spur1-sidebar-width-closed: 1rem;
-
-    --spur1-sidebar-height: calc(100vh - 70px);
-    --spur1-sidebar-height-top: 48px;
-    --spur1-sidebar-height-bottom: 48px;
-    --spur1-sidebar-height-middle: calc(var(--spur1-sidebar-height) - var(--spur1-sidebar-height-top) - var(--spur1-sidebar-height-bottom));
+    --spur1-sidebar-height: calc(100vh - var(--spur1-header-height));
 }
 
 [data-sidebar-state='open'].sidebar {
@@ -19,9 +13,9 @@
 }
 
 .sidebar {
-    position:fixed;
-    left:0;
-    top:70px;
+    position: fixed;
+    left: 0;
+    top: var(--spur1-header-height);
     height: var(--spur1-sidebar-height) !important;
     height: -webkit-fill-available;
     max-height: var(--spur1-sidebar-height);
@@ -29,16 +23,4 @@
     overflow-y: hidden;
     box-shadow: 5px 0px 10px 0px rgba(0,0,0,0.1);
     z-index:1;
-}
-
-.sidebar-top {
-    height: var(--spur1-sidebar-height-top) !important;
-}
-
-.sidebar-middle {
-    height: var(--spur1-sidebar-height-middle) !important;
-}
-
-.sidebar-bottom {
-    height: var(--spur1-sidebar-height-bottom) !important;
 }

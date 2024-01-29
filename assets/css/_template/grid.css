@@ -9,3 +9,8 @@
     width:85%;
     backdrop-filter: blur(5px);
 }
+
+.row > * {
+    margin-top: 0;
+    margin-bottom: var(--bs-gutter-y);
+}

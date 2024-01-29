@@ -19,6 +19,21 @@ class Builder extends AbstractController
     {
         $menu = $this->factory->createItem('navSidebar');
 
+        $menu->addChild('Home', [
+            'route' => 'app_main_index',
+            'extras' => [
+                'icon' => 'fa-solid fa-home',
+                'class' => '',
+            ]
+        ]);
+
+        $menu->addChild('divider_custom_1', [
+            'divider' => true, 
+            'extras' => [
+                'divider' => true
+            ]
+        ]);
+
         $menu->addChild('Orbiter Session', [
             'route' => 'app_main_index',
             'extras' => [
@@ -44,10 +59,10 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Teletime', [
-            'route' => 'app_main_index',
+            'route' => 'app_main_teletime',
             'extras' => [
                 'icon' => 'fa-solid fa-phone',
-                'class' => 'opacity-25 pe-none',
+                'class' => '',
             ]
         ]);
 

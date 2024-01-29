@@ -22,6 +22,12 @@ class Artist
     private ?string $Name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Image = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $Description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $Slug = null;
 
     // Content
@@ -31,16 +37,27 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Windowlicker::class, mappedBy: 'Artists')]
     private Collection $Windowlickers;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Image = null;
+    #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Artists')]
+    private Collection $Teletimes;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Description = null;
+    // Social Media
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $YouTubeUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $SoundcloudUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $FacebookUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $InstagramUrl = null;
 
     public function __construct()
     {
         $this->Radios = new ArrayCollection();
         $this->Windowlickers = new ArrayCollection();
+        $this->Teletimes = new ArrayCollection();
     }
 
     public function __toString()
@@ -151,6 +168,81 @@ class Artist
     public function setDescription(?string $Description): static
     {
         $this->Description = $Description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Teletime>
+     */
+    public function getTeletimes(): Collection
+    {
+        return $this->Teletimes;
+    }
+
+    public function addTeletime(Teletime $teletime): static
+    {
+        if (!$this->Teletimes->contains($teletime)) {
+            $this->Teletimes->add($teletime);
+            $teletime->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeletime(Teletime $teletime): static
+    {
+        if ($this->Teletimes->removeElement($teletime)) {
+            $teletime->removeArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function getYouTubeUrl(): ?string
+    {
+        return $this->YouTubeUrl;
+    }
+
+    public function setYouTubeUrl(?string $YouTubeUrl): static
+    {
+        $this->YouTubeUrl = $YouTubeUrl;
+
+        return $this;
+    }
+
+    public function getSoundcloudUrl(): ?string
+    {
+        return $this->SoundcloudUrl;
+    }
+
+    public function setSoundcloudUrl(?string $SoundcloudUrl): static
+    {
+        $this->SoundcloudUrl = $SoundcloudUrl;
+
+        return $this;
+    }
+
+    public function getFacebookUrl(): ?string
+    {
+        return $this->FacebookUrl;
+    }
+
+    public function setFacebookUrl(?string $FacebookUrl): static
+    {
+        $this->FacebookUrl = $FacebookUrl;
+
+        return $this;
+    }
+
+    public function getInstagramUrl(): ?string
+    {
+        return $this->InstagramUrl;
+    }
+
+    public function setInstagramUrl(?string $InstagramUrl): static
+    {
+        $this->InstagramUrl = $InstagramUrl;
 
         return $this;
     }

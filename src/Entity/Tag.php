@@ -31,10 +31,14 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Windowlicker::class, mappedBy: 'Tags')]
     private Collection $Windowlickers;
 
+    #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Tags')]
+    private Collection $Teletimes;
+
     public function __construct()
     {
         $this->Radios = new ArrayCollection();
         $this->Windowlickers = new ArrayCollection();
+        $this->Teletimes = new ArrayCollection();
     }
 
     public function __toString()
@@ -132,6 +136,33 @@ class Tag
     {
         if ($this->Windowlickers->removeElement($windowlicker)) {
             $windowlicker->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Teletime>
+     */
+    public function getTeletimes(): Collection
+    {
+        return $this->Teletimes;
+    }
+
+    public function addTeletime(Teletime $teletime): static
+    {
+        if (!$this->Teletimes->contains($teletime)) {
+            $this->Teletimes->add($teletime);
+            $teletime->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeletime(Teletime $teletime): static
+    {
+        if ($this->Teletimes->removeElement($teletime)) {
+            $teletime->removeTag($this);
         }
 
         return $this;

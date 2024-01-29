@@ -2,13 +2,11 @@
 @import './_partials/sidebar.css';
 @import './_partials/content.css';
 
-@import './_partials/dropdown-menu.css';
-
 @import './_template/grid.css';
 @import './_template/single.css';
 
 @import './_partials/simplebar.css';
-
+@import './_partials/buttons.css';
 
 @import './debug.css';
 

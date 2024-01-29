@@ -5,6 +5,7 @@ namespace App\Controller\Main;
 use App\Repository\PostRepository;
 use App\Repository\RadioRepository;
 use App\Controller\Main\MainController;
+use App\Repository\TeletimeRepository;
 use App\Repository\WindowlickerRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -43,6 +44,17 @@ class PageController extends MainController
         return $this->render($this->getPageTemplatePrefix() . '/windowlicker.html.twig', [
             'posts' => $posts,
             'title' => 'Windowlicker',
+        ]);
+    }
+
+    #[Route('/teletime', name: 'app_main_teletime', methods: ['GET'])]
+    public function teletime(TeletimeRepository $repository): Response
+    {
+        $posts = $repository->findBy([], ['Date' => 'DESC']);
+
+        return $this->render($this->getPageTemplatePrefix() . '/teletime.html.twig', [
+            'posts' => $posts,
+            'title' => 'Teletime',
         ]);
     }
     

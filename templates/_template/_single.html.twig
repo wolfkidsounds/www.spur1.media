@@ -19,9 +19,9 @@
             {% endif %}
         {% endblock %}
         </div>
-        <div class="col-{{right_width}}">
+        <div class="col-{{right_width}} p-3">
             {% block single_image_area %}
-            <div class="row p-3">
+            <div class="row">
                 <div class="img-single">
                     {% block single_artist_image %}<img class="w-100 h-100 rounded" src="{% if post.Image %}{{ easy_media_path(post.Image)|imagine_filter('thumbnail') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}{% endif %}">{% endblock %}
                 </div>
@@ -31,32 +31,38 @@
     </div>
     <hr>
     <div class="row mb-3">
-        <div class="col-{{left_width}} p-3">
+        <div class="col-{{left_width}}">
             {% block single_description_area %}
-            <div class="row mb-3">
+            <div class="mb-3">
                 <h5>{{'Description'|trans}}</h5>
                 {% if post.Description %}{{ post.Description|raw }}{% else %}<div>{{ 'There was no Description for this post'|trans }}</div>{% endif %}
             </div>
             {% endblock %}
         </div>
-        <div class="col-{{right_width}} px-5 py-3">
+        <div class="col-{{right_width}}">
+
             {% block single_details_area %}
-            <div class="row mb-3">
+            <div class="mb-3">
                 <h5>{{'Involved Artists'|trans}}</h5>
                 {% if post.Artists %}
-                    <ul class="list-unstyled ps-3">
+                    <ul class="list-unstyled d-flex flex-wrap gap-2">
                         {% for artist in post.Artists %}
-                            <li><a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="icon-link text-decoration-none" target="_blank"><i class="fa-solid fa-music me-2"></i>{{ artist.Name }}</a></li>
+                            <li>
+                                <a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none" target="_blank">
+                                    <i class="fa-solid fa-music me-2"></i>{{ artist.Name }}
+                                </a>
+                            </li>
                         {% endfor %}
                     </ul>
                 {% else %}
                     <div class="ps-3">{{ 'We could not find any Artists related to this post' }}</div>
                 {% endif %}
             </div>
+
             {% if post.Location is defined %}
-            <div class="row mb-3">
+            <div class="mb-3">
                 <h5>{{'Involved Location'|trans}}</h5>
-                <div class="list-unstyled ps-3">
+                <div class="list-unstyled">
                     {% if post.Location %}
                         <li><a href="{{ post.Location.MapsUrl }}" class="icon-link text-decoration-none" target="_blank"><i class="fa-solid fa-location-dot me-2"></i>{{ post.Location.Name }}</a></li>
                     {% else %}
@@ -64,10 +70,11 @@
                     {% endif %}
                 </div>
             </div>
+
             {% endif %}
             <div class="row">
-                <h5>{{'Tags'|trans}}</h5>
-                <div class="d-flex flex-wrap gap-1 ps-3">
+                <h5 class="mb-1">{{'Tags'|trans}}</h5>
+                <div class="d-flex flex-wrap gap-1">
                 {% if post.Tags|length > 0 %}
                     {% for tag in post.Tags %}
                         <a href="" class="icon-link text-decoration-none"><span class="badge bg-dark"><i class="fa-solid fa-tag me-2"></i>{{ tag.Name }} ({{ tag.Format }})</span></a></li>
@@ -82,7 +89,7 @@
     </div>
     <div class="row mb-3">
         {% block single_bottom_area %}
-        <h5>{{'View Content On'|trans}}</h5>
+        <h5 class="mb-1">{{'View Content On'|trans}}</h5>
         <div class="buttons d-flex align-items-center">
             {% if post.YouTubeUrl %}<a class="btn btn-outline-primary" href="{{ post.YouTubeUrl }}" target="_blank"><i class="fa-brands fa-youtube me-2"></i>YouTube</a>{% endif %}
         </div>

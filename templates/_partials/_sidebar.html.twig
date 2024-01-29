@@ -1,10 +1,8 @@
 {% block sidebar %}
-<div data-sidebar-state="open" class="sidebar d-flex flex-column flex-shrink-0 p-3 bg-light">
-    <div class="sidebar-middle">
-        {% block sidebar_menu %}
-            {% set navSidebar = knp_menu_get('navSidebar') %}
-            {{ knp_menu_render(navSidebar, {'template': '_partials/sidebar/_menu.html.twig'}) }}
-        {% endblock %}
-    </div>
+<div data-sidebar-state="open" class="sidebar bg-light d-flex flex-column flex-shrink-0 py-3">
+    {% block sidebar_menu %}
+        {% set navSidebar = knp_menu_get('navSidebar') %}
+        {{ knp_menu_render(navSidebar, {'template': '_partials/sidebar/menu_sidebar.html.twig'}) }}
+    {% endblock %}
 </div>
 {% endblock %}

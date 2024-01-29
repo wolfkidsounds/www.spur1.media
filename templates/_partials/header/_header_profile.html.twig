@@ -9,7 +9,7 @@
     </a>
 
     {% set navProfile = knp_menu_get('navProfile') %}
-    {{ knp_menu_render(navProfile, {'template': '_partials/sidebar/_profile.html.twig'}) }}
+    {{ knp_menu_render(navProfile, {'template': '_partials/header/menu_profile.html.twig'}) }}
 </div>
 {% else %}
     <button type="button" class="btn btn-outline-primary me-2">Login</button>

@@ -19,9 +19,19 @@ class SingleController extends ArtistsController
     {
         $post = $repository->findOneBy(['Slug' => $slug]);
 
+        $radios = $post->getRadios();
+        $windowlickers = $post->getWindowlickers();
+        $teletimes = $post->getTeletimes();
+
+        $contents = array_merge($radios->toArray(), $windowlickers->toArray(), $teletimes->toArray());
+
         return $this->render($this->getPageTemplatePrefix() . '/artist.html.twig', [
             'post' => $post,
             'title' => 'Artist',
+            'radios' => $radios,
+            'windowlickers' => $windowlickers,
+            'teletimes' => $teletimes,
+            'contents' => $contents,
         ]);
     }
     

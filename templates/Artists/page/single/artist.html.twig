@@ -1,13 +1,33 @@
 {% extends 'Artists/_template/single.html.twig' %}
-{% block single_title %}{{ post.Name }}{% endblock %}
 {% set left_width = 9 %}
 {% set right_width = 3 %}
+
+{% block single_title %}{{ post.Name }}{% endblock %}
+
 {% block single_content_area %}
-    <h5>{{'Description'|trans}}</h5>
-    {% if post.Description %}{{ post.Description|raw }}{% else %}<div>{{ 'This Artist has not yet provided a description'|trans }}</div>{% endif %}
+    <div class="mb-3">
+        <h5>{{'Description'|trans}}</h5>
+        {% if post.Description %}
+            {{ post.Description|raw }}
+        {% else %}
+        <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
+        {% endif %}
+    </div>
 {% endblock %}
+
 {% block single_description_area %}
-<h5>{{'Related Posts'|trans}}</h5>
+    <div class="mb-3">
+        <h5 class="">{{'Content'|trans}}</h5>
+        {% if contents|length > 0 %}
+            <div class="row g-3 mt-3">
+                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':radios, 'post_type':'Radio', 'url_path':'app_main_radio_single' } only %}
+                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':windowlickers, 'post_type':'Windowlicker', 'url_path':'app_main_windowlicker_single' } only %}
+                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':teletimes, 'post_type':'Teletime', 'url_path':'app_main_teletime_single' } only %}
+            </div>
+        {% else %}
+            <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>
+        {% endif %}
+    </div>
 {% endblock %}
 {% block single_details_area %}
     <div class="row mb-3">
@@ -26,8 +46,4 @@
     </div>
 {% endblock %}
 
-{% block single_bottom_area %}
-<div class="p-3">
-    <h5>{{'Social Media'|trans}}</h5>
-</div>
-{% endblock %}
+{% block single_bottom_area %}{% endblock %}

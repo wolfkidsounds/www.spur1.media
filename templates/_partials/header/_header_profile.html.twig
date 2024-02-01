@@ -12,6 +12,6 @@
     {{ knp_menu_render(navProfile, {'template': '_partials/header/menu_profile.html.twig'}) }}
 </div>
 {% else %}
-    <button type="button" class="btn btn-outline-primary me-2">Login</button>
-    <button type="button" class="btn btn-primary">Sign-up</button>
+    <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-primary me-2">Login</a>
+    <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">Sign-up</a>
 {% endif %}

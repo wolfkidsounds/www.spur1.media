@@ -80,6 +80,18 @@
             "./config/packages/fos_elastica.yaml"
         ]
     },
+    "jms/serializer-bundle": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "cc04e10cf7171525b50c18b36004edf64cb478be"
+        },
+        "files": [
+            "./config/packages/jms_serializer.yaml"
+        ]
+    },
     "knplabs/knp-menu-bundle": {
         "version": "v3.3.0"
     },

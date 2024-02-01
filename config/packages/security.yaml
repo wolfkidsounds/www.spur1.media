@@ -24,10 +24,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        admin:
-            provider: app_user_provider
-            host: ^admin.%app.host%
-
         main:
             lazy: true
             provider: app_user_provider

@@ -2,25 +2,23 @@
 
 namespace App\Controller\Admin\Media;
 
-use App\Entity\Radio;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use App\Entity\OrbiterSession;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 
-class RadioCrudController extends AbstractCrudController
+class OrbiterSessionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Radio::class;
+        return OrbiterSession::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -66,16 +64,5 @@ class RadioCrudController extends AbstractCrudController
         yield UrlField::new('YouTubeUrl', 'YouTube')
         ->hideOnIndex()
         ->setColumns(8);
-        yield FormField::addRow();
-        yield UrlField::new('MixcloudUrl', 'Mixcloud')
-        ->hideOnIndex()
-        ->setColumns(8);
-    }
-
-    public function configureCrud(Crud $crud): Crud
-    {
-        return $crud
-            ->setSearchFields(['Title', 'Date', 'Artists.Name'])
-            ->setDefaultSort(['Date' => 'DESC']);
     }
 }

@@ -35,10 +35,10 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Orbiter Session', [
-            'route' => 'app_main_index',
+            'route' => 'app_main_orbiter',
             'extras' => [
                 'icon' => 'fa-solid fa-record-vinyl',
-                'class' => 'opacity-25 pe-none',
+                'class' => '',
             ]
         ]);
 

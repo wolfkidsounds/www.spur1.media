@@ -10,6 +10,7 @@ use App\Entity\Location;
 use App\Entity\Teletime;
 use App\Entity\Main\Post;
 use App\Entity\Main\Type;
+use App\Entity\OrbiterSession;
 use App\Entity\TagFormat;
 use App\Entity\Windowlicker;
 use Symfony\Component\HttpFoundation\Response;
@@ -83,6 +84,8 @@ class DashboardController extends AbstractDashboardController
                         ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
                     MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
+                    MenuItem::linkToCrud('Orbiter Session', 'fa-solid fa-record-vinyl', OrbiterSession::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_ORBITER'),
                     MenuItem::linkToCrud('Teletime', 'fa-solid fa-phone', Teletime::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_TELETIME'),
             ]);

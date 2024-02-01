@@ -5,6 +5,7 @@ namespace App\Controller\Main;
 use App\Repository\PostRepository;
 use App\Repository\RadioRepository;
 use App\Controller\Main\MainController;
+use App\Repository\OrbiterSessionRepository;
 use App\Repository\TeletimeRepository;
 use App\Repository\WindowlickerRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,6 +56,17 @@ class PageController extends MainController
         return $this->render($this->getPageTemplatePrefix() . '/teletime.html.twig', [
             'posts' => $posts,
             'title' => 'Teletime',
+        ]);
+    }
+
+    #[Route('/orbiter-session', name: 'app_main_orbiter', methods: ['GET'])]
+    public function orbiter(OrbiterSessionRepository $repository): Response
+    {
+        $posts = $repository->findBy([], ['Date' => 'DESC']);
+
+        return $this->render($this->getPageTemplatePrefix() . '/orbiter_session.html.twig', [
+            'posts' => $posts,
+            'title' => 'Orbiter Session',
         ]);
     }
     

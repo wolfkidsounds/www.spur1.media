@@ -34,11 +34,15 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Tags')]
     private Collection $Teletimes;
 
+    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Tags')]
+    private Collection $OrbiterSessions;
+
     public function __construct()
     {
         $this->Radios = new ArrayCollection();
         $this->Windowlickers = new ArrayCollection();
         $this->Teletimes = new ArrayCollection();
+        $this->OrbiterSessions = new ArrayCollection();
     }
 
     public function __toString()
@@ -163,6 +167,33 @@ class Tag
     {
         if ($this->Teletimes->removeElement($teletime)) {
             $teletime->removeTag($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrbiterSession>
+     */
+    public function getOrbiterSessions(): Collection
+    {
+        return $this->OrbiterSessions;
+    }
+
+    public function addOrbiterSession(OrbiterSession $orbiterSession): static
+    {
+        if (!$this->OrbiterSessions->contains($orbiterSession)) {
+            $this->OrbiterSessions->add($orbiterSession);
+            $orbiterSession->addTag($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrbiterSession(OrbiterSession $orbiterSession): static
+    {
+        if ($this->OrbiterSessions->removeElement($orbiterSession)) {
+            $orbiterSession->removeTag($this);
         }
 
         return $this;

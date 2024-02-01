@@ -1,15 +1,15 @@
-<?php //src/Entity/Radio.php
+<?php
 
 namespace App\Entity;
 
-use App\Repository\RadioRepository;
+use App\Repository\OrbiterSessionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: RadioRepository::class)]
-class Radio
+#[ORM\Entity(repositoryClass: OrbiterSessionRepository::class)]
+class OrbiterSession
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -28,7 +28,7 @@ class Radio
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $Date = null;
 
-    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'Radios')]
+    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'OrbiterSessions')]
     private Collection $Artists;
 
     #[ORM\Column(length: 255)]
@@ -37,11 +37,8 @@ class Radio
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $Description = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'Radios')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'OrbiterSessions')]
     private Collection $Tags;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $MixcloudUrl = null;
 
     public function __construct()
     {
@@ -66,12 +63,12 @@ class Radio
         return $this;
     }
 
-    public function getYouTubeURL(): ?string
+    public function getYouTubeUrl(): ?string
     {
         return $this->YouTubeUrl;
     }
 
-    public function setYouTubeURL(?string $YouTubeUrl): static
+    public function setYouTubeUrl(?string $YouTubeUrl): static
     {
         $this->YouTubeUrl = $YouTubeUrl;
 
@@ -170,18 +167,6 @@ class Radio
     public function removeTag(Tag $tag): static
     {
         $this->Tags->removeElement($tag);
-
-        return $this;
-    }
-
-    public function getMixcloudUrl(): ?string
-    {
-        return $this->MixcloudUrl;
-    }
-
-    public function setMixcloudUrl(?string $MixcloudUrl): static
-    {
-        $this->MixcloudUrl = $MixcloudUrl;
 
         return $this;
     }

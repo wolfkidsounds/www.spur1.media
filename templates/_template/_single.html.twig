@@ -9,14 +9,22 @@
     {% endblock %}
     
     <div class="row">
-        <div class="col-{{left_width}} p-3 position-relative">
+        <div class="col-{{left_width}} p-3 position-relative d-flex align-items-center">
         {% block single_content_area %}
             {% if post.YouTubeUrl %}
                 {% set YouTubeVideoId = post.YoutubeUrl|split("v=")|last %}
                 {% set YouTubeEmbedUrl = "https://www.youtube.com/embed/" ~ YouTubeVideoId %}
                 {% set YouTubeEmbedUrl = YouTubeEmbedUrl|split("&ab")|first %}
-                <iframe class="rounded" width="100%" height="100%" src="{{ YouTubeEmbedUrl }}" title="{{ post.Title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe class="rounded" width="100%" height="100%" src="{{ YouTubeEmbedUrl }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             {% endif %}
+
+            {% if post.MixcloudUrl %}
+                {% set MixcloudId = post.MixcloudUrl|split("mixcloud.com")|last %}
+                {% set EncodedMixcloudId = MixcloudId|url_encode %}
+                {% set MixcloudEmbedUrl = "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=" ~ EncodedMixcloudId %}
+                <iframe class="rounded" width="100%" height="120px" src="{{ MixcloudEmbedUrl }}" frameborder="0"></iframe>
+            {% endif %}
+            
         {% endblock %}
         </div>
         <div class="col-{{right_width}} p-3">
@@ -113,6 +121,12 @@
             {% if post.YouTubeUrl %}
                 <a class="btn btn-outline-primary" href="{{ post.YouTubeUrl }}" target="_blank">
                     <i class="fa-brands fa-youtube me-2"></i>YouTube
+                </a>
+            {% endif %}
+
+            {% if post.MixcloudUrl %}
+                <a class="btn btn-outline-primary" href="{{ post.MixcloudUrl }}" target="_blank">
+                    <i class="fa-brands fa-mixcloud me-2"></i>Mixcloud
                 </a>
             {% endif %}
         </div>

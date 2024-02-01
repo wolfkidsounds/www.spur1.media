@@ -4,6 +4,7 @@ namespace App\Controller\Main;
 
 use App\Repository\RadioRepository;
 use App\Controller\Main\MainController;
+use App\Repository\OrbiterSessionRepository;
 use App\Repository\TeletimeRepository;
 use App\Repository\WindowlickerRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,6 +47,17 @@ class SingleController extends MainController
         return $this->render($this->getPageTemplatePrefix() . '/teletime.html.twig', [
             'post' => $post,
             'title' => 'Teletime',
+        ]);
+    }
+
+    #[Route('/orbiter-session/{slug}', name: 'app_main_orbiter_single', methods: ['GET'])]
+    public function orbiter(string $slug, OrbiterSessionRepository $repository): Response
+    {
+        $post = $repository->findOneBy(['Slug' => $slug]);
+
+        return $this->render($this->getPageTemplatePrefix() . '/orbiter_session.html.twig', [
+            'post' => $post,
+            'title' => 'Orbiter Session',
         ]);
     }
 }

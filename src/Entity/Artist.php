@@ -53,11 +53,15 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $InstagramUrl = null;
 
+    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Artists')]
+    private Collection $OrbiterSessions;
+
     public function __construct()
     {
         $this->Radios = new ArrayCollection();
         $this->Windowlickers = new ArrayCollection();
         $this->Teletimes = new ArrayCollection();
+        $this->OrbiterSessions = new ArrayCollection();
     }
 
     public function __toString()
@@ -243,6 +247,33 @@ class Artist
     public function setInstagramUrl(?string $InstagramUrl): static
     {
         $this->InstagramUrl = $InstagramUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrbiterSession>
+     */
+    public function getOrbiterSessions(): Collection
+    {
+        return $this->OrbiterSessions;
+    }
+
+    public function addOrbiterSession(OrbiterSession $orbiterSession): static
+    {
+        if (!$this->OrbiterSessions->contains($orbiterSession)) {
+            $this->OrbiterSessions->add($orbiterSession);
+            $orbiterSession->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrbiterSession(OrbiterSession $orbiterSession): static
+    {
+        if ($this->OrbiterSessions->removeElement($orbiterSession)) {
+            $orbiterSession->removeArtist($this);
+        }
 
         return $this;
     }

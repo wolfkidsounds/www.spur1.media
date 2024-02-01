@@ -6,7 +6,6 @@ use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/', host: '%app.host%')]
 class MainController extends BaseController
 {
     public function getTemplatePrefix(): string

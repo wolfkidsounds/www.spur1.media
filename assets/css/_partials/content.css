@@ -7,8 +7,7 @@
 }
 
 .content {
-    overflow-x: auto;
-    overflow-y: hidden;
+    height:calc(100vh - var(--spur1-header-height));
     margin-top:var(--spur1-header-height);
     z-index:0;
 }

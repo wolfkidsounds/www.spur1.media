@@ -44,9 +44,19 @@ class ArtistCrudController extends AbstractCrudController
             ->setColumns(8);
 
         yield FormField::addRow();
+        yield UrlField::new('SpotifyUrl')
+            ->hideOnIndex()
+            ->setColumns(2);
         yield UrlField::new('SoundcloudUrl')
             ->hideOnIndex()
             ->setColumns(2);
+        yield UrlField::new('MixcloudUrl')
+            ->hideOnIndex()
+            ->setColumns(2);
+        yield UrlField::new('BandcampUrl')
+            ->hideOnIndex()
+            ->setColumns(2);
+        yield FormField::addRow();
         yield UrlField::new('YouTubeUrl')
             ->hideOnIndex()
             ->setColumns(2);

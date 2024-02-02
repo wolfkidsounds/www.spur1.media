@@ -40,6 +40,9 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Artists')]
     private Collection $Teletimes;
 
+    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Artists')]
+    private Collection $OrbiterSessions;
+
     // Social Media
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;
@@ -53,8 +56,14 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $InstagramUrl = null;
 
-    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Artists')]
-    private Collection $OrbiterSessions;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $SpotifyUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $MixcloudUrl = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $BandcampUrl = null;
 
     public function __construct()
     {
@@ -274,6 +283,42 @@ class Artist
         if ($this->OrbiterSessions->removeElement($orbiterSession)) {
             $orbiterSession->removeArtist($this);
         }
+
+        return $this;
+    }
+
+    public function getSpotifyUrl(): ?string
+    {
+        return $this->SpotifyUrl;
+    }
+
+    public function setSpotifyUrl(?string $SpotifyUrl): static
+    {
+        $this->SpotifyUrl = $SpotifyUrl;
+
+        return $this;
+    }
+
+    public function getMixcloudUrl(): ?string
+    {
+        return $this->MixcloudUrl;
+    }
+
+    public function setMixcloudUrl(?string $MixcloudUrl): static
+    {
+        $this->MixcloudUrl = $MixcloudUrl;
+
+        return $this;
+    }
+
+    public function getBandcampUrl(): ?string
+    {
+        return $this->BandcampUrl;
+    }
+
+    public function setBandcampUrl(?string $BandcampUrl): static
+    {
+        $this->BandcampUrl = $BandcampUrl;
 
         return $this;
     }

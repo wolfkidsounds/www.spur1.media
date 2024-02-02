@@ -22,8 +22,8 @@ class SingleController extends ArtistsController
         $radios = $post->getRadios();
         $windowlickers = $post->getWindowlickers();
         $teletimes = $post->getTeletimes();
-
-        $contents = array_merge($radios->toArray(), $windowlickers->toArray(), $teletimes->toArray());
+        $orbiters = $post->getOrbiterSessions();
+        $contents = array_merge($radios->toArray(), $windowlickers->toArray(), $teletimes->toArray(), $orbiters->toArray());
 
         return $this->render($this->getPageTemplatePrefix() . '/artist.html.twig', [
             'post' => $post,
@@ -31,6 +31,7 @@ class SingleController extends ArtistsController
             'radios' => $radios,
             'windowlickers' => $windowlickers,
             'teletimes' => $teletimes,
+            'orbiters' => $orbiters,
             'contents' => $contents,
         ]);
     }

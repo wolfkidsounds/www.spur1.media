@@ -3,35 +3,47 @@
     {% block single_title_section %}
     <div class="row">
         <div class="col-12">
-            <h3 class="font-gothic fs-1">{% block single_title %}{{ post.Title }} | {{ post.Date|date('m/y') }}{% endblock %}</h3>
+            <h3 class="font-gothic fs-1">{% block single_title %}{% endblock %}</h3>
         </div>
     </div>
     {% endblock %}
     
     <div class="row">
         <div class="col-{{left_width}} p-3 position-relative d-flex align-items-center">
-        {% block single_content_area %}
-            {% if post.YouTubeUrl %}
-                {% set YouTubeVideoId = post.YoutubeUrl|split("v=")|last %}
-                {% set YouTubeEmbedUrl = "https://www.youtube.com/embed/" ~ YouTubeVideoId %}
-                {% set YouTubeEmbedUrl = YouTubeEmbedUrl|split("&ab")|first %}
-                <iframe class="rounded" width="100%" height="100%" src="{{ YouTubeEmbedUrl }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            {% endif %}
-
-            {% if post.MixcloudUrl %}
-                {% set MixcloudId = post.MixcloudUrl|split("mixcloud.com")|last %}
-                {% set EncodedMixcloudId = MixcloudId|url_encode %}
-                {% set MixcloudEmbedUrl = "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=" ~ EncodedMixcloudId %}
-                <iframe class="rounded" width="100%" height="120px" src="{{ MixcloudEmbedUrl }}" frameborder="0"></iframe>
-            {% endif %}
-            
-        {% endblock %}
+            {% block single_content_area %}
+                {% if post.YouTubeUrl is defined %}
+                    {% if post.YouTubeUrl %}
+                        {% set YouTubeVideoId = post.YoutubeUrl|split("v=")|last %}
+                        {% set YouTubeEmbedUrl = "https://www.youtube.com/embed/" ~ YouTubeVideoId %}
+                        {% set YouTubeEmbedUrl = YouTubeEmbedUrl|split("&ab")|first %}
+                        <iframe class="rounded" width="100%" height="100%" src="{{ YouTubeEmbedUrl }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    {% endif %}
+                {% endif %}
+    
+                {% if post.MixcloudUrl is defined %}
+                    {% if post.MixcloudUrl %}
+                        {% set MixcloudId = post.MixcloudUrl|split("mixcloud.com")|last %}
+                        {% set EncodedMixcloudId = MixcloudId|url_encode %}
+                        {% set MixcloudEmbedUrl = "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=" ~ EncodedMixcloudId %}
+                        <iframe class="rounded" width="100%" height="120px" src="{{ MixcloudEmbedUrl }}" frameborder="0"></iframe>
+                    {% endif %}
+                {% endif %}
+            {% endblock %}
         </div>
         <div class="col-{{right_width}} p-3">
             {% block single_image_area %}
             <div class="row">
-                <div class="img-single">
-                    {% block single_artist_image %}<img class="w-100 h-100 rounded" src="{% if post.Image %}{{ easy_media_path(post.Image)|imagine_filter('thumbnail') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}{% endif %}">{% endblock %}
+                <div class="img-single overflow-hidden">
+                    {% block single_artist_image %}<img 
+                        class="w-100 h-100 blurry-load rounded overflow-hidden"
+                        {% if post.Image %}
+                            src="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_small_grayscale') }}"
+                            data-large="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_grayscale') }}"
+                        {% else %}
+                            src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
+                            data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
+                        {% endif %}
+                    >{% endblock %}
                 </div>
             </div>
             {% endblock %}
@@ -66,8 +78,8 @@
                     <ul class="list-unstyled d-flex flex-wrap gap-2 ps-1">
                         {% for artist in post.Artists %}
                             <li>
-                                <a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none">
-                                    <i class="fa-solid fa-music me-2"></i>{{ artist.Name }}
+                                <a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
+                                    <img src="{% if artist.Image %}{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ artist.Name }}
                                 </a>
                             </li>
                         {% endfor %}
@@ -118,16 +130,20 @@
         {% block single_bottom_area %}
         <h5 class="mb-1">{{'View Content On'|trans}}</h5>
         <div class="buttons d-flex align-items-center ps-1">
-            {% if post.YouTubeUrl %}
-                <a class="btn btn-outline-primary" href="{{ post.YouTubeUrl }}" target="_blank">
-                    <i class="fa-brands fa-youtube me-2"></i>YouTube
-                </a>
+            {% if post.YouTubeUrl is defined %}
+                {% if post.YouTubeUrl %}
+                    <a class="btn btn-outline-primary" href="{{ post.YouTubeUrl }}" target="_blank">
+                        <i class="fa-brands fa-youtube me-2"></i>YouTube
+                    </a>
+                {% endif %}
             {% endif %}
 
-            {% if post.MixcloudUrl %}
-                <a class="btn btn-outline-primary" href="{{ post.MixcloudUrl }}" target="_blank">
-                    <i class="fa-brands fa-mixcloud me-2"></i>Mixcloud
-                </a>
+            {% if post.MixcloudUrl is defined %}
+                {% if post.MixcloudUrl %}
+                    <a class="btn btn-outline-primary" href="{{ post.MixcloudUrl }}" target="_blank">
+                        <i class="fa-brands fa-mixcloud me-2"></i>Mixcloud
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
         {% endblock %}

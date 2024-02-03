@@ -6,13 +6,22 @@
 
 {% block single_content_area %}
     <div class="mb-3">
-        <h5>{{'Description'|trans}}</h5>
         {% if post.Description %}
             {{ post.Description|raw }}
         {% else %}
         <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
         {% endif %}
     </div>
+{% endblock %}
+
+{% block single_artist_image %}
+<img class="w-100 h-100 rounded" src="
+    {% if post.Image %}
+        {{ easy_media_path(post.Image)|imagine_filter('thumbnail') }}
+    {% else %}
+        {{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}
+    {% endif %}
+">
 {% endblock %}
 
 {% block single_description_area %}
@@ -23,26 +32,26 @@
                 {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':radios, 'post_type':'Radio', 'url_path':'app_main_radio_single' } only %}
                 {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':windowlickers, 'post_type':'Windowlicker', 'url_path':'app_main_windowlicker_single' } only %}
                 {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':teletimes, 'post_type':'Teletime', 'url_path':'app_main_teletime_single' } only %}
+                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':orbiters, 'post_type':'Orbiter Session', 'url_path':'app_main_orbiter_single' } only %}
             </div>
         {% else %}
             <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>
         {% endif %}
     </div>
 {% endblock %}
+
 {% block single_details_area %}
     <div class="row mb-3">
-        <h5>{{'Tags'|trans}}</h5>
-        {# 
-        <div class="d-flex flex-wrap gap-1 ps-3">
-        {% if post.Tags|length > 0 %}
-            {% for tag in post.Tags %}
-                <a href="" class="icon-link text-decoration-none"><span class="badge bg-dark"><i class="fa-solid fa-tag me-2"></i>{{ tag.Name }} ({{ tag.Format }})</span></a>
-            {% endfor %}
-        {% else %}
-            <div class="">{{ 'We could not find any Tags related to this post'|trans }}</div>
-        {% endif %}
+        <h5>{{'Social Links'|trans}}</h5>
+        <div class="d-flex flex-wrap list-unstyled gap-1 mt-3">
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.SpotifyUrl, 'title':'Spotify', 'icon':'fa-brands fa-spotify' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.BandcampUrl, 'title':'Bandcamp', 'icon':'fa-brands fa-bandcamp' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.SoundcloudUrl, 'title':'Soundcloud', 'icon':'fa-brands fa-soundcloud' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.MixcloudUrl, 'title':'Mixcloud', 'icon':'fa-brands fa-mixcloud' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.InstagramUrl, 'title':'Instagram', 'icon':'fa-brands fa-instagram' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.FacebookUrl, 'title':'Facebook', 'icon':'fa-brands fa-facebook' } only %}
+        {% include 'Artists/_partials/_partial_socialbutton.html.twig' with { 'item_url':post.YouTubeUrl, 'title':'YouTube', 'icon':'fa-brands fa-youtube' } only %}
         </div>
-        #}
     </div>
 {% endblock %}
 

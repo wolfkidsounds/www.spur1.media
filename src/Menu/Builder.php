@@ -2,6 +2,7 @@
 
 namespace App\Menu;
 
+use App\Entity\User;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\FactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -120,13 +121,17 @@ class Builder extends AbstractController
 
     public function navProfile(): ItemInterface
     {
+        /** @var User $user */
+        $user = $this->getUser();
+        
         $menu = $this->factory->createItem('navProfile');
 
         $menu->addChild('Profile', [
-            'route' => 'admin',
+            'route' => 'app_user_profile',
+            'routeParameters' => ['slug' => $user->getSlug()],
             'extras' => [
                 'icon' => 'fa-solid fa-user',
-                'class' => 'opacity-25 pe-none',
+                'class' => '',
             ]
         ]);
 

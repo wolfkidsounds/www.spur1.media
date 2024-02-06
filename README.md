@@ -7,9 +7,9 @@
 3. Download and Install [PHP](https://www.php.net/)
 4. Download and Install [Symfony CLI](https://github.com/symfony-cli/symfony-cli)
 5. Configure your Database for Example using [XAMPP](https://www.apachefriends.org/)
-6. Install the Project using the ´´´./install´´´ command
-7. Start Webpack Encore using ´´´npm run watch´´´
-8. Start the Server using ´´´symfony serve -d´´´
+6. Install the Project using the ```./install``` command
+7. Start Webpack Encore using ```npm run watch```
+8. Start the Server using ```symfony serve -d```
 
 ## Staging
 

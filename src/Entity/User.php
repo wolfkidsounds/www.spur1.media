@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,6 +34,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Image = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $Slug = null;
+
+    #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'Owner')]
+    private Collection $Artists;
+
+    public function __construct()
+    {
+        $this->Artists = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->Name;
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +141,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(?string $Image): static
     {
         $this->Image = $Image;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->Slug;
+    }
+
+    public function setSlug(string $Slug): static
+    {
+        $this->Slug = $Slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artist>
+     */
+    public function getArtists(): Collection
+    {
+        return $this->Artists;
+    }
+
+    public function addArtist(Artist $artist): static
+    {
+        if (!$this->Artists->contains($artist)) {
+            $this->Artists->add($artist);
+            $artist->addOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtist(Artist $artist): static
+    {
+        if ($this->Artists->removeElement($artist)) {
+            $artist->removeOwner($this);
+        }
 
         return $this;
     }

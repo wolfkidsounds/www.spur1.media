@@ -6,14 +6,12 @@ use App\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArtistRepository;
-use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 #[UniqueEntity('Name')]
-#[ApiResource()]
 class Artist
 {
     #[ORM\Id]
@@ -24,7 +22,7 @@ class Artist
     #[ORM\Column(length: 255)]
     private ?string $Name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'easy_media_type', nullable: true)]
     private ?string $Image = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -61,13 +59,17 @@ class Artist
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'Artists')]
     private Collection $Owner;
 
+    #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Artist')]
+    private Collection $Crews;
+
     public function __construct()
     {
         $this->Posts = new ArrayCollection();
         $this->Owner = new ArrayCollection();
+        $this->Crews = new ArrayCollection();
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }
@@ -256,6 +258,33 @@ class Artist
     public function removeOwner(User $owner): static
     {
         $this->Owner->removeElement($owner);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Crew>
+     */
+    public function getCrews(): Collection
+    {
+        return $this->Crews;
+    }
+
+    public function addCrew(Crew $crew): static
+    {
+        if (!$this->Crews->contains($crew)) {
+            $this->Crews->add($crew);
+            $crew->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCrew(Crew $crew): static
+    {
+        if ($this->Crews->removeElement($crew)) {
+            $crew->removeArtist($this);
+        }
 
         return $this;
     }

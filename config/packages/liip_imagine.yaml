@@ -12,24 +12,30 @@ liip_imagine:
             quality: 10
             filters:
                 scale:
-                    dim: [ 128, 128 ] # input 1200x1600px -> output 750x1000px (relative down-scale)
-
-        thumbnail:
-            quality: 90
-            filters:
-                scale:
-                    dim: [ 1080, 1080 ] # input 1200x1600px -> output 750x1000px (relative down-scale)
-
-        thumbnail_grayscale:
-            quality: 90
-            filters:
-                grayscale: ~
-                scale:
-                    dim: [ 1080, 1080 ] # input 1200x1600px -> output 750x1000px (relative down-scale)
+                    dim: [ 128, 128 ] # (relative down-scale)
 
         thumbnail_small_grayscale:
             quality: 10
             filters:
                 grayscale: ~
                 scale:
-                    dim: [ 128, 128 ] # input 1200x1600px -> output 750x1000px (relative down-scale)
+                    dim: [ 128, 128 ] # (relative down-scale)
+
+        thumbnail_medium:
+            quality: 50
+            filters:
+                scale:
+                    dim: [ 512, 512 ] # (relative down-scale)
+
+        thumbnail:
+            quality: 90
+            filters:
+                scale:
+                    dim: [ 1080, 1080 ] # (relative down-scale)
+
+        thumbnail_grayscale:
+            quality: 90
+            filters:
+                grayscale: ~
+                scale:
+                    dim: [ 1080, 1080 ] # (relative down-scale)

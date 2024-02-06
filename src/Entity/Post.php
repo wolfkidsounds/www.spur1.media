@@ -44,7 +44,7 @@ class Post
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     protected ?string $Description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'easy_media_type', nullable: true)]
     protected ?string $Image = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
@@ -56,10 +56,14 @@ class Post
     #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'Posts')]
     private Collection $Artists;
 
+    #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Posts')]
+    private Collection $Crews;
+
     public function __construct()
     {
         $this->Tags = new ArrayCollection();
         $this->Artists = new ArrayCollection();
+        $this->Crews = new ArrayCollection();
     }
 
     public function __toString()
@@ -176,6 +180,33 @@ class Post
     public function removeArtist(Artist $artist): static
     {
         $this->Artists->removeElement($artist);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Crew>
+     */
+    public function getCrews(): Collection
+    {
+        return $this->Crews;
+    }
+
+    public function addCrew(Crew $crew): static
+    {
+        if (!$this->Crews->contains($crew)) {
+            $this->Crews->add($crew);
+            $crew->addPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCrew(Crew $crew): static
+    {
+        if ($this->Crews->removeElement($crew)) {
+            $crew->removePost($this);
+        }
 
         return $this;
     }

@@ -12,8 +12,6 @@ use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use MenaraSolutions\Geographer\Earth;
-use MenaraSolutions\Geographer\Country;
 
 class ArtistCrudController extends AbstractCrudController
 {
@@ -24,8 +22,6 @@ class ArtistCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        $earth = new Earth();
-
         yield TextField::new('Name');
 
         yield SlugField::new('Slug')
@@ -35,12 +31,10 @@ class ArtistCrudController extends AbstractCrudController
             
         yield FormField::addRow();
         yield EasyMediaField::new('Image')
-            ->setFormTypeOption("restrictions_uploadTypes", ["image/*"])
-            ->setFormTypeOption("restrictions_path", "Artists/Thumbnails/")
-            ->setFormTypeOption("upload", true)
-            ->setFormTypeOption("rename", true)
-            ->setFormTypeOption("metas", true)
-            ->setFormTypeOption("move", true)
+            ->setFormTypeOption('restrictions_uploadTypes', ["image/*"])
+            ->setFormTypeOption('restrictions_path', 'Artists/Thumbnails/')
+            ->setFormTypeOption('upload', true)
+            ->setFormTypeOption('rename', true)
             ->setColumns(8);
 
         yield FormField::addRow();

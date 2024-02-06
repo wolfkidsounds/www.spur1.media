@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TagRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TagRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: TagRepository::class)]
 class Tag
@@ -25,24 +26,12 @@ class Tag
     #[ORM\JoinColumn(nullable: false)]
     private ?TagFormat $Format = null;
 
-    #[ORM\ManyToMany(targetEntity: Radio::class, mappedBy: 'Tags')]
-    private Collection $Radios;
-
-    #[ORM\ManyToMany(targetEntity: Windowlicker::class, mappedBy: 'Tags')]
-    private Collection $Windowlickers;
-
-    #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Tags')]
-    private Collection $Teletimes;
-
-    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Tags')]
-    private Collection $OrbiterSessions;
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'Tags')]
+    private Collection $Posts;
 
     public function __construct()
     {
-        $this->Radios = new ArrayCollection();
-        $this->Windowlickers = new ArrayCollection();
-        $this->Teletimes = new ArrayCollection();
-        $this->OrbiterSessions = new ArrayCollection();
+        $this->Posts = new ArrayCollection();
     }
 
     public function __toString()
@@ -92,108 +81,27 @@ class Tag
     }
 
     /**
-     * @return Collection<int, Radio>
+     * @return Collection<int, Post>
      */
-    public function getRadios(): Collection
+    public function getPosts(): Collection
     {
-        return $this->Radios;
+        return $this->Posts;
     }
 
-    public function addRadio(Radio $radio): static
+    public function addPost(Post $post): static
     {
-        if (!$this->Radios->contains($radio)) {
-            $this->Radios->add($radio);
-            $radio->addTag($this);
+        if (!$this->Posts->contains($post)) {
+            $this->Posts->add($post);
+            $post->addTag($this);
         }
 
         return $this;
     }
 
-    public function removeRadio(Radio $radio): static
+    public function removePost(Post $post): static
     {
-        if ($this->Radios->removeElement($radio)) {
-            $radio->removeTag($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Windowlicker>
-     */
-    public function getWindowlickers(): Collection
-    {
-        return $this->Windowlickers;
-    }
-
-    public function addWindowlicker(Windowlicker $windowlicker): static
-    {
-        if (!$this->Windowlickers->contains($windowlicker)) {
-            $this->Windowlickers->add($windowlicker);
-            $windowlicker->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWindowlicker(Windowlicker $windowlicker): static
-    {
-        if ($this->Windowlickers->removeElement($windowlicker)) {
-            $windowlicker->removeTag($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Teletime>
-     */
-    public function getTeletimes(): Collection
-    {
-        return $this->Teletimes;
-    }
-
-    public function addTeletime(Teletime $teletime): static
-    {
-        if (!$this->Teletimes->contains($teletime)) {
-            $this->Teletimes->add($teletime);
-            $teletime->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTeletime(Teletime $teletime): static
-    {
-        if ($this->Teletimes->removeElement($teletime)) {
-            $teletime->removeTag($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OrbiterSession>
-     */
-    public function getOrbiterSessions(): Collection
-    {
-        return $this->OrbiterSessions;
-    }
-
-    public function addOrbiterSession(OrbiterSession $orbiterSession): static
-    {
-        if (!$this->OrbiterSessions->contains($orbiterSession)) {
-            $this->OrbiterSessions->add($orbiterSession);
-            $orbiterSession->addTag($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrbiterSession(OrbiterSession $orbiterSession): static
-    {
-        if ($this->OrbiterSessions->removeElement($orbiterSession)) {
-            $orbiterSession->removeTag($this);
+        if ($this->Posts->removeElement($post)) {
+            $post->removeTag($this);
         }
 
         return $this;

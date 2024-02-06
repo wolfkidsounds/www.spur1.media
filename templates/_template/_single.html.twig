@@ -74,22 +74,35 @@
         <div class="col-{{right_width}} px-3">
 
             {% block single_details_area %}
+            {% if post.Artists|length > 0 %}
             <div class="mb-3">
                 <h5>{{'Involved Artists'|trans}}</h5>
-                {% if post.Artists %}
+                <ul class="list-unstyled d-flex flex-wrap gap-2 ps-1">
+                    {% for artist in post.Artists %}
+                        <li>
+                            <a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
+                                <img src="{% if artist.Image %}{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ artist.Name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% if post.Crews|length > 0 %}
+                <div class="mb-3">
+                    <h5>{{'Involved Crews'|trans}}</h5>
                     <ul class="list-unstyled d-flex flex-wrap gap-2 ps-1">
-                        {% for artist in post.Artists %}
+                        {% for crew in post.Crews %}
                             <li>
-                                <a href="{{ path('app_artists_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
-                                    <img src="{% if artist.Image %}{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ artist.Name }}
+                                <a href="{{ path('app_crews_single', { 'slug': crew.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
+                                    <img src="{% if crew.Image %}{{ easy_media_path(crew.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ crew.Name }}
                                 </a>
                             </li>
                         {% endfor %}
                     </ul>
-                {% else %}
-                    <div class="ps-3">{{ 'We could not find any Artists related to this post' }}</div>
+                </div>
                 {% endif %}
-            </div>
 
             {% if post.Location is defined %}
             <div class="mb-3">

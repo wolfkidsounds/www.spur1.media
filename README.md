@@ -1,5 +1,10 @@
 # Quellcode für spur1.media
 
+## Tests
+
+## Deployment
+[![Staging Deployment](https://github.com/wolfkidsounds/www.spur1.media/actions/workflows/staging.yml/badge.svg?branch=staging)](https://github.com/wolfkidsounds/www.spur1.media/actions/workflows/staging.yml)
+
 ## Installation/Usage
 
 1. Download and Install [Composer](https://getcomposer.org/)
@@ -10,11 +15,3 @@
 6. Install the Project using the ```./install``` command
 7. Start Webpack Encore using ```npm run watch```
 8. Start the Server using ```symfony serve -d```
-
-## Staging
-
-[![Staging Deployment](https://github.com/wolfkidsounds/www.spur1.media/actions/workflows/staging.yml/badge.svg?branch=staging)](https://github.com/wolfkidsounds/www.spur1.media/actions/workflows/staging.yml)
-
-## Tests
-
-## Deployment

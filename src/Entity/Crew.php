@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: CrewRepository::class)]
 class Crew
@@ -46,17 +47,25 @@ class Crew
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $LinktreeUrl = null;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'Crews')]
-    private Collection $Posts;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'Crews')]
     private Collection $Owner;
+
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'Crews')]
+    private Collection $Posts;
+
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable]
+    private ?\DateTimeImmutable $editedAt = null;
 
     public function __construct()
     {
         $this->Artist = new ArrayCollection();
-        $this->Posts = new ArrayCollection();
         $this->Owner = new ArrayCollection();
+        $this->Posts = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -202,30 +211,6 @@ class Crew
     }
 
     /**
-     * @return Collection<int, Post>
-     */
-    public function getPosts(): Collection
-    {
-        return $this->Posts;
-    }
-
-    public function addPost(Post $post): static
-    {
-        if (!$this->Posts->contains($post)) {
-            $this->Posts->add($post);
-        }
-
-        return $this;
-    }
-
-    public function removePost(Post $post): static
-    {
-        $this->Posts->removeElement($post);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, User>
      */
     public function getOwner(): Collection
@@ -245,6 +230,57 @@ class Crew
     public function removeOwner(User $owner): static
     {
         $this->Owner->removeElement($owner);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->Posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->Posts->contains($post)) {
+            $this->Posts->add($post);
+            $post->addCrew($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->Posts->removeElement($post)) {
+            $post->removeCrew($this);
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEditedAt(): ?\DateTimeImmutable
+    {
+        return $this->editedAt;
+    }
+
+    public function setEditedAt(?\DateTimeImmutable $editedAt): static
+    {
+        $this->editedAt = $editedAt;
 
         return $this;
     }

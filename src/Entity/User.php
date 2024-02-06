@@ -44,10 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Owner')]
     private Collection $Crews;
 
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Post::class)]
+    private Collection $Posts;
+
     public function __construct()
     {
         $this->Artists = new ArrayCollection();
         $this->Crews = new ArrayCollection();
+        $this->Posts = new ArrayCollection();
     }
 
     public function __toString()
@@ -210,6 +214,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->Crews->removeElement($crew)) {
             $crew->removeOwner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->Posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->Posts->contains($post)) {
+            $this->Posts->add($post);
+            $post->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->Posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getUser() === $this) {
+                $post->setUser(null);
+            }
         }
 
         return $this;

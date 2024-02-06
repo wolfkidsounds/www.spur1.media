@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArtistRepository;
 use Doctrine\Common\Collections\Collection;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -61,6 +62,14 @@ class Artist
 
     #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Artist')]
     private Collection $Crews;
+
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    #[Gedmo\Timestampable]
+    private ?\DateTimeImmutable $editedAt = null;
 
     public function __construct()
     {
@@ -285,6 +294,30 @@ class Artist
         if ($this->Crews->removeElement($crew)) {
             $crew->removeArtist($this);
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEditedAt(): ?\DateTimeImmutable
+    {
+        return $this->editedAt;
+    }
+
+    public function setEditedAt(?\DateTimeImmutable $editedAt): static
+    {
+        $this->editedAt = $editedAt;
 
         return $this;
     }

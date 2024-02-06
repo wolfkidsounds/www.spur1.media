@@ -1,16 +1,19 @@
-<?php
+<?php //src/Controller/Admin/Artists/ArtistCrudController.php
 
 namespace App\Controller\Admin\Artists;
 
 use App\Entity\Artist;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use MenaraSolutions\Geographer\Earth;
+use MenaraSolutions\Geographer\Country;
 
 class ArtistCrudController extends AbstractCrudController
 {
@@ -21,6 +24,8 @@ class ArtistCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $earth = new Earth();
+
         yield TextField::new('Name');
 
         yield SlugField::new('Slug')
@@ -40,6 +45,11 @@ class ArtistCrudController extends AbstractCrudController
 
         yield FormField::addRow();
         yield TextEditorField::new('Description')
+            ->hideOnIndex()
+            ->setColumns(8);
+
+        yield FormField::addRow();
+        yield AssociationField::new('Owner')
             ->hideOnIndex()
             ->setColumns(8);
 

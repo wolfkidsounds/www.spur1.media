@@ -1,0 +1,25 @@
+novaway_feature_flag:
+    default_manager: default
+    managers:
+        default:
+            factory: 'novaway_feature_flag.factory.array'
+            options:
+                features:
+                    main: true
+                    admin: true
+
+                    content: true
+                    content_radio: true
+                    content_windowlicker: true
+
+                    records: false
+                    backstage: false
+                    
+                    events: false
+                    artists: false
+                    player: false
+
+                    api: false
+                    cloud: false
+
+                    debug: true

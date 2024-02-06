@@ -1,0 +1,26 @@
+:root {
+    --spur1-sidebar-width-open: 250px;
+    --spur1-sidebar-width-closed: 1rem;
+    --spur1-sidebar-height: calc(100vh - var(--spur1-header-height));
+}
+
+[data-sidebar-state='open'].sidebar {
+    width:var(--spur1-sidebar-width-open);
+}
+
+[data-sidebar-state='closed'].sidebar {
+    width:var(--spur1-sidebar-width-closed);
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: var(--spur1-header-height);
+    height: var(--spur1-sidebar-height) !important;
+    height: -webkit-fill-available;
+    max-height: var(--spur1-sidebar-height);
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-shadow: 5px 0px 10px 0px rgba(0,0,0,0.1);
+    z-index:1;
+}

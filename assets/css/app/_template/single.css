@@ -1,0 +1,5 @@
+.img-single img {
+    object-fit: cover !important;
+    background-size: cover !important;
+    aspect-ratio: 1/1 !important;
+}

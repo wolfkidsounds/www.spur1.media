@@ -1,0 +1,40 @@
+{% if constant('class', post) == 'App\\Entity\\Radio' %}
+    {% set url_path = 'app_main_radio_single' %}
+    {% set post_type = 'Radio' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Windowlicker' %}
+    {% set url_path = 'app_main_windowlicker_single' %}
+    {% set post_type = 'Windowlicker' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\OrbiterSession' %}
+    {% set url_path = 'app_main_orbiter_single' %}
+    {% set post_type = 'Orbiter Session' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Teletime' %}
+    {% set url_path = 'app_main_teletime_single' %}
+    {% set post_type = 'Teletime' %}
+{% endif %}
+
+<div class="col-2">
+    <a class="m-0 p-0 d-block rounded bg-light pe-auto position-relative rounded" href="{{ path(url_path, { 'slug': post.Slug }) }}">
+        <div class="image img-thumbnail img-cover p-0 m-0 rounded overflow-hidden">
+            <div class="grid-overlay position-absolute bg-light-75 p-2 text-body">
+                <p class="m-0 p-0 small text-start">{{ post_type }}</p>
+                <P class="m-0 p-0 small text-start fw-bold">{{ post.Title|upper }}</p>
+            </div>
+            <img 
+                class="w-100 h-100 blurry-load rounded overflow-hidden"
+                {% if post.Image %}
+                    src="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_small_grayscale') }}"
+                    data-large="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_grayscale') }}"
+                {% else %}
+                    src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
+                    data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
+                {% endif %}
+            >
+        </div>
+    </a>
+</div>

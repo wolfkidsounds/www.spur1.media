@@ -1,0 +1,25 @@
+.nav-btn {
+    background:transparent;
+}
+
+.nav-btn:hover,
+.nav-btn:focus,
+.nav-btn .active:hover,
+.nav-btn .active:focuse {
+    background:rgba(0,0,0,.1);
+}
+
+.nav-link {
+    color: var(--spur1-gray);
+}
+
+.nav-link.active {
+    background:var(--spur1-red);
+    color:#fff;
+}
+
+.nav-link:hover, 
+.nav-link:focus {
+    color: var(--spur1-gray);
+    background:rgba(0,0,0,.1);
+}

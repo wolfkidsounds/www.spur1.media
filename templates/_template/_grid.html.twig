@@ -1,0 +1,29 @@
+{% block content %}
+{% if posts %}
+    <div class="row">
+    {% for post in posts %}
+        <div class="col-2 g-3 text-center">
+            <a class="grid-post m-0 p-0 d-block rounded bg-light pe-auto position-relative rounded" href="{{ path(singleReferUrl, { 'slug': post.Slug }) }}">
+                <div class="image img-thumbnail img-cover p-0 m-0 rounded overflow-hidden">
+                    <div class="grid-overlay position-absolute bg-light-75 p-2 text-body">
+                        <p class="m-0 p-0 small text-start">{{ post.Date|date('m/Y') }}</p>
+                        <P class="m-0 p-0 small text-start fw-bold">{{ post.Title|upper }}</p>
+                    </div>
+                    <img 
+                    class="w-100 h-100 blurry-load rounded overflow-hidden"
+                    {% if post.Image %}
+                        src="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_small_grayscale') }}"
+                        data-large="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_grayscale') }}"
+                    {% else %}
+                        src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
+                        data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
+                    {% endif %}>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>{{'No posts have been found'|trans}}</p>
+{% endif %}
+{% endblock %}

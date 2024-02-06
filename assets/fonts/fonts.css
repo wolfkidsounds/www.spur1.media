@@ -6,3 +6,7 @@
         url("./trade-gothic-no-20-condensed-bold.otf") format("opentype"),
         url("./trade-gothic-no-20-condensed-bold.woff") format("woff");
 }
+
+.font-gothic {
+    font-family: "Gothic" !important;
+}

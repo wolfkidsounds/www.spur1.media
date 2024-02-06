@@ -1,0 +1,13 @@
+[data-sidebar='open'] .content {
+    margin-left: calc(var(--spur1-sidebar-width-open));
+}
+
+[data-sidebar='closed'] .content {
+    margin-left: calc(var(--spur1-sidebar-width-closed));
+}
+
+.content {
+    height:calc(100vh - var(--spur1-header-height));
+    margin-top:var(--spur1-header-height);
+    z-index:0;
+}

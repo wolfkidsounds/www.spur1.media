@@ -1,2 +1,2 @@
-import './simplebar.js';
-import './blurry-load.js';
+import './app/simplebar.js';
+import './app/blurry-load.js';

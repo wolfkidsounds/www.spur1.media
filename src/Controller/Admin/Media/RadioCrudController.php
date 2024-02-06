@@ -43,6 +43,7 @@ class RadioCrudController extends AbstractCrudController
         ->setFormTypeOption("rename", true)
         ->setFormTypeOption("metas", true)
         ->setFormTypeOption("move", true)
+        ->hideOnIndex()
         ->setColumns(8);
 
         yield FormField::addRow();
@@ -58,7 +59,6 @@ class RadioCrudController extends AbstractCrudController
         yield FormField::addFieldset('Artists');
         yield AssociationField::new('Artists')
         ->autocomplete()
-        ->hideOnIndex()
         ->setColumns(8);
         
         yield FormField::addFieldset('Resources');

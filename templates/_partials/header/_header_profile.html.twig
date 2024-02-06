@@ -2,9 +2,9 @@
 <div class="dropdown text-end">
     <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
         {% if app.user.Image %}
-            <img src="{{ asset(app.User.Image) }}" alt="User Avatar" width="32" height="32" class="rounded-circle me-2">
+            <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail_medium') }}" alt="User Avatar" width="32" height="32" class="rounded-circle me-2">
         {% else %}
-            <img src="https://github.com/mdo.png" alt="User Avatar Not Defined" width="32" height="32" class="rounded-circle me-2">
+            <img src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_mediumm') }}" alt="User Avatar Not Defined" width="32" height="32" class="rounded-circle me-2">
         {% endif %}
         {{ app.user.Name }}
     </a>

@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Tag;
+use App\Entity\Crew;
 use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
@@ -10,9 +11,9 @@ use App\Entity\Location;
 use App\Entity\Teletime;
 use App\Entity\Main\Post;
 use App\Entity\Main\Type;
-use App\Entity\OrbiterSession;
 use App\Entity\TagFormat;
 use App\Entity\Windowlicker;
+use App\Entity\OrbiterSession;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -109,8 +110,10 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::subMenu('Spur1-Artists', 'fa fa-database')
                 ->setPermission('ROLE_ACCESS_ARTISTS')
                 ->setSubItems([
-                    MenuItem::linkToCrud('Artists', 'fa fa-music', Artist::class)
+                    MenuItem::linkToCrud('Artists', 'fa fa-user', Artist::class)
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
+                    MenuItem::linkToCrud('Crews', 'fa fa-users', Crew::class)
+                        ->setPermission('ROLE_ACCESS_CREWS'),
             ]);
 
             yield MenuItem::subMenu('Spur1-Player', 'fa fa-play')

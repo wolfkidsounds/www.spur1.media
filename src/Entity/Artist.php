@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArtistRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -32,19 +33,6 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Slug = null;
 
-    // Content
-    #[ORM\ManyToMany(targetEntity: Radio::class, mappedBy: 'Artists')]
-    private Collection $Radios;
-
-    #[ORM\ManyToMany(targetEntity: Windowlicker::class, mappedBy: 'Artists')]
-    private Collection $Windowlickers;
-
-    #[ORM\ManyToMany(targetEntity: Teletime::class, mappedBy: 'Artists')]
-    private Collection $Teletimes;
-
-    #[ORM\ManyToMany(targetEntity: OrbiterSession::class, mappedBy: 'Artists')]
-    private Collection $OrbiterSessions;
-
     // Social Media
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;
@@ -67,12 +55,16 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $BandcampUrl = null;
 
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'Artists')]
+    private Collection $Posts;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'Artists')]
+    private Collection $Owner;
+
     public function __construct()
     {
-        $this->Radios = new ArrayCollection();
-        $this->Windowlickers = new ArrayCollection();
-        $this->Teletimes = new ArrayCollection();
-        $this->OrbiterSessions = new ArrayCollection();
+        $this->Posts = new ArrayCollection();
+        $this->Owner = new ArrayCollection();
     }
 
     public function __toString()
@@ -93,60 +85,6 @@ class Artist
     public function setName(string $Name): static
     {
         $this->Name = $Name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Radio>
-     */
-    public function getRadios(): Collection
-    {
-        return $this->Radios;
-    }
-
-    public function addRadio(Radio $radio): static
-    {
-        if (!$this->Radios->contains($radio)) {
-            $this->Radios->add($radio);
-            $radio->addArtist($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRadio(Radio $radio): static
-    {
-        if ($this->Radios->removeElement($radio)) {
-            $radio->removeArtist($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Windowlicker>
-     */
-    public function getWindowlickers(): Collection
-    {
-        return $this->Windowlickers;
-    }
-
-    public function addWindowlicker(Windowlicker $windowlicker): static
-    {
-        if (!$this->Windowlickers->contains($windowlicker)) {
-            $this->Windowlickers->add($windowlicker);
-            $windowlicker->addArtist($this);
-        }
-
-        return $this;
-    }
-
-    public function removeWindowlicker(Windowlicker $windowlicker): static
-    {
-        if ($this->Windowlickers->removeElement($windowlicker)) {
-            $windowlicker->removeArtist($this);
-        }
 
         return $this;
     }
@@ -183,33 +121,6 @@ class Artist
     public function setDescription(?string $Description): static
     {
         $this->Description = $Description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Teletime>
-     */
-    public function getTeletimes(): Collection
-    {
-        return $this->Teletimes;
-    }
-
-    public function addTeletime(Teletime $teletime): static
-    {
-        if (!$this->Teletimes->contains($teletime)) {
-            $this->Teletimes->add($teletime);
-            $teletime->addArtist($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTeletime(Teletime $teletime): static
-    {
-        if ($this->Teletimes->removeElement($teletime)) {
-            $teletime->removeArtist($this);
-        }
 
         return $this;
     }
@@ -262,33 +173,6 @@ class Artist
         return $this;
     }
 
-    /**
-     * @return Collection<int, OrbiterSession>
-     */
-    public function getOrbiterSessions(): Collection
-    {
-        return $this->OrbiterSessions;
-    }
-
-    public function addOrbiterSession(OrbiterSession $orbiterSession): static
-    {
-        if (!$this->OrbiterSessions->contains($orbiterSession)) {
-            $this->OrbiterSessions->add($orbiterSession);
-            $orbiterSession->addArtist($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrbiterSession(OrbiterSession $orbiterSession): static
-    {
-        if ($this->OrbiterSessions->removeElement($orbiterSession)) {
-            $orbiterSession->removeArtist($this);
-        }
-
-        return $this;
-    }
-
     public function getSpotifyUrl(): ?string
     {
         return $this->SpotifyUrl;
@@ -321,6 +205,57 @@ class Artist
     public function setBandcampUrl(?string $BandcampUrl): static
     {
         $this->BandcampUrl = $BandcampUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->Posts;
+    }
+
+    public function addPost(Post $post): static
+    {
+        if (!$this->Posts->contains($post)) {
+            $this->Posts->add($post);
+            $post->addArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): static
+    {
+        if ($this->Posts->removeElement($post)) {
+            $post->removeArtist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getOwner(): Collection
+    {
+        return $this->Owner;
+    }
+
+    public function addOwner(User $owner): static
+    {
+        if (!$this->Owner->contains($owner)) {
+            $this->Owner->add($owner);
+        }
+
+        return $this;
+    }
+
+    public function removeOwner(User $owner): static
+    {
+        $this->Owner->removeElement($owner);
 
         return $this;
     }

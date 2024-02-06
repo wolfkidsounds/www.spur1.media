@@ -4,6 +4,7 @@ namespace App\Controller\Artists;
 
 use App\Controller\Artists\ArtistsController;
 use App\Repository\ArtistRepository;
+use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,24 +16,15 @@ class SingleController extends ArtistsController
     }
 
     #[Route('/artist/{slug}', name: 'app_artists_single', methods: ['GET'])]
-    public function single(string $slug, ArtistRepository $repository): Response
+    public function single(string $slug, ArtistRepository $artistRepository): Response
     {
-        $post = $repository->findOneBy(['Slug' => $slug]);
-
-        $radios = $post->getRadios();
-        $windowlickers = $post->getWindowlickers();
-        $teletimes = $post->getTeletimes();
-        $orbiters = $post->getOrbiterSessions();
-        $contents = array_merge($radios->toArray(), $windowlickers->toArray(), $teletimes->toArray(), $orbiters->toArray());
+        $artist = $artistRepository->findOneBy(['Slug' => $slug]);
+        $posts = $artist->getPosts()->toArray();
 
         return $this->render($this->getPageTemplatePrefix() . '/artist.html.twig', [
-            'post' => $post,
+            'post' => $artist,
             'title' => 'Artist',
-            'radios' => $radios,
-            'windowlickers' => $windowlickers,
-            'teletimes' => $teletimes,
-            'orbiters' => $orbiters,
-            'contents' => $contents,
+            'related_posts' => $posts,
         ]);
     }
     

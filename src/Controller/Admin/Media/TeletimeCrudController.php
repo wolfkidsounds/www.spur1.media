@@ -55,8 +55,11 @@ class TeletimeCrudController extends AbstractCrudController
         ->hideOnIndex()
         ->setColumns(8);
 
-        yield FormField::addFieldset('Artists');
+        yield FormField::addFieldset('Relations');
         yield AssociationField::new('Artists')
+        ->autocomplete()
+        ->setColumns(8);
+        yield AssociationField::new('Crews')
         ->autocomplete()
         ->setColumns(8);
         

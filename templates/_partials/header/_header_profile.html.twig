@@ -1,18 +1,64 @@
 {% if app.user %}
-<div class="dropdown text-end">
-    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-        {% if app.user.Image %}
-            <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail_medium') }}" alt="User Avatar" width="32" height="32" class="rounded-circle me-2">
-        {% else %}
-            <img src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_mediumm') }}" alt="User Avatar Not Defined" width="32" height="32" class="rounded-circle me-2">
-        {% endif %}
-        {{ app.user.Name }}
+<div class="dropdown text-end me-2">
+    <a href="" class="nav-item btn d-flex link-dark text-decoration-none" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa-solid fa-bell"></i>
     </a>
 
     {% set navProfile = knp_menu_get('navProfile') %}
     {{ knp_menu_render(navProfile, {'template': '_partials/header/menu_profile.html.twig'}) }}
 </div>
+<div class="dropdown text-end">
+    <a href="" class="nav-item d-flex align-items-center link-dark text-decoration-none" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+        {% if app.user.Image %}
+            <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail_medium') }}" alt="User Avatar" width="32" height="32" class="rounded-circle me-2">
+        {% else %}
+            <img src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_mediumm') }}" alt="User Avatar Not Defined" width="32" height="32" class="rounded-circle me-2">
+        {% endif %}
+    </a>
+    
+    <ul class="dropdown-menu rounded shadow mt-3" aria-labelledby="sidebarDropdownUser" data-popper-placement="bottom-end">
+        <li class="nav-item">
+            <div class="dropdown-header">
+                <h6 class="">{{ app.user.Name }}</h6>
+                <p class="text-small mb-0">{{ app.user.email }}</p>
+            </div>
+        </li>
+        <li class="divider seperator"><hr class="dropdown-divider"></li>
+        <li class="nav-item">
+            <a class="dropdown-item" href="{{ path('app_user_profile', { 'slug': app.user.Slug }) }}">
+                <i class="me-2 fa-solid fa-user"></i>{{ 'Profile'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="dropdown-item opacity-25 pe-none" href="">
+                <i class="me-2 fa-solid fa-gear"></i>{{ 'Settings'|trans }}
+            </a>
+        </li>
+        <li class="divider seperator"><hr class="dropdown-divider"></li>
+        <li class="nav-item">
+            <a class="dropdown-item " href="{{ path('admin') }}">
+                <i class="me-2 fa-solid fa-gauge"></i>{{ 'Admin'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="dropdown-item opacity-25 pe-none" href="">
+                <i class="me-2 fa-solid fa-chart-pie"></i>{{ 'Backstage'|trans }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="dropdown-item opacity-25 pe-none" href="">
+                <i class="me-2 fa-solid fa-code-compare"></i>{{ 'API'|trans }}
+            </a>                              
+        </li>
+        <li class="divider seperator"><hr class="dropdown-divider"></li>
+        <li class="nav-item">
+            <a class="dropdown-item" href="{{ path('app_logout') }}">
+                <i class="me-2 fa-solid fa-arrow-right-from-bracket"></i>{{ 'Logout'|trans }}
+            </a>                               
+        </li>
+    </ul>
+</div>
 {% else %}
-    <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-primary me-2">Login</a>
-    <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">Sign-up</a>
+    <a href="{{ path('app_login') }}" type="button" class="btn btn-outline-primary me-2">{{ 'Login'|trans }}</a>
+    <a href="{{ path('app_register') }}" type="button" class="btn btn-primary">{{ 'Register'|trans }}</a>
 {% endif %}

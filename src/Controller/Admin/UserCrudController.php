@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -22,10 +23,17 @@ class UserCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield FormField::AddRow();
         yield TextField::new('Name', 'Name')
         ->setColumns(4);
         yield EmailField::new('email', 'E-Mail')
         ->setColumns(4);
+
+        yield FormField::AddRow();
+        yield SlugField::new('Slug')
+        ->setTargetFieldName(['Name'])
+        ->setColumns(8)
+        ->hideOnIndex();
 
         yield FormField::AddRow();
         yield ChoiceField::new('roles', 'Rollen')
@@ -58,6 +66,7 @@ class UserCrudController extends AbstractCrudController
         ->setFormTypeOption("rename", true)
         ->setFormTypeOption("metas", true)
         ->setFormTypeOption("move", true)
+        ->hideOnIndex()
         ->setColumns(8);
 
         yield FormField::addRow();

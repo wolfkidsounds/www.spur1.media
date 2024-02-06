@@ -28,7 +28,7 @@ body {
 }
 
 .text-color-spur1-gray {
-    color:var(--spur1-gray);
+    color:var(--spur1-gray) !important;
 }
 
 .img-cover {
@@ -37,5 +37,9 @@ body {
 }
 
 .bg-light-75 {
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.75) !important;
+}
+
+.bg-white {
+    background:#fff !important;
 }

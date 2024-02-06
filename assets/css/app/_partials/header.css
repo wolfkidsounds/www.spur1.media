@@ -19,11 +19,3 @@
 .header-start {
     width: var(--spur1-sidebar-width-open) !important;
 }
-
-.nav-btn {
-    background:transparent;
-}
-
-.nav-btn:hover {
-    background:rgba(0,0,0,.1);
-}

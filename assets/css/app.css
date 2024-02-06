@@ -1,14 +1,14 @@
-@import './_partials/header.css';
-@import './_partials/sidebar.css';
-@import './_partials/content.css';
+@import './app/_partials/header.css';
+@import './app/_partials/sidebar.css';
+@import './app/_partials/content.css';
 
-@import './_template/grid.css';
-@import './_template/single.css';
+@import './app/_template/grid.css';
+@import './app/_template/single.css';
 
-@import './_partials/simplebar.css';
-@import './_partials/buttons.css';
+@import './app/_partials/simplebar.css';
+@import './app/_partials/buttons.css';
 
-@import './debug.css';
+@import './app/debug.css';
 
 :root {
     --spur1-red: #e04242;

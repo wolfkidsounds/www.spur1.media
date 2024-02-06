@@ -2,71 +2,24 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
+use App\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\RadioRepository;
-use ApiPlatform\Metadata\ApiResource;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\InheritanceType;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
 
 #[ORM\Entity(repositoryClass: RadioRepository::class)]
-#[ApiResource()]
-class Radio
+#[InheritanceType('SINGLE_TABLE')]
+#[DiscriminatorColumn(name: 'post_type', type: 'string')]
+#[DiscriminatorMap(['post' => Post::class, 'radio' => Radio::class])]
+class Radio extends Post
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $Title = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $Image = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $Date = null;
-
-    #[ORM\ManyToMany(targetEntity: Artist::class, inversedBy: 'Radios')]
-    private Collection $Artists;
-
-    #[ORM\Column(length: 255)]
-    private ?string $Slug = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $Description = null;
-
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'Radios')]
-    private Collection $Tags;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $MixcloudUrl = null;
-
-    public function __construct()
-    {
-        $this->Artists = new ArrayCollection();
-        $this->Tags = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->Title;
-    }
-
-    public function setTitle(string $Title): static
-    {
-        $this->Title = $Title;
-
-        return $this;
-    }
 
     public function getYouTubeURL(): ?string
     {
@@ -76,102 +29,6 @@ class Radio
     public function setYouTubeURL(?string $YouTubeUrl): static
     {
         $this->YouTubeUrl = $YouTubeUrl;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->Image;
-    }
-
-    public function setImage(?string $Image): static
-    {
-        $this->Image = $Image;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->Date;
-    }
-
-    public function setDate(\DateTimeInterface $Date): static
-    {
-        $this->Date = $Date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Artist>
-     */
-    public function getArtists(): Collection
-    {
-        return $this->Artists;
-    }
-
-    public function addArtist(Artist $artist): static
-    {
-        if (!$this->Artists->contains($artist)) {
-            $this->Artists->add($artist);
-        }
-
-        return $this;
-    }
-
-    public function removeArtist(Artist $artist): static
-    {
-        $this->Artists->removeElement($artist);
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->Slug;
-    }
-
-    public function setSlug(string $Slug): static
-    {
-        $this->Slug = $Slug;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->Description;
-    }
-
-    public function setDescription(?string $Description): static
-    {
-        $this->Description = $Description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Tag>
-     */
-    public function getTags(): Collection
-    {
-        return $this->Tags;
-    }
-
-    public function addTag(Tag $tag): static
-    {
-        if (!$this->Tags->contains($tag)) {
-            $this->Tags->add($tag);
-        }
-
-        return $this;
-    }
-
-    public function removeTag(Tag $tag): static
-    {
-        $this->Tags->removeElement($tag);
 
         return $this;
     }

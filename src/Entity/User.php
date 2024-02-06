@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'easy_media_type', nullable: true)]
     private ?string $Image = null;
 
     #[ORM\Column(length: 255)]
@@ -41,9 +41,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Artist::class, mappedBy: 'Owner')]
     private Collection $Artists;
 
+    #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Owner')]
+    private Collection $Crews;
+
     public function __construct()
     {
         $this->Artists = new ArrayCollection();
+        $this->Crews = new ArrayCollection();
     }
 
     public function __toString()
@@ -179,6 +183,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->Artists->removeElement($artist)) {
             $artist->removeOwner($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Crew>
+     */
+    public function getCrews(): Collection
+    {
+        return $this->Crews;
+    }
+
+    public function addCrew(Crew $crew): static
+    {
+        if (!$this->Crews->contains($crew)) {
+            $this->Crews->add($crew);
+            $crew->addOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCrew(Crew $crew): static
+    {
+        if ($this->Crews->removeElement($crew)) {
+            $crew->removeOwner($this);
         }
 
         return $this;

@@ -27,12 +27,11 @@
 {% block single_description_area %}
     <div class="mb-3">
         <h5 class="">{{'Content'|trans}}</h5>
-        {% if contents|length > 0 %}
+        {% if related_posts|length > 0 %}
             <div class="row g-3 mt-3">
-                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':radios, 'post_type':'Radio', 'url_path':'app_main_radio_single' } only %}
-                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':windowlickers, 'post_type':'Windowlicker', 'url_path':'app_main_windowlicker_single' } only %}
-                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':teletimes, 'post_type':'Teletime', 'url_path':'app_main_teletime_single' } only %}
-                {% include 'Artists/_partials/_partial_card.html.twig' with { 'posts':orbiters, 'post_type':'Orbiter Session', 'url_path':'app_main_orbiter_single' } only %}
+                {% for related_post in related_posts %}
+                    {% include 'Artists/_partials/_partial_card.html.twig' with { 'post':related_post } only %}                    
+                {% endfor %}
             </div>
         {% else %}
             <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>

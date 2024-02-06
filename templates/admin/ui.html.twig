@@ -1,0 +1,16 @@
+{% extends '@!EasyAdmin/page/content.html.twig' %}
+{% block content %}
+    <article class="content">
+        <section class="content-header">
+            <div class="content-header-title"><h1 class="title">{{'UI Components'|trans}}</h1></div>
+        </section>
+        <section class="content">
+            <div class="row">
+                <h5>Card</h5>
+                <div class="card">
+                    {% use 'partial/card.html.twig' %}
+                </div>
+            </div>            
+        </section>
+    </article>
+{% endblock %}

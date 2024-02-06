@@ -1,0 +1,71 @@
+{% block content %}
+    {% if app.user %}
+        {% block single_title_section %}
+        <div class="row">
+            <div class="col-12">
+                <h3 class="font-gothic fs-1">{% block single_title %}{{ app.user.Name }}{% endblock %}</h3>
+            </div>
+        </div>
+        {% endblock %}
+        
+        <div class="row">
+            <div class="col-{{ left_width }} p-3 position-relative d-flex align-items-center">
+                {% block single_content_area %}
+                {% endblock %}
+            </div>
+            <div class="col-{{ right_width }} p-3">
+                {% block single_image_area %}
+                <div class="row">
+                    <div class="img-single overflow-hidden">
+                        {% block single_artist_image %}<img 
+                            class="w-100 h-100 blurry-load rounded overflow-hidden"
+                            {% if app.user.Image %}
+                                src="{{ easy_media_path(app.user.Image)|imagine_filter('thumbnail_small_grayscale') }}"
+                                data-large="{{ easy_media_path(app.user.Image)|imagine_filter('thumbnail_grayscale') }}"
+                            {% else %}
+                                src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
+                                data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
+                            {% endif %}
+                        >{% endblock %}
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+        </div>
+    
+        <hr>
+    
+        <div class="row mb-3">
+            
+            <div class="col-{{left_width}} px-3">
+                {% block single_description_area %}
+                    <h5 class="mb-1">{{'Related Artists'|trans}}</h5>
+                    {% if app.user.Artists|length > 0 %}
+                        <div class="row g-3 mt-3">
+                            {% for artist in app.user.Artists %}
+                                {% include 'Main/_partials/_partial_card.html.twig' with { 'artist':artist } only %}                    
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div>{{ 'There are no related Artists to '|trans }}{{ app.user.Name }}</div>
+                    {% endif %}
+                {% endblock %}
+            </div>
+    
+            <div class="col-{{right_width}} px-3">
+    
+                {% block single_details_area %}
+                <div class="mb-3">
+                    <h5>{{'Links'|trans}}</h5>
+                </div>    
+                {% endblock %}
+            </div>
+        </div>
+        <div class="mb-3">
+            {% block single_bottom_area %}
+            {% endblock %}
+        </div>
+    {% else %}
+        <p>{{'This user was not found.'|trans}}</p>
+    {% endif %}
+    {% endblock %}

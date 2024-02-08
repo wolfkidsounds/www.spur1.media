@@ -1,0 +1,8 @@
+{% if post.LinktreeUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.LinktreeUrl, 'icon':'fa-brands fa-linktree', 'title':'Linktr.ee' } only %}{% endif %}
+{% if post.SpotifyUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.SpotifyUrl, 'icon':'fa-brands fa-spotify', 'title':'Spotify' } only %}{% endif %}
+{% if post.SoundcloudUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.SoundcloudUrl, 'icon':'fa-brands fa-soundcloud', 'title':'Soundcloud' } only %}{% endif %}
+{% if post.BandcampUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.BandcampUrl, 'icon':'fa-brands fa-bandcamp', 'title':'Bandcamp' } only %}{% endif %}
+{% if post.MixcloudUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.MixcloudUrl, 'icon':'fa-brands fa-mixcloud', 'title':'Mixcloud' } only %}{% endif %}
+{% if post.InstagramUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.InstagramUrl, 'icon':'fa-brands fa-instagram', 'title':'Instagram' } only %}{% endif %}
+{% if post.YouTubeUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.YouTubeUrl, 'icon':'fa-brands fa-youtube', 'title':'YouTube' } only %}{% endif %}
+{% if post.FacebookUrl is defined %}{% include('_component/button.html.twig') with { 'item_url': post.FacebookUrl, 'icon':'fa-brands fa-facebook', 'title':'Facebook' } only %}{% endif %}

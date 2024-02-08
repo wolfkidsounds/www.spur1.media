@@ -1,2 +1,10 @@
 {% extends 'section/artist/base.html.twig' %}
 {% use '_template/_single.html.twig' %}
+{% block single_details_area %}
+    <div class="row mb-3">
+        <h5>{{'Social Links'|trans}}</h5>
+        <div class="d-flex flex-wrap list-unstyled gap-1 mt-3">
+            {% include('section/artist/_component/_social_button.html.twig') %}
+        </div>
+    </div>
+{% endblock %}

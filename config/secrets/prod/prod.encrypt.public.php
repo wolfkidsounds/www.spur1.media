@@ -1,0 +1,3 @@
+<?php // prod.encrypt.public on Thu, 08 Feb 2024 15:57:30 +0100
+
+return "\xEB\xD8i\xD96\xFFH\x7D\xFAlk\xB1U\x0D\x2B\x29\x23\x1A_2\xEC2~\xA1f_8om\x40\xD9\x20";

@@ -12,7 +12,7 @@ class CrewController extends BaseController
     #[Route('/crew', name: 'app_crew_index', methods: ['GET'])]
     public function crew_index(): Response
     {
-        return $this->render('section/crew/page/crew/index.html.twig', [
+        return $this->render('section/artist/page/crew/index.html.twig', [
             'title' => 'Crew',
         ]);
     }
@@ -23,7 +23,7 @@ class CrewController extends BaseController
         $crew = $crewRepository->findOneBy(['Slug' => $slug]);
         $posts = $crew->getPosts()->toArray();
 
-        return $this->render('section/crew/page/crew/single.html.twig', [
+        return $this->render('section/artist/page/crew/single.html.twig', [
             'post' => $crew,
             'title' => 'Crew',
             'related_posts' => $posts,

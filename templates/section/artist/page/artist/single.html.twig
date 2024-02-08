@@ -29,7 +29,14 @@
         <h5 class="">{{'Content'|trans}}</h5>
         {% if related_posts|length > 0 %}
             <div class="row g-3 mt-3">
-                {% for related_post in related_posts %}               
+                {% for related_post in related_posts %}
+                    {% set col_width = 2 %}
+                    {% set gap_size = 3 %}
+                    {% set overlay_padding = 2 %}
+                    {% set card_large_text = related_post.Title %}
+                    {% set corner_style = 'rounded' %}
+                    {% set item = related_post %}
+                    {% include('section/artist/_component/_card.html.twig') %}
                 {% endfor %}
             </div>
         {% else %}

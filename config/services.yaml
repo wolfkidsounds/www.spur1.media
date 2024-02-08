@@ -29,4 +29,3 @@ services:
         arguments: ["@knp_menu.factory"]
         tags:
             - { name: knp_menu.menu_builder, method: navSidebar, alias: navSidebar }
-            - { name: knp_menu.menu_builder, method: navProfile, alias: navProfile }

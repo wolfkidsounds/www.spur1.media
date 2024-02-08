@@ -1,0 +1,48 @@
+{% extends 'section/artist/_template/_single.html.twig' %}
+{% set left_width = 9 %}
+{% set right_width = 3 %}
+
+{% block single_title %}{{ post.Name }}{% endblock %}
+
+{% block single_content_area %}
+    <div class="mb-3">
+        {% if post.Description %}
+            {{ post.Description|raw }}
+        {% else %}
+        <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block single_artist_image %}
+<img class="w-100 h-100 rounded" src="
+    {% if post.Image %}
+        {{ easy_media_path(post.Image)|imagine_filter('thumbnail') }}
+    {% else %}
+        {{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}
+    {% endif %}
+">
+{% endblock %}
+
+{% block single_description_area %}
+    <div class="mb-3">
+        <h5 class="">{{'Content'|trans}}</h5>
+        {% if related_posts|length > 0 %}
+            <div class="row g-3 mt-3">
+                {% for related_post in related_posts %}               
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block single_details_area %}
+    <div class="row mb-3">
+        <h5>{{'Social Links'|trans}}</h5>
+        <div class="d-flex flex-wrap list-unstyled gap-1 mt-3"></div>
+    </div>
+{% endblock %}
+
+{% block single_bottom_area %}{% endblock %}

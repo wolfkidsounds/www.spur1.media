@@ -1,0 +1,17 @@
+{# _component/card.html.twig #}
+{% block card %}
+    <div class="col-{{ col_width }} g-{{ gap_size }} text-center">
+        <a class="grid-post m-0 p-0 d-block {{ corner_style }} bg-light pe-auto position-relative" href="{{ path(path_url, { 'slug': item.Slug }) }}">
+            <div class="image img-thumbnail img-cover p-0 m-0 {{ corner_style }} overflow-hidden">
+                {% if overlay_padding is defined %}
+                    <div class="grid-overlay position-absolute bg-light-75 p-{{ overlay_padding }} text-body">
+                        <p class="m-0 p-0 small text-start">{{ card_small_text }}</p>
+                        <P class="m-0 p-0 small text-start fw-bold">{{ card_large_text }}</p>
+                    </div>
+                {% endif %}
+
+                {% include('_component/img.html.twig') %}
+            </div>
+        </a>
+    </div>
+{% endblock %}

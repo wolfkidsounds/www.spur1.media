@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Spur1 Fonts';
+    font-style: normal;
+    font-weight: 900;
+    font-display: block;
+    src: 
+    url("./spur1.woff") format("woff2"), 
+    url("./spur1.ttf") format("truetype"); 
+}
+
+.s1 
+{
+    font-family: "Spur1 Icons";
+    font-weight: 900;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}

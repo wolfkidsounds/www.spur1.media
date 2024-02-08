@@ -36,7 +36,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Orbiter Session', [
-            'route' => 'app_main_orbiter',
+            'route' => 'app_main_orbiter-session_index',
             'extras' => [
                 'icon' => 'fa-solid fa-record-vinyl',
                 'class' => '',
@@ -44,7 +44,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Podcast', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'icon' => 'fa-solid fa-podcast',
                 'class' => 'opacity-25 pe-none',
@@ -52,7 +52,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Radio', [
-            'route' => 'app_main_radio',
+            'route' => 'app_main_radio_index',
             'extras' => [
                 'icon' => 'fa-solid fa-radio',
                 'class' => '',
@@ -60,7 +60,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Teletime', [
-            'route' => 'app_main_teletime',
+            'route' => 'app_main_teletime_index',
             'extras' => [
                 'icon' => 'fa-solid fa-phone',
                 'class' => '',
@@ -68,7 +68,7 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Windowlicker', [
-            'route' => 'app_main_windowlicker',
+            'route' => 'app_main_windowlicker_index',
             'extras' => [
                 'icon' => 'fa-brands fa-windows',
             ]
@@ -82,108 +82,37 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Producer Meeting', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Artist Database', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Events', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Records', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',
             ]
         ]);
 
         $menu->addChild('Player', [
-            'route' => 'app_main_index',
+            'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',
-            ]
-        ]);
-
-        return $menu;
-    }
-
-    public function navProfile(): ItemInterface
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        
-        $menu = $this->factory->createItem('navProfile');
-
-        $menu->addChild('Profile', [
-            'route' => 'app_user_profile',
-            'routeParameters' => ['slug' => $user->getSlug()],
-            'extras' => [
-                'icon' => 'fa-solid fa-user',
-                'class' => '',
-            ]
-        ]);
-
-        $menu->addChild('Settings', [
-            'route' => 'admin',
-            'extras' => [
-                'icon' => 'fa-solid fa-gear',
-                'class' => 'opacity-25 pe-none',
-            ]
-        ]);
-
-        $menu->addChild('divider_custom_1', [
-            'divider' => true, 
-            'extras' => [
-                'divider' => true
-            ]
-        ]);
-
-        $menu->addChild('Admin', [
-            'route' => 'admin',
-            'extras' => [
-                'icon' => 'fa-solid fa-gauge'
-            ]
-        ]);
-
-        $menu->addChild('Backstage', [
-            'route' => 'app_main_index',
-            'extras' => [
-                'icon' => 'fa-solid fa-chart-pie',
-                'class' => 'opacity-25 pe-none',
-            ]
-        ]);
-
-        $menu->addChild('API', [
-            'route' => 'app_main_index',
-            'extras' => [
-                'icon' => 'fa-solid fa-code-compare',
-                'class' => 'opacity-25 pe-none',
-            ]
-        ]);
-
-        $menu->addChild('divider_custom_2', [
-            'divider' => true, 
-            'extras' => [
-                'divider' => true
-            ]
-        ]);
-
-        $menu->addChild('Sign Out', [
-            'route' => 'admin',
-            'extras' => [
-                'icon' => 'fa-solid fa-arrow-right-from-bracket'
             ]
         ]);
 

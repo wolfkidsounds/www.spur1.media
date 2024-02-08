@@ -4,31 +4,15 @@ namespace App\Controller\Main;
 
 use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends BaseController
 {
-    public function getTemplatePrefix(): string
+    #[Route('/', name: 'app_main_index', methods: ['GET'])]
+    public function index(): Response
     {
-        return 'Main';
+        return $this->render('section/main/page/index.html.twig', [
+            'title' => 'News',
+        ]);
     }
-
-    #[Route('/backstage')]
-    public function redirectToBackstage()
-    {
-        $this->redirectToRoute('app_backstage_index');
-    }
-
-    #[Route('/archive')]
-    public function redirectToArchive()
-    {
-        $this->redirectToRoute('app_archive_index');
-    }
-
-    #[Route('/artists')]
-    public function redirectToArtists()
-    {
-        $this->redirectToRoute('app_artists_index');
-    }
-    
 }

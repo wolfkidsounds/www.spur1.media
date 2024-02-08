@@ -14,3 +14,11 @@
     margin-top: 0;
     margin-bottom: var(--bs-gutter-y);
 }
+
+.grid-post {
+    transition: background .3s ease;
+}
+
+.grid-post:hover {
+    background:var(--spur1-red-light) !important;
+}

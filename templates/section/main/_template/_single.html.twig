@@ -1,0 +1,13 @@
+{% extends 'section/main/base.html.twig' %}
+{% use '_template/_single.html.twig' %}
+{% set left_width = 8 %}
+{% set right_width = 4 %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('single') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('single') }}
+{% endblock %}

@@ -58,9 +58,6 @@ jobs:
     - name: Install Composer
       run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev --optimize-autoloader
 
-    - name: Generate Keys
-      run: APP_RUNTIME_ENV=prod php bin/console secrets:generate-keys
-
     - name: Dump Environment Vars To Production
       run: |
         composer dump-env prod

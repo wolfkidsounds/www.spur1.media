@@ -124,9 +124,9 @@ class DashboardController extends AbstractDashboardController
             ]);
         }
 
-        yield MenuItem::section('Media');
+        yield MenuItem::section('Design & Media');
+        yield MenuItem::linkToRoute('Media Files', 'fa fa-picture-o', 'media.index');
         yield MenuItem::linkToRoute('UI Components', 'fa-brands fa-sketch', 'admin_ui');
-        yield MenuItem::linkToRoute('Medias', 'fa fa-picture-o', 'media.index');
 
         yield MenuItem::section('Cloud')
             ->setPermission('ROLE_ACCESS_CLOUD');

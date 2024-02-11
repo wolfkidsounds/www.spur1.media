@@ -45,6 +45,11 @@ class ArtistCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->setColumns(8);
 
+        yield FormField::addFieldset('Groups');
+        yield AssociationField::new('Crews')
+            ->hideOnIndex()
+            ->setColumns(8);
+
         yield FormField::addFieldset('Links');
         yield CollectionField::new('Links')
             ->allowAdd()

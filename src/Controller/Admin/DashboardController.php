@@ -7,6 +7,7 @@ use App\Entity\Crew;
 use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
+use App\Entity\LinkType;
 use App\Entity\Location;
 use App\Entity\Teletime;
 use App\Entity\Main\Post;
@@ -67,7 +68,9 @@ class DashboardController extends AbstractDashboardController
                 MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class)
                     ->setPermission('ROLE_ACCESS_MEDIA'),
                 MenuItem::linkToCrud('Tag-Formats', 'fa fa-tag', TagFormat::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA')
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
+                MenuItem::linkToCrud('Link Type', 'fa fa-link', LinkType::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
         ]);
         
         

@@ -16,9 +16,12 @@
 }
 
 .grid-post {
-    transition: background .3s ease;
+    transition: all .2s ease;
+    box-shadow:none;
+    background-color:rgba(255,255,255,.3) !important;
 }
 
 .grid-post:hover {
-    background:var(--spur1-red-light) !important;
+    box-shadow: var(--bs-box-shadow) !important;
+    background-color: rgba(255,255,255,1) !important;
 }

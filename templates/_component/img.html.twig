@@ -1,4 +1,4 @@
-<img class="w-100 h-100 blurry-load rounded overflow-hidden shadow"
+<img class="w-100 h-100 blurry-load rounded overflow-hidden"
     {% if item.Image %}
         src="{{ easy_media_path(item.Image)|imagine_filter('thumbnail_small_grayscale') }}"
         data-large="{{ easy_media_path(item.Image)|imagine_filter('thumbnail_grayscale') }}"

@@ -32,21 +32,6 @@ class Crew
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $Slug = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $YouTubeUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $SoundcloudUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $FacebookUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $InstagramUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $LinktreeUrl = null;
-
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'Crews')]
     private Collection $Owner;
 
@@ -61,11 +46,15 @@ class Crew
     #[Gedmo\Timestampable]
     private ?\DateTimeImmutable $editedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'Crew', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $Links;
+
     public function __construct()
     {
         $this->Artist = new ArrayCollection();
         $this->Owner = new ArrayCollection();
         $this->Posts = new ArrayCollection();
+        $this->Links = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -150,66 +139,6 @@ class Crew
         return $this;
     }
 
-    public function getYouTubeUrl(): ?string
-    {
-        return $this->YouTubeUrl;
-    }
-
-    public function setYouTubeUrl(?string $YouTubeUrl): static
-    {
-        $this->YouTubeUrl = $YouTubeUrl;
-
-        return $this;
-    }
-
-    public function getSoundcloudUrl(): ?string
-    {
-        return $this->SoundcloudUrl;
-    }
-
-    public function setSoundcloudUrl(?string $SoundcloudUrl): static
-    {
-        $this->SoundcloudUrl = $SoundcloudUrl;
-
-        return $this;
-    }
-
-    public function getFacebookUrl(): ?string
-    {
-        return $this->FacebookUrl;
-    }
-
-    public function setFacebookUrl(?string $FacebookUrl): static
-    {
-        $this->FacebookUrl = $FacebookUrl;
-
-        return $this;
-    }
-
-    public function getInstagramUrl(): ?string
-    {
-        return $this->InstagramUrl;
-    }
-
-    public function setInstagramUrl(?string $InstagramUrl): static
-    {
-        $this->InstagramUrl = $InstagramUrl;
-
-        return $this;
-    }
-
-    public function getLinktreeUrl(): ?string
-    {
-        return $this->LinktreeUrl;
-    }
-
-    public function setLinktreeUrl(?string $LinktreeUrl): static
-    {
-        $this->LinktreeUrl = $LinktreeUrl;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, User>
      */
@@ -281,6 +210,36 @@ class Crew
     public function setEditedAt(?\DateTimeImmutable $editedAt): static
     {
         $this->editedAt = $editedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Link>
+     */
+    public function getLinks(): Collection
+    {
+        return $this->Links;
+    }
+
+    public function addLink(Link $link): static
+    {
+        if (!$this->Links->contains($link)) {
+            $this->Links->add($link);
+            $link->setCrew($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLink(Link $link): static
+    {
+        if ($this->Links->removeElement($link)) {
+            // set the owning side to null (unless already changed)
+            if ($link->getCrew() === $this) {
+                $link->setCrew(null);
+            }
+        }
 
         return $this;
     }

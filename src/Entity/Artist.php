@@ -32,28 +32,6 @@ class Artist
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Slug = null;
 
-    // Social Media
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $YouTubeUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $SoundcloudUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $FacebookUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $InstagramUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $SpotifyUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $MixcloudUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $BandcampUrl = null;
-
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'Artists')]
     private Collection $Posts;
 
@@ -71,11 +49,15 @@ class Artist
     #[Gedmo\Timestampable]
     private ?\DateTimeImmutable $editedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'Artist', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $Links;
+
     public function __construct()
     {
         $this->Posts = new ArrayCollection();
         $this->Owner = new ArrayCollection();
         $this->Crews = new ArrayCollection();
+        $this->Links = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -132,90 +114,6 @@ class Artist
     public function setDescription(?string $Description): static
     {
         $this->Description = $Description;
-
-        return $this;
-    }
-
-    public function getYouTubeUrl(): ?string
-    {
-        return $this->YouTubeUrl;
-    }
-
-    public function setYouTubeUrl(?string $YouTubeUrl): static
-    {
-        $this->YouTubeUrl = $YouTubeUrl;
-
-        return $this;
-    }
-
-    public function getSoundcloudUrl(): ?string
-    {
-        return $this->SoundcloudUrl;
-    }
-
-    public function setSoundcloudUrl(?string $SoundcloudUrl): static
-    {
-        $this->SoundcloudUrl = $SoundcloudUrl;
-
-        return $this;
-    }
-
-    public function getFacebookUrl(): ?string
-    {
-        return $this->FacebookUrl;
-    }
-
-    public function setFacebookUrl(?string $FacebookUrl): static
-    {
-        $this->FacebookUrl = $FacebookUrl;
-
-        return $this;
-    }
-
-    public function getInstagramUrl(): ?string
-    {
-        return $this->InstagramUrl;
-    }
-
-    public function setInstagramUrl(?string $InstagramUrl): static
-    {
-        $this->InstagramUrl = $InstagramUrl;
-
-        return $this;
-    }
-
-    public function getSpotifyUrl(): ?string
-    {
-        return $this->SpotifyUrl;
-    }
-
-    public function setSpotifyUrl(?string $SpotifyUrl): static
-    {
-        $this->SpotifyUrl = $SpotifyUrl;
-
-        return $this;
-    }
-
-    public function getMixcloudUrl(): ?string
-    {
-        return $this->MixcloudUrl;
-    }
-
-    public function setMixcloudUrl(?string $MixcloudUrl): static
-    {
-        $this->MixcloudUrl = $MixcloudUrl;
-
-        return $this;
-    }
-
-    public function getBandcampUrl(): ?string
-    {
-        return $this->BandcampUrl;
-    }
-
-    public function setBandcampUrl(?string $BandcampUrl): static
-    {
-        $this->BandcampUrl = $BandcampUrl;
 
         return $this;
     }
@@ -318,6 +216,36 @@ class Artist
     public function setEditedAt(?\DateTimeImmutable $editedAt): static
     {
         $this->editedAt = $editedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Link>
+     */
+    public function getLinks(): Collection
+    {
+        return $this->Links;
+    }
+
+    public function addLink(Link $link): static
+    {
+        if (!$this->Links->contains($link)) {
+            $this->Links->add($link);
+            $link->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLink(Link $link): static
+    {
+        if ($this->Links->removeElement($link)) {
+            // set the owning side to null (unless already changed)
+            if ($link->getArtist() === $this) {
+                $link->setArtist(null);
+            }
+        }
 
         return $this;
     }

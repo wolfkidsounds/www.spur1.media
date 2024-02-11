@@ -4,6 +4,7 @@ namespace App\Controller\Admin\Artists;
 
 use App\Entity\Link;
 use App\Entity\Artist;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
@@ -61,5 +62,15 @@ class ArtistCrudController extends AbstractCrudController
         yield FormField::addFieldset('Settings');
         yield AssociationField::new('Owner')
             ->setColumns(8);
+
+        yield FormField::addFieldset('Meta');
+        yield DateTimeField::new('createdAt')
+            ->setDisabled()
+            ->hideOnIndex()
+            ->setColumns(1);
+        yield DateTimeField::new('editedAt')
+            ->setDisabled()
+            ->hideOnIndex()
+            ->setColumns(1);
     }
 }

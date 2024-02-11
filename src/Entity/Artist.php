@@ -41,16 +41,16 @@ class Artist
     #[ORM\ManyToMany(targetEntity: Crew::class, mappedBy: 'Artist')]
     private Collection $Crews;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\OneToMany(mappedBy: 'Artist', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
+    private Collection $Links;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     #[Gedmo\Timestampable(on: 'create')]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
     #[Gedmo\Timestampable]
     private ?\DateTimeImmutable $editedAt = null;
-
-    #[ORM\OneToMany(mappedBy: 'Artist', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
-    private Collection $Links;
 
     public function __construct()
     {

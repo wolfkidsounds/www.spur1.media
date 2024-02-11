@@ -12,6 +12,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
         "easycorp/easyadmin-bundle": "^4.8",
+        "gedmo/doctrine-extensions": "^3.14",
         "jms/serializer-bundle": "^5.4",
         "knplabs/knp-menu-bundle": "^3.3",
         "menarasolutions/geographer": "^0.3.13",

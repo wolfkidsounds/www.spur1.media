@@ -1,0 +1,7 @@
+{% if item %}
+    <li>
+        <a href="{{ path('app_artist_single', { 'slug': item.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
+            <img src="{% if item.Image %}{{ easy_media_path(item.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ item.Name }}
+        </a>
+    </li>
+{% endif %}

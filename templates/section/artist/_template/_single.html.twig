@@ -1,10 +1,40 @@
 {% extends 'section/artist/base.html.twig' %}
 {% use '_template/_single.html.twig' %}
 {% block single_details_area %}
-    <div class="row mb-3">
-        <h5>{{'Social Links'|trans}}</h5>
-        <div class="d-flex flex-wrap list-unstyled gap-1 mt-3">
-            {% include('section/artist/_component/_social_button.html.twig') %}
-        </div>
-    </div>
+    {% if post.Crews is defined %}
+        {% if post.Crews|length > 0 %}
+            <div class="row mb-3">
+                <h5>{{'Crews'|trans}}</h5>
+                <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
+                    {% for item in post.Crews %}
+                        {% include('section/artist/_component/_crew_button.html.twig') %}                        
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if post.Artist is defined %}
+        {% if post.Artist|length > 0 %}
+            <div class="row mb-3">
+                <h5>{{'Artists'|trans}}</h5>
+                <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
+                    {% for item in post.Artist %}
+                        {% include('section/artist/_component/_artist_button.html.twig') %}                        
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if post.Links is defined %}
+        {% if post.Links|length > 0 %}
+            <div class="row mb-3">
+                <h5>{{'Social Links'|trans}}</h5>
+                <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
+                    {% for link in post.Links %}
+                        {% include('section/artist/_component/_social_button.html.twig') %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
 {% endblock %}

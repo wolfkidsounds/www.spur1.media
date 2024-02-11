@@ -32,11 +32,13 @@
             </a>
         </li>
         <li class="divider seperator"><hr class="dropdown-divider"></li>
-        <li class="nav-item">
-            <a class="dropdown-item " href="{{ path('admin') }}">
-                <i class="me-2 fa-solid fa-gauge"></i>{{ 'Admin'|trans }}
-            </a>
-        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item">
+                <a class="dropdown-item " href="{{ path('admin') }}">
+                    <i class="me-2 fa-solid fa-gauge"></i>{{ 'Admin'|trans }}
+                </a>
+            </li>
+        {% endif %}
         <li class="nav-item">
             <a class="dropdown-item opacity-25 pe-none" href="">
                 <i class="me-2 fa-solid fa-chart-pie"></i>{{ 'Backstage'|trans }}

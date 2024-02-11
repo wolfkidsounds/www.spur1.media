@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -30,7 +31,7 @@ class CrewCrudController extends AbstractCrudController
             ->setColumns(8)
             ->hideOnIndex();
             
-        yield FormField::addRow();
+        yield FormField::addFieldset('Details');
         yield EasyMediaField::new('Image')
             ->setFormTypeOption('restrictions_uploadTypes', ["image/*"])
             ->setFormTypeOption('restrictions_path', 'Crews/Thumbnails/')
@@ -43,31 +44,21 @@ class CrewCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->setColumns(8);
 
-        yield FormField::addRow();
+        yield FormField::addFieldset('Members');
         yield AssociationField::new('Artist')
             ->setColumns(8);
 
-        yield FormField::addRow();
+        yield FormField::addFieldset('Links');
+        yield CollectionField::new('Links')
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryIsComplex()
+            ->useEntryCrudForm()
+            ->hideOnIndex();
+
+        yield FormField::addFieldset('Settings');
         yield AssociationField::new('Owner')
             ->setColumns(8);
-
-        yield FormField::addRow();
-        yield UrlField::new('YouTubeUrl')
-            ->hideOnIndex()
-            ->setColumns(2);
-        yield UrlField::new('SoundcloudUrl')
-            ->hideOnIndex()
-            ->setColumns(2);
-        yield UrlField::new('FacebookUrl')
-            ->hideOnIndex()
-            ->setColumns(2);
-        yield UrlField::new('InstagramUrl')
-            ->hideOnIndex()
-            ->setColumns(2);
-        yield FormField::addRow();
-        yield UrlField::new('LinktreeUrl')
-            ->hideOnIndex()
-            ->setColumns(2);
     }
 
 }

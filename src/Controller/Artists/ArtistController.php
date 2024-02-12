@@ -29,5 +29,31 @@ class ArtistController extends BaseController
             'related_posts' => $posts,
         ]);
     }
+
+    #[Route('/artist/edit/{id}', name: 'app_artist_edit', methods: ['GET'])]
+    public function artist_edit(int $id, ArtistRepository $artistRepository): Response
+    {
+        $artist = $artistRepository->findOneBy(['id' => $id]);
+        $posts = $artist->getPosts()->toArray();
+
+        return $this->render('section/artist/page/artist/edit.html.twig', [
+            'post' => $artist,
+            'title' => 'Artist',
+            'related_posts' => $posts,
+        ]);
+    }
+
+    #[Route('/artist/claim/{slug}', name: 'app_artist_claim', methods: ['GET'])]
+    public function artist_claim(string $slug, ArtistRepository $artistRepository): Response
+    {
+        $artist = $artistRepository->findOneBy(['slug' => $slug]);
+        $posts = $artist->getPosts()->toArray();
+
+        return $this->render('section/artist/page/artist/claim.html.twig', [
+            'post' => $artist,
+            'title' => 'Artist',
+            'related_posts' => $posts,
+        ]);
+    }
     
 }

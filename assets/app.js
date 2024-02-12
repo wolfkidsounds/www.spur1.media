@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 
 // FONTS
 import './fonts/fonts.css';
+import './fonts/icons.css';
 
 // JS
 import './js/app.js';

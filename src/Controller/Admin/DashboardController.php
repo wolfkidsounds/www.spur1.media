@@ -79,7 +79,7 @@ class DashboardController extends AbstractDashboardController
             yield MenuItem::section('Content')
                 ->setPermission('ROLE_ACCESS_MEDIA');
 
-            yield MenuItem::subMenu('Spur1-Media', 'spur1-icon spur1-logo')
+            yield MenuItem::subMenu('Spur1-Media', 's1 s1-logo')
                 ->setPermission('ROLE_ACCESS_MEDIA')
                 ->setSubItems([
                     MenuItem::linkToCrud('Radio', 'fa fa-radio', Radio::class)

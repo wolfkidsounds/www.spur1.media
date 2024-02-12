@@ -1,22 +1,36 @@
+/* Custom Icons */
 @font-face {
-    font-family: 'Spur1 Fonts';
+    font-display: swap;
+    font-family: 'Spur1-Icons';
     font-style: normal;
-    font-weight: 900;
-    font-display: block;
+    font-weight: 500;
     src: 
-    url("./spur1.woff") format("woff2"), 
-    url("./spur1.ttf") format("truetype"); 
+        url("./icons/icomoon.ttf") format("truetype"),
+        url('./icons/icomoon.woff') format('woff');
 }
 
-.s1 
-{
-    font-family: "Spur1 Icons";
-    font-weight: 900;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
+[class^="s1"], 
+[class*=" s1-"],
+.icon {
+    font-family: 'Spur1-Icons' !important;
     display: inline-block;
     font-style: normal;
+    font-weight: normal;
     font-variant: normal;
-    line-height: 1;
+    text-transform: none;
     text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size:1rem;
+    line-height: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.s1-logo:before {
+    content: "\e900";
 }

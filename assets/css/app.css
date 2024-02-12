@@ -16,6 +16,10 @@
     --spur1-gray: #3c3c3b;
 }
 
+* {
+    min-width: 0;
+}
+
 body {
     background: #f0f0f0;
 }

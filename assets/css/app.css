@@ -36,6 +36,10 @@ body {
     color:var(--spur1-gray) !important;
 }
 
+.bg-spur1-red {
+    background-color:var(--spur1-red) !important;
+}
+
 .img-cover {
     object-fit: cover !important;
     background-size: cover !important;

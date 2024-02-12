@@ -25,3 +25,8 @@
     box-shadow: var(--bs-box-shadow) !important;
     background-color: rgba(255,255,255,1) !important;
 }
+
+.card-badge {
+    top:1rem !important;
+    right:1rem !important;
+}

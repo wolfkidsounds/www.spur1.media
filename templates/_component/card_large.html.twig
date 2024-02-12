@@ -11,6 +11,14 @@
                     <p class="small text-start text-body m-0 p-0 text-truncate">{{ card_small_text }}</p>
                 </div>
             {% endif %}
+
+            {% if post.createdAt is defined %}
+                {% if post.createdAt >= date('-30 days') %}
+                    <span class="card-badge position-absolute p-2 bg-spur1-red">
+                        <span class="visually-hidden">New</span>
+                    </span>
+                {% endif %}
+            {% endif %}
         </a>
     </div>
 {% endblock %}

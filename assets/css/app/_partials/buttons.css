@@ -1,6 +1,17 @@
 .btn:hover,
-.btn:focus {
+.btn:focus 
+{
     color: #fff;
     background-color: var(--bs-btn-hover-bg);
     border-color: var(--bs-btn-hover-border-color);
+}
+
+.btn.border-none,
+.btn.border-none:active
+button.border-none,
+button.border-none:active
+{
+    --bs-btn-active-border-color: transparent;
+    border-color: transparent !important;
+    border:none !important;
 }

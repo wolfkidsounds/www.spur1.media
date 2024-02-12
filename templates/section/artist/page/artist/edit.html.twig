@@ -1,0 +1,16 @@
+{% extends 'section/artist/page/artist/single.html.twig' %}
+
+{% block single_title_section %}
+    <div class="row">
+        <div class="d-flex justify-content-between col-12">
+            <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
+            <div class="d-flex align-items-center">
+                {% if post.Owner|length > 0 %}
+                    {% if app.User in post.Owner %}
+                        <a href="" class="btn btn-outline-danger btn-sm">{{ 'Finish Editing'}}</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

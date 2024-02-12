@@ -2,7 +2,22 @@
 {% set left_width = 9 %}
 {% set right_width = 3 %}
 
-{% block single_title %}{{ post.Name }}{% endblock %}
+{% block single_title_section %}
+    <div class="row">
+        <div class="d-flex justify-content-between col-12">
+            <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
+            <div class="d-flex align-items-center">
+                {% if post.Owner|length > 0 %}
+                    {% if app.User in post.Owner %}
+                        <a href="" class="btn btn-outline-secondary">{{ 'Edit ' ~ post.Name}}</a>
+                    {% endif %}
+                {% else %}
+                    <a href="" class="btn btn-outline-secondary">{{ 'Claim ' ~ post.Name}}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block single_content_area %}
     <div class="mb-3">

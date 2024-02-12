@@ -1,0 +1,43 @@
+{% extends 'section/main/_template/_clean.html.twig' %}
+{% block content %}
+<div class="row mb-3"><h3>{{ 'My Artists'|trans }}</h3></div>
+
+{% if user.Artists|length > 0 %}
+    <div class="list-group">
+        {% for artist in user.Artists %}
+        <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
+            <img src="{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}" width="48" height="48" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+                <div>
+                    <h6 class="mb-0">{{ artist.Name }}</h6>
+                    <p class="mb-0 opacity-75">Some placeholder content in a paragraph.</p>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-sm border-none rounded text-color-spur1-gray" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis"></i></button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_single', { 'slug':artist.Slug }) }}">
+                                <i class="fa-solid fa-eye"></i>
+                                View
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_edit', { 'id':artist.Id }) }}">
+                                <i class="fa-solid fa-pen"></i>
+                                Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a class="opacity-25 pe-none dropdown-item d-flex gap-2 align-items-center" href="#">
+                                <i class="fa-solid fa-wrench"></i>
+                                Manage
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div> 
+        </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

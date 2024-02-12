@@ -11,6 +11,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -67,6 +69,24 @@ class TeletimeCrudController extends AbstractCrudController
         yield UrlField::new('YouTubeUrl', 'YouTube')
         ->hideOnIndex()
         ->setColumns(8);
+
+        yield FormField::addFieldset('View On');
+        yield CollectionField::new('Links')
+            ->allowAdd()
+            ->allowDelete()
+            ->setEntryIsComplex()
+            ->useEntryCrudForm()
+            ->hideOnIndex();
+
+        yield FormField::addFieldset('Meta');
+        yield DateTimeField::new('createdAt')
+            ->setDisabled()
+            ->hideOnIndex()
+            ->setColumns(2);
+        yield DateTimeField::new('editedAt')
+            ->setDisabled()
+            ->hideOnIndex()
+            ->setColumns(2);
     }
 
     public function configureCrud(Crud $crud): Crud

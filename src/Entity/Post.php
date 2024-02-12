@@ -70,6 +70,9 @@ class Post
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeImmutable $editedAt = null;
 
+    #[ORM\OneToMany(mappedBy: 'Post', targetEntity: Link::class, cascade: ['persist'])]
+    private Collection $Links;
+
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updatedTimestamps(): void
@@ -88,6 +91,7 @@ class Post
         $this->Tags = new ArrayCollection();
         $this->Artists = new ArrayCollection();
         $this->Crews = new ArrayCollection();
+        $this->Links = new ArrayCollection();
     }
 
     public function __toString()
@@ -264,6 +268,36 @@ class Post
     public function setEditedAt(?\DateTimeImmutable $editedAt): static
     {
         $this->editedAt = $editedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Link>
+     */
+    public function getLinks(): Collection
+    {
+        return $this->Links;
+    }
+
+    public function addLink(Link $link): static
+    {
+        if (!$this->Links->contains($link)) {
+            $this->Links->add($link);
+            $link->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLink(Link $link): static
+    {
+        if ($this->Links->removeElement($link)) {
+            // set the owning side to null (unless already changed)
+            if ($link->getPost() === $this) {
+                $link->setPost(null);
+            }
+        }
 
         return $this;
     }

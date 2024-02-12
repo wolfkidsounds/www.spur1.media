@@ -27,6 +27,9 @@ class Link
     #[ORM\ManyToOne(inversedBy: 'Links')]
     private ?Crew $Crew = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Links')]
+    private ?Post $Post = null;
+
     public function __toString(): string
     {
         return $this->Type->getName();
@@ -81,6 +84,18 @@ class Link
     public function setCrew(?Crew $Crew): static
     {
         $this->Crew = $Crew;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->Post;
+    }
+
+    public function setPost(?Post $Post): static
+    {
+        $this->Post = $Post;
 
         return $this;
     }

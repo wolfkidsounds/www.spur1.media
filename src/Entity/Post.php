@@ -4,14 +4,15 @@ namespace App\Entity;
 
 use App\Entity\Tag;
 use App\Entity\Artist;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Doctrine\Common\Collections\Collection;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -63,13 +64,24 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'Posts')]
     private ?User $User = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    #[Gedmo\Timestampable]
-    private ?\DateTimeImmutable $editedAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $editedAt = null;
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updatedTimestamps(): void
+    {
+        $dateTimeNow = new DateTimeImmutable('now');
+
+        $this->setEditedAt($dateTimeNow);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($dateTimeNow);
+        }
+    }
 
     public function __construct()
     {

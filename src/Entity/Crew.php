@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CrewRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CrewRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CrewRepository::class)]
 class Crew
@@ -38,16 +39,27 @@ class Crew
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'Crews')]
     private Collection $Posts;
 
-    #[ORM\Column(nullable: true)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(nullable: true)]
-    #[Gedmo\Timestampable]
-    private ?\DateTimeImmutable $editedAt = null;
-
     #[ORM\OneToMany(mappedBy: 'Crew', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $Links;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $editedAt = null;
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updatedTimestamps(): void
+    {
+        $dateTimeNow = new DateTimeImmutable('now');
+
+        $this->setEditedAt($dateTimeNow);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($dateTimeNow);
+        }
+    }
 
     public function __construct()
     {

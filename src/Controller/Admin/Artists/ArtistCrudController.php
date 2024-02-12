@@ -67,10 +67,10 @@ class ArtistCrudController extends AbstractCrudController
         yield DateTimeField::new('createdAt')
             ->setDisabled()
             ->hideOnIndex()
-            ->setColumns(1);
+            ->setColumns(2);
         yield DateTimeField::new('editedAt')
             ->setDisabled()
             ->hideOnIndex()
-            ->setColumns(1);
+            ->setColumns(2);
     }
 }

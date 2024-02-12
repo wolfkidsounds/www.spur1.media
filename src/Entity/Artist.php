@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
+use DateTime;
 use App\Entity\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArtistRepository;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('Name')]
 class Artist
 {
@@ -44,13 +47,24 @@ class Artist
     #[ORM\OneToMany(mappedBy: 'Artist', targetEntity: Link::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $Links;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $createdAt = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
-    #[Gedmo\Timestampable]
-    private ?\DateTimeImmutable $editedAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
+    private ?DateTimeImmutable $editedAt = null;
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function updatedTimestamps(): void
+    {
+        $dateTimeNow = new DateTimeImmutable('now');
+
+        $this->setEditedAt($dateTimeNow);
+
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt($dateTimeNow);
+        }
+    }
 
     public function __construct()
     {

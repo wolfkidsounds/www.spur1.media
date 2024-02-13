@@ -47,8 +47,6 @@ easy_media:
       # Defaults:
       - php
       - java
-      - audio
-      - video
       - application
 
   # disallow uploading files with the following extensions (https://en.wikipedia.org/wiki/List_of_filename_extensions)
@@ -57,6 +55,11 @@ easy_media:
       - php
       - jav
       - py
+      - wav
+      - aiff
+      - flac
+      - mov
+      - avi
 
   # display file last modification time as
   last_modified_format: d.m.Y

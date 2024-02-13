@@ -1,9 +1,9 @@
 {% extends 'section/main/base.html.twig' %}
-{% set col_width = 2 %}
-{% set gap_size = 3 %}
-{% set card_inner_padding = 3 %}
-{% set card_text = true %}
-{% set corner_style = 'rounded' %}
+{% set grid = {
+    'col_size': 2,
+    'gap_size': 3,
+    'path_url': path_url,
+} %}
 {% block content %}
     {% include '_template/_grid.html.twig' %}
 {% endblock %}

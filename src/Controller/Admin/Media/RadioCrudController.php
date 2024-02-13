@@ -75,6 +75,16 @@ class RadioCrudController extends AbstractCrudController
         yield UrlField::new('MixcloudUrl', 'Mixcloud')
         ->hideOnIndex()
         ->setColumns(8);
+        yield FormField::addRow();
+        yield EasyMediaField::new('AudioFile', 'Audio File')
+        ->setFormTypeOption("restrictions_uploadTypes", ["audio/*"])
+        ->setFormTypeOption("restrictions_path", "Radio/Audio/")
+        ->setFormTypeOption("upload", true)
+        ->setFormTypeOption("rename", true)
+        ->setFormTypeOption("metas", true)
+        ->setFormTypeOption("move", true)
+        ->hideOnIndex()
+        ->setColumns(8);
 
         yield FormField::addFieldset('View On');
         yield CollectionField::new('Links')

@@ -19,6 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 #[MappedSuperclass]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity('Slug')]
 #[ORM\Table(name: 'post')]
 #[InheritanceType('SINGLE_TABLE')]
@@ -72,6 +73,9 @@ class Post
 
     #[ORM\OneToMany(mappedBy: 'Post', targetEntity: Link::class, cascade: ['persist'])]
     private Collection $Links;
+
+    #[ORM\Column(type: 'easy_media_type', nullable: true)]
+    private $AudioFile = null;
 
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
@@ -298,6 +302,18 @@ class Post
                 $link->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAudioFile()
+    {
+        return $this->AudioFile;
+    }
+
+    public function setAudioFile($AudioFile): static
+    {
+        $this->AudioFile = $AudioFile;
 
         return $this;
     }

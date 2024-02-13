@@ -82,7 +82,7 @@ jobs:
         npm install --force
         npm run build
 
-    - name: 📂 Deploy Main & src Files # Deploys /src /bin /config /sync-state /templates /translations and ./ 
+    - name: 📂 Deploy Source Files # Deploys /src /bin /config /sync-state and ./ 
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
           timeout: 60000
@@ -103,6 +103,8 @@ jobs:
             **/assets/**
             **/migrations/**
             **/node_modules/**
+            **/templates/**
+            **/translations/**
             **/public/**
             **/tests/**
             **/var/**
@@ -119,8 +121,56 @@ jobs:
             **/todo.md
             **/update.bat
             **/webpack.config.js
+
+    - name: 📂 Deploy Templates # Deploys /templates /translations
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+          timeout: 60000
+          server: ${{ secrets.FTP_SERVER }}
+          port: ${{ secrets.FTP_PORT }}
+          local-dir: ./
+          protocol: ftps
+          server-dir: ${{ secrets.STAGING_BASE_PATH }}/
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          dry-run: false
+          state-name: sync-state/.templates.json
+          exclude: |
+            **/.git*/**
+            **/.git*
+            **/.git/**
+            **/.github/**
+            **/assets/**
+            **/migrations/**
+            **/node_modules/**
+            **/src/**
+            **/bin/**
+            **/config/**
+            **/sync-state/**
+            **/public/**
+            **/tests/**
+            **/var/**
+            **/vendor/**
+            **/.env.local
+            **/.env.test
+            **/.git*
+            **/compose.override.yaml
+            **/compose.yaml
+            **/install.bat
+            **/package-lock.json
+            **/package.json
+            **/phpunit.xml.dist
+            **/todo.md
+            **/update.bat
+            **/webpack.config.js
+            **/.env
+            **/.env.local.php
+            **/composer.json
+            **/composer.lock
+            **/symfony.lock
+            **/index.php
  
-    - name: 📂 Deploy Public Assets # Deploys /public
+    - name: 📂 Deploy Assets # Deploys /public
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
           timeout: 60000
@@ -169,7 +219,7 @@ jobs:
             **/symfony.lock
             **/index.php
 
-    - name: 📂 Deploy Vendor # Deploys /vendor
+    - name: 📂 Deploy Vendor Files # Deploys /vendor
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
           timeout: 60000

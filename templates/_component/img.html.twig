@@ -1,4 +1,5 @@
-<img class="w-100 h-100 blurry-load rounded overflow-hidden"
+<img 
+    class="w-100 h-100 blurry-load rounded overflow-hidden"
     {% if item.Image %}
         src="{{ easy_media_path(item.Image)|imagine_filter('thumbnail_small_grayscale') }}"
         data-large="{{ easy_media_path(item.Image)|imagine_filter('thumbnail_grayscale') }}"
@@ -6,4 +7,4 @@
         src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
         data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
     {% endif %}
->
+/>

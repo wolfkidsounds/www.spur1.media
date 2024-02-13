@@ -1,3 +1,4 @@
+import './bootstrap.js';
 // NODE MODULES JS
 import '@popperjs/core';
 import 'bootstrap';

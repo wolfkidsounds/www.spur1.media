@@ -14,7 +14,7 @@
 
             {% if post.createdAt is defined %}
                 {% if post.createdAt >= date('-30 days') %}
-                    <span class="card-badge position-absolute p-2 bg-spur1-red">
+                    <span class="card-badge position-absolute p-2 bg-spur1-red rounded-1">
                         <span class="visually-hidden">New</span>
                     </span>
                 {% endif %}

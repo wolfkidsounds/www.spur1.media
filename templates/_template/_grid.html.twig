@@ -3,10 +3,14 @@
     {% if posts %}
         <div class="row" data-controller="blurryload">
             {% for post in posts %}
-                {% set item = post %}
-                {% set card_small_text = post.Date|date('m/Y') %}
-                {% set card_large_text = post.Title|upper %}
-                {% include('_component/card_large.html.twig') %}
+                {{ component('Card:Large', { 
+                    post:post,
+                    col_size: grid.col_size,
+                    gap_size: grid.gap_size,
+                    path_url: grid.path_url,
+                    small_text: post.Date|date('m/Y'),
+                    large_text: post.Title|upper,
+                }) }}
             {% endfor %}
         </div>
     {% else %}

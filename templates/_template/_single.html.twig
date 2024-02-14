@@ -1,169 +1,162 @@
 {% block content %}
-{% if post %}
-    {% block single_title_section %}
-    <div class="row">
-        <div class="col-12">
-            <h3 class="font-gothic fs-1">{% block single_title %}{% endblock %}</h3>
-        </div>
-    </div>
-    {% endblock %}
-    
-    <div class="row" data-controller="blurryload">
-        <div class="col-{{left_width}} p-3 position-relative d-flex align-items-center">
-            {% block single_content_area %}
-                {% if post.YouTubeUrl is defined %}
-                    {% if post.YouTubeUrl %}
-                        {% set YouTubeVideoId = post.YoutubeUrl|split("v=")|last %}
-                        {% set YouTubeVideoId = YouTubeVideoId|split("&ab")|first %}
-                        {% set YouTubeEmbedUrl = 'https://www.youtube.com/embed/' ~ YouTubeVideoId %}
-                        <iframe id="player" class="rounded" type="text/html" width="100%" height="100%"
-                            src="{{ YouTubeEmbedUrl }}" frameborder="0">
-                        </iframe>
-                    {% endif %}
-                {% endif %}
-    
-                {% if post.MixcloudUrl is defined %}
-                    {% if post.MixcloudUrl %}
-                        {% set MixcloudId = post.MixcloudUrl|split("mixcloud.com")|last %}
-                        {% set EncodedMixcloudId = MixcloudId|url_encode %}
-                        {% set MixcloudEmbedUrl = "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=" ~ EncodedMixcloudId %}
-                        <iframe class="rounded" width="100%" height="120px" src="{{ MixcloudEmbedUrl }}" frameborder="0"></iframe>
-                    {% endif %}
-                {% endif %}
-            {% endblock %}
-        </div>
-        <div class="col-{{right_width}} p-3">
-            {% block single_image_area %}
+    {% if post %}
+        {% block single_title_section %}
             <div class="row">
-                <div class="img-single overflow-hidden">
-                    {% block single_artist_image %}<img 
-                        class="w-100 h-100 blurry-load rounded overflow-hidden"
-                        {% if post.Image %}
-                            src="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_small_grayscale') }}"
-                            data-large="{{ easy_media_path(post.Image)|imagine_filter('thumbnail_grayscale') }}"
-                        {% else %}
-                            src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}"
-                            data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}"
-                        {% endif %}
-                    >{% endblock %}
+                <div class="col-12">
+                    <h3 class="font-gothic fs-1">{% block single_title %}{% endblock %}</h3>
                 </div>
             </div>
-            {% endblock %}
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="row mb-3">
+        {% endblock %}
         
-        <div class="col-{{left_width}} px-3">
-            {% block single_description_area %}
-            <div class="mb-3">
-                <h5>{{'Description'|trans}}</h5>
-                <div class="ps-1">
-                    {% if post.Description %}
-                        {{ post.Description|raw }}
-                    {% else %}
-                    <div>{{ 'There was no Description for this post'|trans }}</div>
+        <div class="row" data-controller="blurryload">
+            <div class="col-{{left_width}} p-3 position-relative d-flex align-items-center">
+                {% block single_content_area %}
+                    {% if post.YouTubeUrl is defined %}
+                        {{ component('Embed:YouTube', { 
+                            youtube_url: post.YouTubeUrl|default(''),
+                        }) }}
                     {% endif %}
-                </div>
+        
+                    {% if post.MixcloudUrl is defined %}
+                        {{ component('Embed:Mixcloud', { 
+                            mixcloud_url: post.MixcloudUrl|default(''),
+                        }) }}
+                    {% endif %}
+                {% endblock %}
             </div>
+            <div class="col-{{right_width}} p-3">
+                {% block single_image_area %}
+                    <div class="row">
+                        <div class="img-single overflow-hidden">
+                            {% block single_artist_image %}
+                                {{ component('Card:Image', { 
+                                    image: post.Image|default(''),
+                                    corner_style: 'rounded',
+                                    style: 'thumbnail_grayscale',
+                                }) }}
+                            {% endblock %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mb-3">
+            
+            <div class="col-{{left_width}} px-3">
+                {% block single_description_area %}
+                <div class="mb-3">
+                    <h5>{{'Description'|trans}}</h5>
+                    <div class="ps-1">
+                        {% if post.Description %}
+                            {{ post.Description|raw }}
+                        {% else %}
+                        <div>{{ 'There was no Description for this post'|trans }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endblock %}
+            </div>
+
+            <div class="col-{{right_width}} px-3">
+
+            {% block single_details_area %}
+                {% if post.Artists|length > 0 %}
+                <div class="mb-3">
+                    <h5>{{'Involved Artists'|trans}}</h5>
+                    <div class="d-flex flex-wrap gap-2 ps-1">
+                        {% for artist in post.Artists %}
+                            {{ component('Button:ImageLink', { 
+                                image: artist.Image|default(''),
+                                path_url: 'app_artist_single',
+                                slug: artist.Slug,
+                                color: 'primary',
+                                title: artist.Name,
+                            }) }}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if post.Crews|length > 0 %}
+                    <div class="mb-3">
+                        <h5>{{'Involved Crews'|trans}}</h5>
+                        <div class="d-flex flex-wrap gap-2 ps-1">
+                            {% for crew in post.Crews %}
+                                {{ component('Button:ImageLink', { 
+                                    image: crew.Image|default(''),
+                                    path_url: 'app_crew_single',
+                                    slug: crew.Slug,
+                                    color: 'primary',
+                                    title: crew.Name,
+                                }) }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if post.Location is defined %}
+                <div class="mb-3">
+                    <h5>{{'Involved Location'|trans}}</h5>
+                    <div class="list-unstyled ps-1">
+                        {% if post.Location %}
+                            {{ component('Button:IconLink', { 
+                                icon: 'fa-solid fa-location-dot',
+                                path_url: post.Location.MapsUrl,
+                                color: 'primary',
+                                title: post.Location.Name,
+                            }) }}
+                        {% else %}
+                            <div class="ps-3">{{ 'We could not find any Location related to this post' }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <h5>{{'Tags'|trans}}</h5>
+                    <div class="d-flex flex-wrap gap-2 ps-1">
+                        {% if post.Tags|length > 0 %}
+                            {% for tag in post.Tags %}
+                                {{ component('Badge:IconLink', { 
+                                    icon: 'fa-solid fa-tag',
+                                    path_url: '',
+                                    title: tag.Name ~ ' (' ~ tag.Format ~ ')',
+                                }) }}
+                            {% endfor %}
+                        {% else %}
+                            <div class="">{{ 'We could not find any Tags related to this post'|trans }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            {% endblock %}
+            </div>
+        </div>
+        <div class="mb-3">
+            {% block single_bottom_area %}
+                {% if post.Links is defined %}
+                    {% if post.Links|length > 0 %}
+                        <div class="row mb-3">
+                            <h5>{% block single_bottom_area_title %}{{'View Content On'|trans}}{% endblock %}</h5>
+                            <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
+                                {% for link in post.Links %}
+                                    {{ component('Button:IconLink', { 
+                                        icon: link.Type.Icon,
+                                        path_url: link.Url,
+                                        color: 'secondary',
+                                        title: link.Type,
+                                    }) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
             {% endblock %}
         </div>
-
-        <div class="col-{{right_width}} px-3">
-
-        {% block single_details_area %}
-            {% if post.Artists|length > 0 %}
-            <div class="mb-3">
-                <h5>{{'Involved Artists'|trans}}</h5>
-                <ul class="list-unstyled d-flex flex-wrap gap-2 ps-1">
-                    {% for artist in post.Artists %}
-                        <li>
-                            <a href="{{ path('app_artist_single', { 'slug': artist.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
-                                <img src="{% if artist.Image %}{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ artist.Name }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-            {% endif %}
-
-            {% if post.Crews|length > 0 %}
-                <div class="mb-3">
-                    <h5>{{'Involved Crews'|trans}}</h5>
-                    <ul class="list-unstyled d-flex flex-wrap gap-2 ps-1">
-                        {% for crew in post.Crews %}
-                            <li>
-                                <a href="{{ path('app_crew_single', { 'slug': crew.Slug }) }}" class="btn btn-outline-primary rounded text-decoration-none d-flex align-items-center">
-                                    <img src="{% if crew.Image %}{{ easy_media_path(crew.Image)|imagine_filter('thumbnail_small') }}{% else %}{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_small') }}{% endif %}" alt="" width="32" height="32" class="rounded-circle me-2">{{ crew.Name }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-
-            {% if post.Location is defined %}
-            <div class="mb-3">
-                <h5>{{'Involved Location'|trans}}</h5>
-                <div class="list-unstyled ps-1">
-                    {% if post.Location %}
-                        <li>
-                            <a href="{{ post.Location.MapsUrl }}" class="btn btn-outline-primary rounded text-decoration-none" target="_blank">
-                                <i class="fa-solid fa-location-dot me-2"></i>{{ post.Location.Name }}
-                            </a>
-                        </li>
-                    {% else %}
-                        <div class="ps-3">{{ 'We could not find any Location related to this post' }}</div>
-                    {% endif %}
-                </div>
-            </div>
-            {% endif %}
-
-            <div class="mb-3">
-                <h5 class="mb-1">{{'Tags'|trans}}</h5>
-                <div class="d-flex flex-wrap gap-1 ps-1">
-                    {% if post.Tags|length > 0 %}
-                        {% for tag in post.Tags %}
-                            <a href="" class="icon-link text-decoration-none pe-none opacity-25">
-                                <span class="badge bg-dark">
-                                    <i class="fa-solid fa-tag me-2"></i>{{ tag.Name }} ({{ tag.Format }})
-                                </span>
-                            </a>
-                        {% endfor %}
-                    {% else %}
-                        <div class="">{{ 'We could not find any Tags related to this post'|trans }}</div>
-                    {% endif %}
-                </div>
-            </div>
-
-        {% endblock %}
-        </div>
-    </div>
-    <div class="mb-3">
-        {% block single_bottom_area %}
-        <h5 class="mb-1">{{'View Content On'|trans}}</h5>
-        <div class="buttons d-flex align-items-center ps-1">
-            {% if post.YouTubeUrl is defined %}
-                {% if post.YouTubeUrl %}
-                    <a class="btn btn-outline-secondary" href="{{ post.YouTubeUrl }}" target="_blank">
-                        <i class="fa-brands fa-youtube me-2"></i>YouTube
-                    </a>
-                {% endif %}
-            {% endif %}
-
-            {% if post.MixcloudUrl is defined %}
-                {% if post.MixcloudUrl %}
-                    <a class="btn btn-outline-secondary" href="{{ post.MixcloudUrl }}" target="_blank">
-                        <i class="fa-brands fa-mixcloud me-2"></i>Mixcloud
-                    </a>
-                {% endif %}
-            {% endif %}
-        </div>
-        {% endblock %}
-    </div>
-{% else %}
-    <p>{{'There was no post found.'|trans}}</p>
-{% endif %}
+    {% else %}
+        <p>{{'There was no post found.'|trans}}</p>
+    {% endif %}
 {% endblock %}

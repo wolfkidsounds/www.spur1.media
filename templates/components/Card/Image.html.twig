@@ -1,0 +1,16 @@
+{# templates/components/Card/Image.html.twig #}
+<img 
+    class="{% if this.width is empty %}w-100 h-100{% endif %} blurry-load {{ this.corner_style }} overflow-hidden"
+    width="{{ this.width }}" 
+    height="{{ this.width }}"
+    
+    {% if not this.image is empty %}
+        src="{{ easy_media_path(this.image)|imagine_filter(this.style ~ '_small') }}"
+        data-large="{{ easy_media_path(this.image)|imagine_filter(this.style) }}"
+
+    {% else %}
+        src="{{ asset('build/images/placeholder.jpg')|imagine_filter(this.style ~ '_small') }}"
+        data-large="{{ asset('build/images/placeholder.jpg')|imagine_filter(this.style) }}"
+
+    {% endif %}
+/>

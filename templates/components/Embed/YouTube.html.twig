@@ -1,0 +1,9 @@
+{# templates/components/Embed/YouTube.html.twig #}
+{% if youtube_url %}
+    {% set YouTubeVideoId = youtube_url|split("v=")|last %}
+    {% set YouTubeVideoId = YouTubeVideoId|split("&ab")|first %}
+    {% set YouTubeEmbedUrl = 'https://www.youtube.com/embed/' ~ YouTubeVideoId %}
+    <iframe id="player" class="rounded" type="text/html" width="100%" height="100%"
+        src="{{ YouTubeEmbedUrl }}" frameborder="0">
+    </iframe>
+{% endif %}

@@ -1,0 +1,30 @@
+{# templates/components/Card/Large.html.twig #}
+<div class="col-{{ col_size }} g-{{ gap_size }} text-center">
+    <a 
+        class="grid-post m-0 p-0 d-block bg-light rounded border border-light-subtle bg-light pe-auto position-relative p-3 text-decoration-none" 
+        href="{{ path(this.path_url, { 'slug': this.post.Slug }) }}">
+
+        <div class="image img-thumbnail img-cover p-0 m-0 border-0 overflow-hidden">
+            {{ component('Card:Image', { 
+                image: post.Image|default(''),
+                corner_style: 'rounded',
+                style: 'thumbnail_grayscale',
+            }) }}
+        </div>
+
+        {% if this.large_text and this.small_text %}
+            <div class="grid-post-text">
+                <div class="text-start text-body fw-bold mt-3 text-truncate">{{ this.large_text }}</div>
+                <p class="small text-start text-body m-0 p-0 text-truncate">{{ this.small_text }}</p>
+            </div>
+        {% endif %}
+
+        {% if post.createdAt is defined %}
+            {% if post.createdAt >= date('-30 days') %}
+                <span class="card-badge position-absolute p-2 bg-spur1-red rounded-1">
+                    <span class="visually-hidden">New</span>
+                </span>
+            {% endif %}
+        {% endif %}
+    </a>
+</div>

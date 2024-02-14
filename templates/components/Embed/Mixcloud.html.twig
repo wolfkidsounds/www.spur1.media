@@ -1,0 +1,7 @@
+{# templates/components/Embed/YouTube.html.twig #}
+{% if mixcloud_url %}
+    {% set MixcloudId = mixcloud_url|split("mixcloud.com")|last %}
+    {% set EncodedMixcloudId = MixcloudId|url_encode %}
+    {% set MixcloudEmbedUrl = "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&hide_artwork=1&feed=" ~ EncodedMixcloudId %}
+    <iframe class="rounded" width="100%" height="120px" src="{{ MixcloudEmbedUrl }}" frameborder="0"></iframe>
+{% endif %}

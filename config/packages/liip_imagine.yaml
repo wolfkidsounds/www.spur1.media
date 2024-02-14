@@ -14,18 +14,12 @@ liip_imagine:
                 scale:
                     dim: [ 128, 128 ] # (relative down-scale)
 
-        thumbnail_small_grayscale:
+        thumbnail_grayscale_small:
             quality: 10
             filters:
                 grayscale: ~
                 scale:
                     dim: [ 128, 128 ] # (relative down-scale)
-
-        thumbnail_medium:
-            quality: 50
-            filters:
-                scale:
-                    dim: [ 512, 512 ] # (relative down-scale)
 
         thumbnail:
             quality: 90

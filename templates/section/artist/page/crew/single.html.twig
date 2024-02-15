@@ -1,63 +1,6 @@
 {% extends 'section/artist/_template/_single.html.twig' %}
 {% set left_width = 9 %}
 {% set right_width = 3 %}
-
-{% block single_title_section %}
-    <div class="row">
-        <div class="d-flex justify-content-between col-12">
-            <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
-            <div class="d-flex align-items-center">
-                {% if post.Owner|length > 0 %}
-                    {% if app.User in post.Owner %}
-                        <a href="" class="btn btn-outline-secondary">{{ 'Edit ' ~ post.Name}}</a>
-                    {% endif %}
-                {% else %}
-                    <a href="" class="btn btn-outline-secondary">{{ 'Claim ' ~ post.Name}}</a>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-{% endblock %}
-
-{% block single_content_area %}
-    <div class="mb-3">
-        {% if post.Description %}
-            {{ post.Description|raw }}
-        {% else %}
-        <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
-        {% endif %}
-    </div>
-{% endblock %}
-
-{% block single_artist_image %}
-<img class="w-100 h-100 rounded" src="
-    {% if post.Image %}
-        {{ easy_media_path(post.Image)|imagine_filter('thumbnail') }}
-    {% else %}
-        {{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}
-    {% endif %}
-">
-{% endblock %}
-
-{% block single_description_area %}
-    <div class="mb-3">
-        <h5 class="">{{'Content'|trans}}</h5>
-        {% if related_posts|length > 0 %}
-            <div class="row g-3 mt-3">
-                {% for related_post in related_posts %}
-                    {% set col_width = 2 %}
-                    {% set gap_size = 3 %}
-                    {% set overlay_padding = 2 %}
-                    {% set card_large_text = related_post.Title %}
-                    {% set corner_style = 'rounded' %}
-                    {% set item = related_post %}
-                    {% include('section/artist/_component/_card.html.twig') %}
-                {% endfor %}
-            </div>
-        {% else %}
-            <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>
-        {% endif %}
-    </div>
-{% endblock %}
+{% set type = 'crew' %}
 
 {% block single_bottom_area %}{% endblock %}

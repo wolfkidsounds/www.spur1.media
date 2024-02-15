@@ -2,23 +2,7 @@
 {% use '_template/_single.html.twig' %}
 {% set left_width = 8 %}
 {% set right_width = 4 %}
-
-{% block single_bottom_area %}
-    <div class="buttons d-flex align-items-center ps-1">
-        {% if post.Links is defined %}
-            {% if post.Links|length > 0 %}
-                <div class="row mb-3">
-                    <h5>{{'Social Links'|trans}}</h5>
-                    <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
-                        {% for link in post.Links %}
-                            {% include('section/artist/_component/_social_button.html.twig') %}
-                        {% endfor %}
-                    </div>
-                </div>
-            {% endif %}
-        {% endif %}
-    </div>
-{% endblock %}
+{% block single_bottom_area_title %}{{'View Content On'|trans}}{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}

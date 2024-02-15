@@ -1,13 +1,67 @@
 {% extends 'section/artist/base.html.twig' %}
 {% use '_template/_single.html.twig' %}
+
+{% block single_image %}
+    {{ component('Card:Image', { 
+        image: post.Image|default(''),
+        corner_style: 'rounded',
+        style: 'thumbnail',
+    }) }}
+{% endblock %}
+
+{% block single_content_area %}
+    <div class="mb-3">
+        {% if post.Description %}
+            {{ post.Description|raw }}
+        {% else %}
+        <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block single_title_section %}
+    <div class="row">
+        <div class="d-flex justify-content-between col-12 pe-3">
+            <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
+            <div class="d-flex align-items-center">
+                {% if post.Owner|length > 0 %}
+                    {% if app.User in post.Owner %}
+                        {{ component('Button:IconLink', { 
+                            icon: 'fa-solid fa-pen',
+                            path_url: path('app_' ~ type ~ '_edit', { 'id':post.Id }),
+                            color: 'secondary',
+                            title: 'Edit ' ~ post.Name,
+                            size: 'btn-sm',
+                        }) }}
+                    {% endif %}
+                {% else %}
+                    {{ component('Button:IconLink', { 
+                        icon: 'fa-solid fa-question',
+                        path_url: path('app_' ~ type ~ '_claim', { 'slug':post.Slug }),
+                        color: 'secondary',
+                        title: 'Claim ' ~ post.Name,
+                        size: 'btn-sm',
+                    }) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block single_details_area %}
     {% if post.Crews is defined %}
         {% if post.Crews|length > 0 %}
             <div class="row mb-3">
                 <h5>{{'Crews'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
-                    {% for item in post.Crews %}
-                        {% include('section/artist/_component/_crew_button.html.twig') %}                        
+                    {% for crew in post.Crews %}
+                        {{ component('Button:ImageLink', { 
+                            image: crew.Image|default(''),
+                            path_url: 'app_crew_single',
+                            slug: crew.Slug,
+                            color: 'primary',
+                            title: crew.Name,
+                        }) }}
                     {% endfor %}
                 </div>
             </div>
@@ -18,8 +72,14 @@
             <div class="row mb-3">
                 <h5>{{'Artists'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
-                    {% for item in post.Artist %}
-                        {% include('section/artist/_component/_artist_button.html.twig') %}                        
+                    {% for artist in post.Artist %}
+                        {{ component('Button:ImageLink', { 
+                            image: artist.Image|default(''),
+                            path_url: 'app_artist_single',
+                            slug: artist.Slug,
+                            color: 'primary',
+                            title: artist.Name,
+                        }) }}
                     {% endfor %}
                 </div>
             </div>
@@ -31,10 +91,30 @@
                 <h5>{{'Social Links'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
                     {% for link in post.Links %}
-                        {% include('section/artist/_component/_social_button.html.twig') %}
+                        {{ component('Button:IconLink', { 
+                            icon: link.Type.Icon,
+                            path_url: link.Url,
+                            color: 'secondary',
+                            title: link.Type,
+                        }) }}
                     {% endfor %}
                 </div>
             </div>
         {% endif %}
     {% endif %}
+{% endblock %}
+
+{% block single_description_area %}
+    <div class="mb-3">
+        <h5 class="">{{'Content'|trans}}</h5>
+        {% if related_posts|length > 0 %}
+            <div class="row g-3 mt-3">
+                {% for item in related_posts %}
+                    {% include('section/artist/_component/_card.html.twig') %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>{{ 'We could not find any contents for '|trans }}{{ post.Name }}</div>
+        {% endif %}
+    </div>
 {% endblock %}

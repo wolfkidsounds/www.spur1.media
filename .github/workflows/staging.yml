@@ -89,7 +89,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          protocol: ftps
+          protocol: ftp
           server-dir: ${{ secrets.STAGING_BASE_PATH }}/
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
@@ -130,7 +130,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          protocol: ftps
+          protocol: ftp
           server-dir: ${{ secrets.STAGING_BASE_PATH }}/
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
@@ -179,7 +179,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          protocol: ftps
+          protocol: ftp
           server-dir: ${{ secrets.STAGING_BASE_PATH }}/
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
@@ -229,7 +229,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: ./
-          protocol: ftps
+          protocol: ftp
           server-dir: ${{ secrets.STAGING_BASE_PATH }}/
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
@@ -281,7 +281,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local-dir: .empty/
-          protocol: ftps
+          protocol: ftp
           server-dir: ${{ secrets.STAGING_BASE_PATH }}/var/cache/
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}

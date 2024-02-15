@@ -11,4 +11,5 @@ class IconLink
     public string $path_url = '';
     public string $color = 'secondary';
     public string $title;
+    public string $size = '';
 }

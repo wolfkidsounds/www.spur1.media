@@ -18,4 +18,11 @@
     {% set card_small_text = 'Teletime' %}
 {% endif %}
 
-{% include('_component/card.html.twig') %}
+{{ component('Card:Large', { 
+    post: item,
+    col_size: 2,
+    gap_size: 3,
+    path_url: path_url,
+    small_text: card_small_text,
+    large_text: item.Title,
+}) }}

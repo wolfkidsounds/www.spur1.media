@@ -11,4 +11,6 @@ class Image
     public string $corner_style = '';
     public string $style = 'thumbnail';
     public string $width = '';
+    public string $load = 'blurry-load';
+    public string $background = 'bg-light';
 }

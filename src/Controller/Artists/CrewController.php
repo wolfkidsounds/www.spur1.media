@@ -29,5 +29,31 @@ class CrewController extends BaseController
             'related_posts' => $posts,
         ]);
     }
+
+    #[Route('/crew/edit/{id}', name: 'app_crew_edit', methods: ['GET'])]
+    public function crew_edit(int $id, CrewRepository $crewRepository): Response
+    {
+        $crew = $crewRepository->findOneBy(['id' => $id]);
+        $posts = $crew->getPosts()->toArray();
+
+        return $this->render('section/artist/page/crew/edit.html.twig', [
+            'post' => $crew,
+            'title' => 'Crew',
+            'related_posts' => $posts,
+        ]);
+    }
+
+    #[Route('/crew/claim/{slug}', name: 'app_crew_claim', methods: ['GET'])]
+    public function crew_claim(string $slug, CrewRepository $crewRepository): Response
+    {
+        $crew = $crewRepository->findOneBy(['slug' => $slug]);
+        $posts = $crew->getPosts()->toArray();
+
+        return $this->render('section/artist/page/crew/claim.html.twig', [
+            'post' => $crew,
+            'title' => 'Crew',
+            'related_posts' => $posts,
+        ]);
+    }
     
 }

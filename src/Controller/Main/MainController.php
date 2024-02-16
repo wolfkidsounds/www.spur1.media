@@ -11,16 +11,9 @@ use Symfony\Component\Routing\Attribute\Route;
 class MainController extends BaseController
 {
     #[Route('/', name: 'app_main_index')]
-    public function index(Request $request, PostRepository $postRepository): Response
+    public function index(): Response
     {
-        $searchTerm = $request->query->get('q');
-        $posts = $postRepository->search(
-            $searchTerm
-        );
-
         return $this->render('section/main/page/index.html.twig', [
-            'posts' => $posts,
-            'searchTerm' => $searchTerm,
             'title' => 'Home',
         ]);
     }

@@ -7,9 +7,9 @@
 <div class="dropdown text-end">
     <a href="" class="nav-item d-flex align-items-center link-dark text-decoration-none" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
         {% if app.user.Image %}
-            <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail_medium') }}" alt="User Avatar" width="32" height="32" class="rounded">
+            <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail') }}" alt="User Avatar" width="32" height="32" class="rounded">
         {% else %}
-            <img src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail_mediumm') }}" alt="User Avatar Not Defined" width="32" height="32" class="rounded">
+            <img src="{{ asset('build/images/placeholder.jpg')|imagine_filter('thumbnail') }}" alt="User Avatar Not Defined" width="32" height="32" class="rounded">
         {% endif %}
     </a>
     

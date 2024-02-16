@@ -1,7 +1,9 @@
 {# _template/_grid.html.twig #}
 {% block content %}
     {% if posts %}
-        <div class="row" data-controller="blurryload">
+        <div 
+            class="row"
+            {{ stimulus_controller('blurryload') }}>
             {% for post in posts %}
                 {{ component('Card:Large', { 
                     post:post,

@@ -1,7 +1,14 @@
-<form id="header_search" class="w-100" role="search">
+<form id="header_search" class="w-100" role="search" action="{{ path('app_main_index') }}">
     <div class="input-group">
         <button type="submit" class="btn border-secondary-subtle text-color-spur1-gray bg-white"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <input type="search" class="form-control border-secondary-subtle text-color-spur1-gray bg-white" placeholder="Search..." aria-label="Search">
+        <input
+            name="q"
+            value="{{ searchTerm|default('') }}"
+            placeholder="Search..."
+            type="search"
+            class="form-control border-secondary-subtle text-color-spur1-gray bg-white"
+            aria-label="Search"
+        >
         <button type="button" class="btn border-secondary-subtle dropdown-toggle dropdown-toggle text-color-spur1-gray bg-white" data-bs-toggle="dropdown" aria-expanded="false">Filter</button>
         <ul class="dropdown-menu dropdown-menu-end text-color-spur1-gray">
             <li><h6 class="dropdown-header">Content</h6></li>

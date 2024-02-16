@@ -24,5 +24,5 @@
     gap_size: 3,
     path_url: path_url,
     small_text: card_small_text,
-    large_text: item.Title,
+    large_text: card.large_text|default(item.Title),
 }) }}

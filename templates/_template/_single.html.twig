@@ -68,12 +68,11 @@
                     <h5>{{'Involved Artists'|trans}}</h5>
                     <div class="d-flex flex-wrap gap-2 ps-1">
                         {% for artist in post.Artists %}
-                            {{ component('Button:ImageLink', { 
+                            {{ component('Button:Link', {
                                 image: artist.Image|default(''),
-                                path_url: 'app_artist_single',
-                                slug: artist.Slug,
+                                path_url: path('app_artist_single', { 'slug': artist.Slug }),
                                 color: 'primary',
-                                title: artist.Name,
+                                title: artist.Name
                             }) }}
                         {% endfor %}
                     </div>
@@ -85,10 +84,9 @@
                         <h5>{{'Involved Crews'|trans}}</h5>
                         <div class="d-flex flex-wrap gap-2 ps-1">
                             {% for crew in post.Crews %}
-                                {{ component('Button:ImageLink', { 
+                                {{ component('Button:Link', { 
                                     image: crew.Image|default(''),
-                                    path_url: 'app_crew_single',
-                                    slug: crew.Slug,
+                                    path_url: path('app_crew_single', { 'slug': crew.Slug }),
                                     color: 'primary',
                                     title: crew.Name,
                                 }) }}
@@ -102,7 +100,7 @@
                     <h5>{{'Involved Location'|trans}}</h5>
                     <div class="list-unstyled ps-1">
                         {% if post.Location %}
-                            {{ component('Button:IconLink', { 
+                            {{ component('Button:Link', { 
                                 icon: 'fa-solid fa-location-dot',
                                 path_url: post.Location.MapsUrl,
                                 color: 'primary',
@@ -120,7 +118,7 @@
                     <div class="d-flex flex-wrap gap-2 ps-1">
                         {% if post.Tags|length > 0 %}
                             {% for tag in post.Tags %}
-                                {{ component('Badge:IconLink', { 
+                                {{ component('Badge:Link', { 
                                     icon: 'fa-solid fa-tag',
                                     path_url: '',
                                     title: tag.Name ~ ' (' ~ tag.Format ~ ')',
@@ -143,11 +141,12 @@
                             <h5>{% block single_bottom_area_title %}{{'View Content On'|trans}}{% endblock %}</h5>
                             <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
                                 {% for link in post.Links %}
-                                    {{ component('Button:IconLink', { 
+                                    {{ component('Button:Link', { 
                                         icon: link.Type.Icon,
                                         path_url: link.Url,
                                         color: 'secondary',
                                         title: link.Type,
+                                        new_window: true,
                                     }) }}
                                 {% endfor %}
                             </div>

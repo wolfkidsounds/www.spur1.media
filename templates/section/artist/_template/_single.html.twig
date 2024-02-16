@@ -24,25 +24,35 @@
         <div class="d-flex justify-content-between col-12 pe-3">
             <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
             <div class="d-flex align-items-center">
+                {# 
                 {% if post.Owner|length > 0 %}
+                    
                     {% if app.User in post.Owner %}
-                        {{ component('Button:IconLink', { 
+                        <div 
+                            data-controller="modal"
+                        >
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary">
+                            Launch demo modal
+                            </button>
+                        </div>
+                        {{ component('Button:Modal', { 
                             icon: 'fa-solid fa-pen',
-                            path_url: path('app_' ~ type ~ '_edit', { 'id':post.Id }),
                             color: 'secondary',
                             title: 'Edit ' ~ post.Name,
                             size: 'btn-sm',
-                        }) }}
+                        }) }}     
                     {% endif %}
+                    
                 {% else %}
-                    {{ component('Button:IconLink', { 
+                    {{ component('Button:Modal', { 
                         icon: 'fa-solid fa-question',
-                        path_url: path('app_' ~ type ~ '_claim', { 'slug':post.Slug }),
                         color: 'secondary',
                         title: 'Claim ' ~ post.Name,
                         size: 'btn-sm',
                     }) }}
                 {% endif %}
+                #}
             </div>
         </div>
     </div>
@@ -55,10 +65,9 @@
                 <h5>{{'Crews'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
                     {% for crew in post.Crews %}
-                        {{ component('Button:ImageLink', { 
+                        {{ component('Button:Link', { 
                             image: crew.Image|default(''),
-                            path_url: 'app_crew_single',
-                            slug: crew.Slug,
+                            path_url: path('app_crew_single', { 'slug': crew.Slug }),
                             color: 'primary',
                             title: crew.Name,
                         }) }}
@@ -73,10 +82,9 @@
                 <h5>{{'Artists'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
                     {% for artist in post.Artist %}
-                        {{ component('Button:ImageLink', { 
+                        {{ component('Button:Link', { 
                             image: artist.Image|default(''),
-                            path_url: 'app_artist_single',
-                            slug: artist.Slug,
+                            path_url: path('app_artist_single', { 'slug': artist.Slug }),
                             color: 'primary',
                             title: artist.Name,
                         }) }}
@@ -91,7 +99,7 @@
                 <h5>{{'Social Links'|trans}}</h5>
                 <div class="d-flex flex-wrap list-unstyled gap-1 mt-2">
                     {% for link in post.Links %}
-                        {{ component('Button:IconLink', { 
+                        {{ component('Button:Link', { 
                             icon: link.Type.Icon,
                             path_url: link.Url,
                             color: 'secondary',

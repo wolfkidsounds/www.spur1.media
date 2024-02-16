@@ -1,0 +1,29 @@
+
+<a 
+    href="{{ this.path_url }}" 
+    class="btn btn-{{ this.type }}-{{ this.color }} {{ this.size }} rounded text-decoration-none {% if not this.image is empty %}d-flex align-items-center{% endif %}"
+    {% if new_window == true %}target="_blank"{% endif %}
+    >
+
+    {% if not this.image is empty %}
+        {{ component('Card:Image', { 
+            image: this.image|default(''),
+            corner_style: 'rounded-circle me-2',
+            style: 'thumbnail',
+            width: '32',
+            load: '',
+        }) }}
+        {{ this.title }}
+    {% elseif not this.icon is empty %}
+        <i class="{{ this.icon }} me-2"></i>{{ this.title }}
+    {% else %}
+        {{ component('Card:Image', { 
+            image: this.image|default(''),
+            corner_style: 'rounded-circle me-2',
+            style: 'thumbnail',
+            width: '32',
+            load: '',
+        }) }}
+        {{ this.title }}
+    {% endif %}
+</a>

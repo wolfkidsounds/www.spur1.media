@@ -1,0 +1,13 @@
+{% extends 'section/main/_template/_clean.html.twig' %}
+{% block content %}
+    {% if posts|length > 0 %}
+        <div class="row g-3 mt-3" data-controller="blurryload">
+            {% for item in posts %}
+                {% set card = { 'large_text': item.Title ~ ' | ' ~ item.Date|date('m/Y') } %}
+                {% include('section/artist/_component/_card.html.twig') %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>{{ 'There was nothing found for '|trans }}{{ searchTerm|default('') }}</div>
+    {% endif %}
+{% endblock %}

@@ -1,11 +1,11 @@
-<?php // src/Twig/Components/Badge/IconLink.php
+<?php // src/Twig/Components/Badge/Link.php
 
 namespace App\Twig\Components\Badge;
 
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
-class IconLink
+class Link
 {
     public string $path_url = '';
     public string $icon;

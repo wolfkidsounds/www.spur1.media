@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -24,8 +25,12 @@ class CrewCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        yield FormField::addFieldset('General Information');
         yield TextField::new('Name')
-            ->setColumns(8);
+        ->setColumns(8);
+
+        yield FormField::addRow();
+        yield BooleanField::new('isVerified');
 
         yield SlugField::new('Slug')
             ->setTargetFieldName(['Name'])

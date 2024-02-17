@@ -9,7 +9,7 @@
         {% endblock %}
         
         <div class="row" data-controller="blurryload">
-            <div class="col-{{left_width}} p-3 position-relative d-flex align-items-center">
+            <div class="col-{{ left_width }} p-3 position-relative {{ left_alignment|default('') }}">
                 {% block single_content_area %}
                     {% if post.YouTubeUrl is defined %}
                         {{ component('Embed:YouTube', { 

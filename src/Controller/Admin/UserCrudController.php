@@ -41,21 +41,15 @@ class UserCrudController extends AbstractCrudController
         ->allowMultipleChoices()
         ->renderAsBadges()
         ->setChoices([
-            'Benutzer' => 'ROLE_USER',
+            'User' => 'ROLE_USER',
+            'Creator' => 'ROLE_CREATOR',
+            'Administrator' => 'ROLE_ADMIN',
 
-            'Access Spur1-Admin' => 'ROLE_ADMIN',
-            'All-Access Spur1-Media' => 'ROLE_ACCESS_MEDIA',
-            'Access Spur1-Radio' => 'ROLE_ACCESS_MEDIA_RADIO',
-            'Access Spur1-Windowlicker' => 'ROLE_ACCESS_MEDIA_WINDOWLICKER',
+            'Access: Media' => 'ROLE_ACCESS_MEDIA',
+            'Access: Artists' => 'ROLE_ACCESS_ARTISTS',
+            'Access: Crews' => 'ROLE_ACCESS_CREWS',
 
             'Developer' => 'ROLE_DEV',
-
-            'All-Access Spur1-Records' => 'ROLE_ACCESS_RECORDS',
-            'All-Access Spur1-Events' => 'ROLE_ACCESS_EVENTS',
-            'All-Access Spur1-Api' => 'ROLE_ACCESS_API',
-            'All-Access Spur1-Artists' => 'ROLE_ACCESS_ARTISTS',
-            'All-Access Spur1-Player' => 'ROLE_ACCESS_PLAYER',
-            'All-Access Spur1-Cloud' => 'ROLE_ACCESS_CLOUD',
         ]);
 
         yield FormField::addRow();

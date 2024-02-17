@@ -10,61 +10,53 @@
 {% endblock %}
 
 {% block single_content_area %}
+    <div class="row">
+        <div class="pe-3 d-flex align-items-center">
+            <h3 class="font-gothic fs-1 me-2">{{ post.Name }}
+                {% if post.isVerified %}
+                    <span
+                        class="position-absolute top-0"
+                        data-bs-toggle="tooltip" 
+                        data-bs-title="Verified"
+                        {{ stimulus_controller('verified-badge') }}
+                    >
+                        <i class="fa-solid fa-circle-check text-info fs-4"></i>
+                    </span>
+                {% endif %}
+            </h3>
+            {% if app.User %}
+                {% if post.Owner|length > 0 %}
+                    <div class="ms-4">
+                        {% if app.User in post.Owner %}
+                            <div data-controller="modal">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-outline-secondary btn-sm rounded text-decoration-none">
+                                    <i class="fa-solid fa-pen me-2"></i>Edit {{ post.Name }}
+                                </button>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="ms-4">
+                        <div data-controller="modal">
+                            <button 
+                                type="button" 
+                                class="btn btn-outline-secondary btn-sm rounded text-decoration-none">
+                                <i class="fa-solid fa-question me-2"></i>Claim {{ post.Name }}
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
     <div class="mb-3">
         {% if post.Description %}
             {{ post.Description|raw }}
         {% else %}
         <div>{{ post.Name }}{{' has not yet provided a description'|trans }}</div>
         {% endif %}
-    </div>
-{% endblock %}
-
-{% block single_title_section %}
-    <div class="row">
-        <div class="d-flex justify-content-between col-12 pe-3">
-            <h3 class="font-gothic fs-1">{{ post.Name }}
-                {% if post.isVerified %}
-                    <span 
-                        data-bs-toggle="tooltip" 
-                        data-bs-title="Verified"
-                        {{ stimulus_controller('verified-badge') }}
-                    >
-                        <i class="fa-solid fa-circle-check text-info me-2"></i>
-                    </span>
-                {% endif %}
-            </h3>
-            <div class="d-flex align-items-center">
-                {# 
-                {% if post.Owner|length > 0 %}
-                    
-                    {% if app.User in post.Owner %}
-                        <div 
-                            data-controller="modal"
-                        >
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary">
-                            Launch demo modal
-                            </button>
-                        </div>
-                        {{ component('Button:Modal', { 
-                            icon: 'fa-solid fa-pen',
-                            color: 'secondary',
-                            title: 'Edit ' ~ post.Name,
-                            size: 'btn-sm',
-                        }) }}     
-                    {% endif %}
-                    
-                {% else %}
-                    {{ component('Button:Modal', { 
-                        icon: 'fa-solid fa-question',
-                        color: 'secondary',
-                        title: 'Claim ' ~ post.Name,
-                        size: 'btn-sm',
-                    }) }}
-                {% endif %}
-                #}
-            </div>
-        </div>
     </div>
 {% endblock %}
 
@@ -136,3 +128,6 @@
         {% endif %}
     </div>
 {% endblock %}
+
+{% block single_bottom_area %}{% endblock %}
+{% block single_title_section %}{% endblock %}

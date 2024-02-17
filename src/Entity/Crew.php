@@ -48,6 +48,9 @@ class Crew
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: true)]
     private ?DateTimeImmutable $editedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $isVerified = false;
+
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updatedTimestamps(): void
@@ -252,6 +255,18 @@ class Crew
                 $link->setCrew(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(?bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }

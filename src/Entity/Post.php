@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Tag;
 use App\Entity\Artist;
 use DateTimeImmutable;
+use App\Entity\Podcast;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -29,7 +30,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     'orbiter_session' => OrbiterSession::class,
     'radio' => Radio::class,
     'teletime' => Teletime::class,
-    'windowlicker' => Windowlicker::class
+    'windowlicker' => Windowlicker::class,
+    'podcast'=> Podcast::class,
 ])]
 class Post
 {

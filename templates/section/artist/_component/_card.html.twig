@@ -18,6 +18,11 @@
     {% set card_small_text = 'Teletime' %}
 {% endif %}
 
+{% if constant('class', item) == 'App\\Entity\\Podcast' %}
+    {% set path_url = 'app_main_podcast_single' %}
+    {% set card_small_text = 'Podcast' %}
+{% endif %}
+
 {{ component('Card:Large', { 
     post: item,
     col_size: 2,

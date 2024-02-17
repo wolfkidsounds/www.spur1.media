@@ -7,6 +7,7 @@ use App\Entity\Crew;
 use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
+use App\Entity\Podcast;
 use App\Entity\LinkType;
 use App\Entity\Location;
 use App\Entity\Teletime;
@@ -92,6 +93,8 @@ class DashboardController extends AbstractDashboardController
                         ->setPermission('ROLE_ACCESS_MEDIA_ORBITER'),
                     MenuItem::linkToCrud('Teletime', 'fa-solid fa-phone', Teletime::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_TELETIME'),
+                    MenuItem::linkToCrud('Podcast', 'fa-solid fa-podcast', Podcast::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_PODCAST'),
             ]);
 
             yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')

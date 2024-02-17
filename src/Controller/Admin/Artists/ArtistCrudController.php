@@ -4,13 +4,14 @@ namespace App\Controller\Admin\Artists;
 
 use App\Entity\Link;
 use App\Entity\Artist;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -26,7 +27,11 @@ class ArtistCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         yield FormField::addFieldset('General Information');
-        yield TextField::new('Name');
+        yield TextField::new('Name')
+        ->setColumns(8);
+
+        yield FormField::addRow();
+        yield BooleanField::new('isVerified');
 
         yield SlugField::new('Slug')
             ->setTargetFieldName(['Name'])

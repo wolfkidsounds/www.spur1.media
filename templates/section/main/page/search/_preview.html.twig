@@ -21,11 +21,29 @@
                 {% set post_type = 'Teletime' %}
             {% endif %}
 
+            {% if constant('class', post) == 'App\\Entity\\Podcast' %}
+                {% set path_url = 'app_main_podcast_single' %}
+                {% set post_type = 'Podcast' %}
+            {% endif %}
+
             <a 
-                class="list-group-item list-group-item-action"
+                class="list-group-item list-group-item-action d-flex p-3"
                 href="{{ path(path_url, { slug: post.Slug }) }}"
                 >
-                {{ post.Title }} | {{ post_type }}
+                <div class="image p-0 m-0 border-0 overflow-hidden me-3 h-100">
+                    {{ component('Card:Image', { 
+                        image: post.Image|default(''),
+                        corner_style: 'rounded',
+                        style: 'thumbnail_grayscale',
+                        width: 36,
+                        load: '',
+                        corner_style: 'rounded'
+                    }) }}
+                </div>
+                <div class="">
+                    <h6 class="m-0 p-0">{{ post.Title }}</h6>
+                    <p class="small m-0 p-0">{{ post_type }} | {{ post.Date|date('m/Y') }}</p>
+                </div>
             </a>
         {% else %}
             <div class="list-group-item">No Posts have been found.</div>

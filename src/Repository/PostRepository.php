@@ -39,6 +39,7 @@ class PostRepository extends ServiceEntityRepository
         return $qb
             ->orderBy('post.Date', 'DESC')
             ->getQuery()
+            ->setMaxResults(10)
             ->execute();
     }
 }

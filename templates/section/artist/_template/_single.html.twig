@@ -22,7 +22,17 @@
 {% block single_title_section %}
     <div class="row">
         <div class="d-flex justify-content-between col-12 pe-3">
-            <h3 class="font-gothic fs-1">{{ post.Name }}</h3>
+            <h3 class="font-gothic fs-1">{{ post.Name }}
+                {% if post.isVerified %}
+                    <span 
+                        data-bs-toggle="tooltip" 
+                        data-bs-title="Verified"
+                        {{ stimulus_controller('verified-badge') }}
+                    >
+                        <i class="fa-solid fa-circle-check text-info me-2"></i>
+                    </span>
+                {% endif %}
+            </h3>
             <div class="d-flex align-items-center">
                 {# 
                 {% if post.Owner|length > 0 %}

@@ -44,10 +44,10 @@ class Builder extends AbstractController
         ]);
 
         $menu->addChild('Podcast', [
-            'route' => 'app_logout',
+            'route' => 'app_main_podcast_index',
             'extras' => [
                 'icon' => 'fa-solid fa-podcast',
-                'class' => 'opacity-25 pe-none',
+                'class' => '',
             ]
         ]);
 

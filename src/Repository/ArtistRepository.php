@@ -79,8 +79,6 @@ class ArtistRepository extends ServiceEntityRepository
                 ->setParameter('crewIds', $crewIds);
         }
 
-        dump($query->getQuery()->getSQL());
-
         return $query
             ->orderBy('a.createdAt', 'DESC')
             ->setMaxResults($limit)

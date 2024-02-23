@@ -2,13 +2,12 @@
 
 namespace App\Twig\Components\Card;
 
-use App\Entity\Post;
 use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
 
 #[AsTwigComponent]
 class Large
 {
-    public Post $post;
+    public $post;
     public int $col_size;
     public int $gap_size;
     public string $path_url;

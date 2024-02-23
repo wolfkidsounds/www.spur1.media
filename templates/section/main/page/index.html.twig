@@ -1,4 +1,30 @@
 {% extends 'section/main/_template/_clean.html.twig' %}
 {% block content %}
-    This is still empty
+    <div class="section mb-3">
+        <h3> {{ 'New Content'|trans }}</h3>
+        <div class="row flex-row flex-nowrap" data-controller="blurryload">
+            {% for post in posts %}
+                {% include('section/main/_component/_card.html.twig') %}
+            {% else %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section mb-3">
+        <h3> {{ 'New Artists'|trans }}</h3>
+        <div class="row flex-row flex-nowrap" data-controller="blurryload">
+            {% for artist in artists %}
+                {{ component('Card:Large', { 
+                    post:artist,
+                    col_size: 2,
+                    gap_size: 3,
+                    path_url: 'app_artist_single',
+                    small_text: 'Artist',
+                    large_text: artist.Name,
+                    style: 'thumbnail',
+                }) }}
+            {% else %}
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

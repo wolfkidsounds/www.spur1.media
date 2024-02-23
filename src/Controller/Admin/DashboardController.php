@@ -2,11 +2,14 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ActType;
 use App\Entity\Tag;
 use App\Entity\Crew;
 use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
+use App\Entity\ArtistType;
+use App\Entity\Gender;
 use App\Entity\Podcast;
 use App\Entity\LinkType;
 use App\Entity\Location;
@@ -72,8 +75,9 @@ class DashboardController extends AbstractDashboardController
                     ->setPermission('ROLE_ACCESS_MEDIA'),
                 MenuItem::linkToCrud('Link Type', 'fa fa-link', LinkType::class)
                     ->setPermission('ROLE_ACCESS_MEDIA'),
+                MenuItem::linkToCrud('Genders', 'fa fa-venus-mars', Gender::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
         ]);
-        
         
 
         if($this->featureManager->isEnabled('content') || $this->featureManager->isEnabled('debug')) {
@@ -118,8 +122,13 @@ class DashboardController extends AbstractDashboardController
                 ->setSubItems([
                     MenuItem::linkToCrud('Artists', 'fa fa-user', Artist::class)
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
+                    MenuItem::linkToCrud('Artist Types', 'fa fa-user-tag', ArtistType::class)
+                        ->setPermission('ROLE_ACCESS_ARTISTS'),
+                    MenuItem::linkToCrud('Act Types', 'fa fa-user-tag', ActType::class)
+                        ->setPermission('ROLE_ACCESS_ARTISTS'),
                     MenuItem::linkToCrud('Crews', 'fa fa-users', Crew::class)
                         ->setPermission('ROLE_ACCESS_CREWS'),
+                    
             ]);
 
             yield MenuItem::subMenu('Spur1-Player', 'fa fa-play')

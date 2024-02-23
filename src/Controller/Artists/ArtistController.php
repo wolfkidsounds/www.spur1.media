@@ -2,19 +2,58 @@
 
 namespace App\Controller\Artists;
 
+use App\Form\ArtistFilterType;
 use App\Controller\BaseController;
 use App\Repository\ArtistRepository;
+use Exception;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArtistController extends BaseController
 {
-    #[Route('/artist', name: 'app_artist_index', methods: ['GET'])]
-    public function artist_index(): Response
+    #[Route('/artists', name: 'app_artist_index', methods: ['GET', 'POST'])]
+    public function artist_index(Request $request, ArtistRepository $repository): Response
     {
+        $form = $this->createForm(ArtistFilterType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $posts = $repository->searchArtists(
+                $data['search'],
+                $data['verified'],
+                $data['artisttype'],
+                $data['acttype'],
+                $data['gender'],
+                $data['crew'],
+            );
+
+            return $this->render('section/artist/page/artist/_preview.html.twig', [
+                'path_url' => 'app_artist_single',
+                'posts' => $posts,
+            ]);
+        }
+
+        $posts = $this->getRandomArtists($repository, 5);
         return $this->render('section/artist/page/artist/index.html.twig', [
-            'title' => 'Artist',
+            'posts' => $posts,
+            'form' => $form,
+            'title' => 'Artists',
         ]);
+    }
+
+    public function getRandomArtists(ArtistRepository $repository, int $limit)
+    {
+        $allIds = $repository->createQueryBuilder('a')
+            ->select('a.id')
+            ->getQuery()
+            ->getResult();
+        $allIds = array_column($allIds, 'id');
+        shuffle($allIds);
+        $randomIds = array_slice($allIds, 0, $limit);
+
+        return $repository->findBy(['id' => $randomIds]);
     }
 
     #[Route('/artist/{slug}', name: 'app_artist_single', methods: ['GET'])]

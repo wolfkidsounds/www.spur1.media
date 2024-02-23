@@ -30,26 +30,37 @@ class ArtistCrudController extends AbstractCrudController
         yield TextField::new('Name')
         ->setColumns(8);
 
-        yield FormField::addRow();
-        yield BooleanField::new('isVerified');
-
         yield SlugField::new('Slug')
             ->setTargetFieldName(['Name'])
             ->setColumns(8)
             ->hideOnIndex();
 
+        yield FormField::addRow();
+        yield BooleanField::new('isVerified');
+
         yield FormField::addFieldset('Details');
+        yield AssociationField::new('ArtistType')
+            ->hideOnIndex()
+            ->setColumns(2);
+        yield AssociationField::new('ActType')
+            ->hideOnIndex()
+            ->setColumns(3);
+        yield AssociationField::new('Gender')
+            ->hideOnIndex()
+            ->setColumns(3);
+
+        yield FormField::addRow();
+        yield TextEditorField::new('Description')
+            ->hideOnIndex()
+            ->setColumns(8);
+        yield FormField::addRow();
         yield EasyMediaField::new('Image')
             ->setFormTypeOption('restrictions_uploadTypes', ["image/*"])
             ->setFormTypeOption('restrictions_path', 'Artists/Thumbnails/')
             ->setFormTypeOption('upload', true)
             ->setFormTypeOption('rename', true)
             ->setColumns(8);
-
-        yield FormField::addRow();
-        yield TextEditorField::new('Description')
-            ->hideOnIndex()
-            ->setColumns(8);
+        
 
         yield FormField::addFieldset('Groups');
         yield AssociationField::new('Crews')
@@ -57,11 +68,16 @@ class ArtistCrudController extends AbstractCrudController
             ->setColumns(8);
 
         yield FormField::addFieldset('Links');
+        yield UrlField::new('Tourbox')
+            ->setColumns(8)
+            ->hideOnIndex();
+        yield FormField::addRow();
         yield CollectionField::new('Links')
             ->allowAdd()
             ->allowDelete()
             ->setEntryIsComplex()
             ->useEntryCrudForm()
+            ->setColumns(8)
             ->hideOnIndex();
 
         yield FormField::addFieldset('Settings');

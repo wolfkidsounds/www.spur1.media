@@ -81,14 +81,15 @@ class Builder extends AbstractController
             ]
         ]);
 
-        $menu->addChild('Producer Meeting', [
-            'route' => 'app_logout',
+        $menu->addChild('Artists', [
+            'route' => 'app_artist_index',
             'extras' => [
-                'class' => 'opacity-25 pe-none',
+                'icon' => 'fa-solid fa-icons',
+                'class' => '',
             ]
         ]);
 
-        $menu->addChild('Artist Database', [
+        $menu->addChild('Producer Meeting', [
             'route' => 'app_logout',
             'extras' => [
                 'class' => 'opacity-25 pe-none',

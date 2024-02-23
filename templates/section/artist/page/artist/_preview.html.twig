@@ -1,0 +1,12 @@
+{% if posts %}
+    <ul id="artist-list" class="list-group" {{ stimulus_controller('tooltip') }}>
+        {% for post in posts %}
+            {{ component('List:ArtistListItem', { 
+                artist:post,
+                path_url: path_url,
+            }) }}
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>{{'No posts have been found'|trans}}</p>
+{% endif %}

@@ -11,16 +11,16 @@
         <div class="row" data-controller="blurryload">
             <div class="col-{{ left_width }} p-3 position-relative {{ left_alignment|default('') }}">
                 {% block single_content_area %}
-                    {% if post.YouTubeUrl is defined %}
-                        {{ component('Embed:YouTube', { 
-                            youtube_url: post.YouTubeUrl|default(''),
-                        }) }}
-                    {% endif %}
-        
-                    {% if post.MixcloudUrl is defined %}
+                    {% if post.YouTubeUrl is defined and post.YouTubeUrl|length > 0 %}
+                            {{ component('Embed:YouTube', { 
+                                youtube_url: post.YouTubeUrl|default(''),
+                            }) }}
+                    {% elseif post.MixcloudUrl is defined and post.MixcloudUrl|length > 0 %}
                         {{ component('Embed:Mixcloud', { 
                             mixcloud_url: post.MixcloudUrl|default(''),
                         }) }}
+                    {% else %}
+                        <p>{{ 'Oh no! - Looks like this content is missing :('|trans }}
                     {% endif %}
                 {% endblock %}
             </div>

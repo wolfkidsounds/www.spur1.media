@@ -1,0 +1,94 @@
+<a  class="d-flex p-3 list-group-item list-group-item-action animate__animated animate__fadeIn"
+    href="{{ path(this.path_url, { 'slug': this.artist.Slug }) }}">
+    <div class="w-100 d-flex gap-3">
+        <div class="">
+            {{ component('Card:Image', { 
+                image: this.artist.Image|default(''),
+                corner_style: 'rounded border',
+                style: 'thumbnail',
+                width: 48,
+                load: ''
+            }) }}
+        </div>
+        <div class="w-100">
+            <div class="mb-3">
+                <h5 class="p-0 m-0">{{ this.artist.Name }}
+                    {% if this.artist.isVerified %}
+                        <span 
+                            data-filter-verified="true"
+                            data-bs-toggle="tooltip" 
+                            data-bs-title="Verified"
+                        >
+                            <i class="fa-solid fa-circle-check text-info me-2"></i>
+                        </span>
+                    {% endif %}
+                </h5>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">Type:</p>
+                        {% for type in this.artist.ArtistType %}
+                            <span 
+                                data-filter-artisttype="{{ type.Name|lower }}"
+                                class="badge bg-secondary rounded-1">
+                                {{ type.Name }}
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">Act:</p>
+                        {% for type in this.artist.ActType %}
+                            <span 
+                                class="badge bg-secondary rounded-1"
+                                data-filter-acttype="{{ type.Name|lower }}"
+                                data-bs-toggle="tooltip" 
+                                data-bs-title="{{ type.Name }}"
+                                
+                                >
+                                <i class="{{ type.Icon }}"></i>
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">Crews:</p>
+                        {% for crew in this.artist.Crews %}
+                            <span 
+                                data-filter-crew="{{ crew.Name|lower }}"
+                                class="badge bg-secondary rounded-1">{{ crew.Name }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">Gender:</p>
+                        {% for gender in this.artist.Gender %}
+                            <span 
+                                data-filter-gender="{{ gender.Name|lower }}"
+                                class="badge bg-secondary rounded-1"
+                                data-bs-toggle="tooltip" 
+                                data-bs-title="{{ gender.Name }}"
+                                
+                                >
+                                <i class="{{ gender.Icon }}"></i>
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</a>

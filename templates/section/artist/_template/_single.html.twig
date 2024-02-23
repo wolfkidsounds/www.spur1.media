@@ -11,7 +11,7 @@
 
 {% block single_content_area %}
     <div class="row">
-        <div class="pe-3 d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <h3 class="font-gothic fs-1 me-2">{{ post.Name }}
                 {% if post.isVerified %}
                     <span
@@ -24,31 +24,6 @@
                     </span>
                 {% endif %}
             </h3>
-            {% if app.User %}
-                {% if post.Owner|length > 0 %}
-                    <div class="ms-4">
-                        {% if app.User in post.Owner %}
-                            <div data-controller="modal">
-                                <button 
-                                    type="button" 
-                                    class="btn btn-outline-secondary btn-sm rounded text-decoration-none">
-                                    <i class="fa-solid fa-pen me-2"></i>Edit {{ post.Name }}
-                                </button>
-                            </div>
-                        {% endif %}
-                    </div>
-                {% else %}
-                    <div class="ms-4">
-                        <div data-controller="modal">
-                            <button 
-                                type="button" 
-                                class="btn btn-outline-secondary btn-sm rounded text-decoration-none">
-                                <i class="fa-solid fa-question me-2"></i>Claim {{ post.Name }}
-                            </button>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endif %}
         </div>
     </div>
     <div class="mb-3">
@@ -106,8 +81,38 @@
                             path_url: link.Url,
                             color: 'secondary',
                             title: link.Type,
+                            new_window: true,
                         }) }}
                     {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if post.Tourbox is defined %}
+        {% if post.Tourbox|length > 0 %}
+            <div class="row mb-3">
+                <h5>{{'Next Dates'|trans}}</h5>
+                <div class="m-0 p-0">
+                    {% set SongkickId = post.Tourbox|split("artists/")|last %}
+                    {% set SongkickId = SongkickId|split("-")|first %}
+                    <a 
+                        href="https://www.songkick.com/artists/{{ SongkickId }}" 
+                        class="songkick-widget" 
+                        data-theme="light" 
+                        data-track-button="off" 
+                        data-detect-style="on" 
+                        data-locale="en" 
+                        data-other-artists="off" 
+                        data-share-button="off" 
+                        data-country-filter="off" 
+                        data-rsvp="off" 
+                        data-request-show="off" 
+                        data-past-events="off" 
+                        data-past-events-offtour="off" 
+                        data-remind-me="off" 
+                        style="display: none;">
+                    </a>
+                    <script src='//widget-app.songkick.com/injector/{{ SongkickId }}'></script>
                 </div>
             </div>
         {% endif %}

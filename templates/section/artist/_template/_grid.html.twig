@@ -1,4 +1,27 @@
-{% extends '/Main/base.html.twig' %}
+{% extends 'section/main/base.html.twig' %}
 {% block content %}
-{% include '_template/_grid.html.twig' %}
+    <div 
+        class="d-flex flex-row-reverse w-100 gap-3"
+        data-controller="artist-filter"
+        data-form-url-value={{ path('app_artist_index') }}
+        >
+        <div class="col-2 filter-form" data-artist-filter-target="form">{{ form(form) }}</div>
+        <div 
+            id="results" 
+            class="col"
+            data-artist-filter-target="result">
+            {% if posts %}
+                <ul id="artist-list" class="list-group" {{ stimulus_controller('tooltip') }}>
+                    {% for post in posts %}
+                        {{ component('List:ArtistListItem', { 
+                            artist:post,
+                            path_url: path_url,
+                        }) }}
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>{{'No posts have been found'|trans}}</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

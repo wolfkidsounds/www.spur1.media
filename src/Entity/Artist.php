@@ -56,6 +56,19 @@ class Artist
     #[ORM\Column(nullable: true)]
     private ?bool $isVerified = false;
 
+    #[ORM\ManyToMany(targetEntity: Gender::class)]
+    private Collection $Gender;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Tourbox = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ArtistType $ArtistType = null;
+
+    #[ORM\ManyToMany(targetEntity: ActType::class)]
+    private Collection $ActType;
+
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updatedTimestamps(): void
@@ -75,6 +88,8 @@ class Artist
         $this->Owner = new ArrayCollection();
         $this->Crews = new ArrayCollection();
         $this->Links = new ArrayCollection();
+        $this->Gender = new ArrayCollection();
+        $this->ActType = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -275,6 +290,78 @@ class Artist
     public function setIsVerified(?bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Gender>
+     */
+    public function getGender(): Collection
+    {
+        return $this->Gender;
+    }
+
+    public function addGender(Gender $gender): static
+    {
+        if (!$this->Gender->contains($gender)) {
+            $this->Gender->add($gender);
+        }
+
+        return $this;
+    }
+
+    public function removeGender(Gender $gender): static
+    {
+        $this->Gender->removeElement($gender);
+
+        return $this;
+    }
+
+    public function getTourbox(): ?string
+    {
+        return $this->Tourbox;
+    }
+
+    public function setTourbox(?string $Tourbox): static
+    {
+        $this->Tourbox = $Tourbox;
+
+        return $this;
+    }
+
+    public function getArtistType(): ?ArtistType
+    {
+        return $this->ArtistType;
+    }
+
+    public function setArtistType(?ArtistType $ArtistType): static
+    {
+        $this->ArtistType = $ArtistType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ActType>
+     */
+    public function getActType(): Collection
+    {
+        return $this->ActType;
+    }
+
+    public function addActType(ActType $actType): static
+    {
+        if (!$this->ActType->contains($actType)) {
+            $this->ActType->add($actType);
+        }
+
+        return $this;
+    }
+
+    public function removeActType(ActType $actType): static
+    {
+        $this->ActType->removeElement($actType);
 
         return $this;
     }

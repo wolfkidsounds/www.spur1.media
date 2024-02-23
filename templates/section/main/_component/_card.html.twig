@@ -1,0 +1,34 @@
+{% if constant('class', post) == 'App\\Entity\\Radio' %}
+    {% set path_url = 'app_main_radio_single' %}
+    {% set card_small_text = 'Radio' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Windowlicker' %}
+    {% set path_url = 'app_main_windowlicker_single' %}
+    {% set card_small_text = 'Windowlicker' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\OrbiterSession' %}
+    {% set path_url = 'app_main_orbiter-session_single' %}
+    {% set card_small_text = 'Orbiter Session' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Teletime' %}
+    {% set path_url = 'app_main_teletime_single' %}
+    {% set card_small_text = 'Teletime' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Podcast' %}
+    {% set path_url = 'app_main_podcast_single' %}
+    {% set card_small_text = 'Podcast' %}
+{% endif %}
+
+{{ component('Card:Large', { 
+    post: post,
+    col_size: 2,
+    gap_size: 3,
+    path_url: path_url,
+    small_text: card_small_text,
+    large_text: post.Title|upper,
+    load: '',
+}) }}

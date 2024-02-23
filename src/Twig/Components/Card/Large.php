@@ -13,4 +13,5 @@ class Large
     public string $path_url;
     public string $large_text;
     public string $small_text;
+    public string $style = 'thumbnail_grayscale';
 }

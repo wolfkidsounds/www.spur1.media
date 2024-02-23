@@ -1,5 +1,5 @@
 {# templates/components/Card/Large.html.twig #}
-<div class="col-{{ col_size }} g-{{ gap_size }} text-center animate__animated animate__fadeIn">
+<div class="col-{{ this.col_size }} g-{{ this.gap_size }} text-center animate__animated animate__fadeIn">
     <a 
         class="grid-post m-0 p-0 d-block bg-light rounded border border-light-subtle bg-light pe-auto position-relative p-3 text-decoration-none" 
         href="{{ path(this.path_url, { 'slug': this.post.Slug }) }}">
@@ -8,7 +8,7 @@
             {{ component('Card:Image', { 
                 image: post.Image|default(''),
                 corner_style: 'rounded',
-                style: 'thumbnail_grayscale',
+                style: this.style,
             }) }}
         </div>
 

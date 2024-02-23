@@ -5,6 +5,7 @@ import 'bootstrap';
 
 // NODE MODULES CSS
 import '@fortawesome/fontawesome-free/css/all.css';
+import 'animate.css';
 
 // FONTS
 import './fonts/fonts.css';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\Artists;
+namespace App\Controller\Admin\Settings;
 
 use App\Entity\Gender;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;

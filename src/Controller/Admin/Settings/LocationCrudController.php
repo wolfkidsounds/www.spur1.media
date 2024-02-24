@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin\Media;
+namespace App\Controller\Admin\Settings;
 
 use App\Entity\Location;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;

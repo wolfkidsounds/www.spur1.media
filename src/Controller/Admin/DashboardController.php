@@ -9,16 +9,18 @@ use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
 use App\Entity\ArtistType;
+use App\Entity\Club;
 use App\Entity\Gender;
+use App\Entity\Interview;
 use App\Entity\Podcast;
 use App\Entity\LinkType;
 use App\Entity\Location;
 use App\Entity\Teletime;
-use App\Entity\Main\Post;
-use App\Entity\Main\Type;
+use App\Entity\NebenDerSpur;
 use App\Entity\TagFormat;
 use App\Entity\Windowlicker;
 use App\Entity\OrbiterSession;
+use App\Entity\RecSession;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -77,6 +79,10 @@ class DashboardController extends AbstractDashboardController
                     ->setPermission('ROLE_ACCESS_MEDIA'),
                 MenuItem::linkToCrud('Genders', 'fa fa-venus-mars', Gender::class)
                     ->setPermission('ROLE_ACCESS_MEDIA'),
+                MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
+                MenuItem::linkToCrud('Clubs', 'fa fa-industry', Club::class)
+                    ->setPermission('ROLE_ACCESS_MEDIA'),
         ]);
         
 
@@ -91,14 +97,18 @@ class DashboardController extends AbstractDashboardController
                         ->setPermission('ROLE_ACCESS_MEDIA_RADIO'),
                     MenuItem::linkToCrud('Windowlicker', 'fa-brands fa-windows', Windowlicker::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
-                    MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
-                        ->setPermission('ROLE_ACCESS_MEDIA_WINDOWLICKER'),
                     MenuItem::linkToCrud('Orbiter Session', 'fa-solid fa-record-vinyl', OrbiterSession::class)
-                        ->setPermission('ROLE_ACCESS_MEDIA_ORBITER'),
+                        ->setPermission('ROLE_ACCESS_MEDIA_ORBITERSESSION'),
                     MenuItem::linkToCrud('Teletime', 'fa-solid fa-phone', Teletime::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_TELETIME'),
                     MenuItem::linkToCrud('Podcast', 'fa-solid fa-podcast', Podcast::class)
                         ->setPermission('ROLE_ACCESS_MEDIA_PODCAST'),
+                    MenuItem::linkToCrud('Neben Der Spur', 'fa fa-shuffle', NebenDerSpur::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_NEBENDERSPUR'),
+                    MenuItem::linkToCrud('Rec Session', 'fa fa-circle-play', RecSession::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_RECSESSION'),
+                    MenuItem::linkToCrud('Interview', 'fa fa-microphone', Interview::class)
+                        ->setPermission('ROLE_ACCESS_MEDIA_INTERVIEW'),
             ]);
 
             yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')
@@ -122,12 +132,12 @@ class DashboardController extends AbstractDashboardController
                 ->setSubItems([
                     MenuItem::linkToCrud('Artists', 'fa fa-user', Artist::class)
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
+                    MenuItem::linkToCrud('Crews', 'fa fa-users', Crew::class)
+                        ->setPermission('ROLE_ACCESS_CREWS'),
                     MenuItem::linkToCrud('Artist Types', 'fa fa-user-tag', ArtistType::class)
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
                     MenuItem::linkToCrud('Act Types', 'fa fa-user-tag', ActType::class)
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
-                    MenuItem::linkToCrud('Crews', 'fa fa-users', Crew::class)
-                        ->setPermission('ROLE_ACCESS_CREWS'),
                     
             ]);
 
@@ -141,7 +151,6 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::section('Design & Media');
         yield MenuItem::linkToRoute('Media Files', 'fa fa-picture-o', 'media.index');
-        yield MenuItem::linkToRoute('UI Components', 'fa-brands fa-sketch', 'admin_ui');
 
         yield MenuItem::section('Cloud')
             ->setPermission('ROLE_ACCESS_CLOUD');
@@ -156,7 +165,8 @@ class DashboardController extends AbstractDashboardController
         return parent::configureUserMenu($user)
             ->addMenuItems([
                 MenuItem::linkToRoute('Back to Spur1-Media', 'fa-solid fa-arrow-left', 'app_main_index'),
-            ]);
+            ])
+            ->displayUserAvatar(false);
     }
 
     public function configureAssets(): Assets

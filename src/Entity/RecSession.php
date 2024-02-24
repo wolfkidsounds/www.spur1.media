@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Entity\Post;
+use App\Repository\RecSessionRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\OrbiterSessionRepository;
 
-#[ORM\Entity(repositoryClass: OrbiterSessionRepository::class)]
+#[ORM\Entity(repositoryClass: RecSessionRepository::class)]
 #[ORM\Table(name: 'post')]
-class OrbiterSession extends Post
+class RecSession extends Post
 {
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;
+
+    #[ORM\ManyToOne]
+    private ?Club $Club = null;
 
     public function getYouTubeUrl(): ?string
     {
@@ -21,6 +23,18 @@ class OrbiterSession extends Post
     public function setYouTubeUrl(?string $YouTubeUrl): static
     {
         $this->YouTubeUrl = $YouTubeUrl;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->Club;
+    }
+
+    public function setClub(?Club $Club): static
+    {
+        $this->Club = $Club;
 
         return $this;
     }

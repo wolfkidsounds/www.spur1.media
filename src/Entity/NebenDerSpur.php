@@ -4,11 +4,11 @@ namespace App\Entity;
 
 use App\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\OrbiterSessionRepository;
+use App\Repository\NebenDerSpurRepository;
 
-#[ORM\Entity(repositoryClass: OrbiterSessionRepository::class)]
+#[ORM\Entity(repositoryClass: NebenDerSpurRepository::class)]
 #[ORM\Table(name: 'post')]
-class OrbiterSession extends Post
+class NebenDerSpur extends Post
 {
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;

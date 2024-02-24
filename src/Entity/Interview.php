@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use App\Entity\Post;
+use App\Repository\InterviewRepository;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\OrbiterSessionRepository;
 
-#[ORM\Entity(repositoryClass: OrbiterSessionRepository::class)]
+#[ORM\Entity(repositoryClass: InterviewRepository::class)]
 #[ORM\Table(name: 'post')]
-class OrbiterSession extends Post
+class Interview extends Post
 {
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $YouTubeUrl = null;

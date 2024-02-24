@@ -30,6 +30,9 @@ class Link
     #[ORM\ManyToOne(inversedBy: 'Links')]
     private ?Post $Post = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Links')]
+    private ?Club $Club = null;
+
     public function __toString(): string
     {
         return $this->Type->getName();
@@ -96,6 +99,18 @@ class Link
     public function setPost(?Post $Post): static
     {
         $this->Post = $Post;
+
+        return $this;
+    }
+
+    public function getClub(): ?Club
+    {
+        return $this->Club;
+    }
+
+    public function setClub(?Club $Club): static
+    {
+        $this->Club = $Club;
 
         return $this;
     }

@@ -6,6 +6,8 @@ use App\Entity\Tag;
 use App\Entity\Artist;
 use DateTimeImmutable;
 use App\Entity\Podcast;
+use App\Entity\Interview;
+use App\Entity\RecSession;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
@@ -32,6 +34,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
     'teletime' => Teletime::class,
     'windowlicker' => Windowlicker::class,
     'podcast'=> Podcast::class,
+    'neben_der_spur'=> NebenDerSpur::class,
+    'rec_session'=> RecSession::class,
+    'interview'=> Interview::class,    
 ])]
 class Post
 {

@@ -23,7 +23,7 @@ class Builder extends AbstractController
         $menu->addChild('Home', [
             'route' => 'app_main_index',
             'extras' => [
-                'icon' => 'fa-solid fa-home',
+                'icon' => 'fa-solid fa-home w-16',
                 'class' => '',
             ]
         ]);
@@ -38,7 +38,7 @@ class Builder extends AbstractController
         $menu->addChild('Orbiter Session', [
             'route' => 'app_main_orbiter-session_index',
             'extras' => [
-                'icon' => 'fa-solid fa-record-vinyl',
+                'icon' => 'fa-solid fa-record-vinyl w-16',
                 'class' => '',
             ]
         ]);
@@ -46,7 +46,7 @@ class Builder extends AbstractController
         $menu->addChild('Podcast', [
             'route' => 'app_main_podcast_index',
             'extras' => [
-                'icon' => 'fa-solid fa-podcast',
+                'icon' => 'fa-solid fa-podcast w-16',
                 'class' => '',
             ]
         ]);
@@ -54,7 +54,7 @@ class Builder extends AbstractController
         $menu->addChild('Radio', [
             'route' => 'app_main_radio_index',
             'extras' => [
-                'icon' => 'fa-solid fa-radio',
+                'icon' => 'fa-solid fa-radio w-16',
                 'class' => '',
             ]
         ]);
@@ -62,7 +62,7 @@ class Builder extends AbstractController
         $menu->addChild('Teletime', [
             'route' => 'app_main_teletime_index',
             'extras' => [
-                'icon' => 'fa-solid fa-phone',
+                'icon' => 'fa-solid fa-phone w-16',
                 'class' => '',
             ]
         ]);
@@ -70,7 +70,28 @@ class Builder extends AbstractController
         $menu->addChild('Windowlicker', [
             'route' => 'app_main_windowlicker_index',
             'extras' => [
-                'icon' => 'fa-brands fa-windows',
+                'icon' => 'fa-brands fa-windows w-16',
+            ]
+        ]);
+
+        $menu->addChild('Neben Der Spur', [
+            'route' => 'app_main_neben-der-spur_index',
+            'extras' => [
+                'icon' => 'fa-solid fa-shuffle w-16',
+            ]
+        ]);
+
+        $menu->addChild('Rec Session', [
+            'route' => 'app_main_rec-session_index',
+            'extras' => [
+                'icon' => 'fa-solid fa-circle-play w-16',
+            ]
+        ]);
+
+        $menu->addChild('Interview', [
+            'route' => 'app_main_interview_index',
+            'extras' => [
+                'icon' => 'fa-solid fa-microphone w-16',
             ]
         ]);
 
@@ -84,7 +105,7 @@ class Builder extends AbstractController
         $menu->addChild('Artists', [
             'route' => 'app_artist_index',
             'extras' => [
-                'icon' => 'fa-solid fa-icons',
+                'icon' => 'fa-solid fa-icons w-16',
                 'class' => '',
             ]
         ]);

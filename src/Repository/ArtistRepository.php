@@ -31,83 +31,70 @@ class ArtistRepository extends ServiceEntityRepository
      */
     public function searchArtists(?string $name, ?bool $verified, ?Collection $artistTypes, ?Collection $actTypes, ?Collection $genders, ?Collection $crews, ?int $limit = 10): ?array
     {
-        $query = $this->createQueryBuilder('a');
+        $query = $this->createQueryBuilder('artist');
 
         if ($name !== null) {
-            $query->andWhere('a.Name = :name')
+            $query->andWhere('artist.Name = :name')
                 ->setParameter('name', $name);
         }
     
         if ($verified !== null && $verified === true) {
-            $query->andWhere('a.isVerified = :verified')
+            $query->andWhere('artist.isVerified = :verified')
                 ->setParameter('verified', $verified);
         }
     
         if ($artistTypes !== null && !$artistTypes->isEmpty()) {
+            $query->join('artist.ArtistType', 'artist_type');
             $artistTypeIds = [];
+
             foreach ($artistTypes as $artistType) {
                 $artistTypeIds[] = $artistType->getId();
             }
-            $query->andWhere('a.ArtistType IN (:artistTypeIds)')
+
+            $query->andWhere('artist_type.id IN (:artistTypeIds)')
                 ->setParameter('artistTypeIds', $artistTypeIds);
         }
-    
+
         if ($actTypes !== null && !$actTypes->isEmpty()) {
+            $query->join('artist.ActType', 'act_type');
             $actTypeIds = [];
+        
             foreach ($actTypes as $actType) {
                 $actTypeIds[] = $actType->getId();
             }
-            $query->andWhere('a.ActType IN (:actTypeIds)')
+        
+            $query->andWhere('act_type.id IN (:actTypeIds)')
                 ->setParameter('actTypeIds', $actTypeIds);
         }
     
         if ($genders !== null && !$genders->isEmpty()) {
+            $query->join('artist.Gender', 'gender');
             $genderIds = [];
+
             foreach ($genders as $gender) {
                 $genderIds[] = $gender->getId();
             }
-            $query->andWhere('a.Gender IN (:genderIds)')
+
+            $query->andWhere('gender.id IN (:genderIds)')
                 ->setParameter('genderIds', $genderIds);
         }
     
         if ($crews !== null && !$crews->isEmpty()) {
+            $query->join('artist.Crews', 'crew');
             $crewIds = [];
+
             foreach ($crews as $crew) {
                 $crewIds[] = $crew->getId();
             }
-            $query->andWhere('a.Crews IN (:crewIds)')
+
+            $query->andWhere('crew.id IN (:crewIds)')
                 ->setParameter('crewIds', $crewIds);
         }
 
         return $query
-            ->orderBy('a.createdAt', 'DESC')
+            ->orderBy('artist.createdAt', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }
-
-//    /**
-//     * @return Artist[] Returns an array of Artist objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Artist
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

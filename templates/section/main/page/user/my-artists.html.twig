@@ -5,8 +5,8 @@
 {% if user.Artists|length > 0 %}
     <div class="list-group">
         {% for artist in user.Artists %}
-        <div class="list-group-item list-group-item-action d-flex gap-3 py-3">
-            <img src="{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}" width="36" height="36" class="rounded-circle flex-shrink-0">
+        <div class="list-group-item list-group-item-action d-flex gap-3 p-2">
+            <img src="{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}" width="36" height="36" class="rounded flex-shrink-0">
             <div class="d-flex gap-2 w-100 justify-content-between align-items-center">
                 <h6 class="mb-0">{{ artist.Name }}
                     {% if artist.isVerified %}
@@ -23,7 +23,7 @@
                     <button class="btn btn-sm border-none rounded text-color-spur1-gray" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis"></i></button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_single', { 'slug':artist.Slug }) }}">
+                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_single', { 'slug':artist.Slug }) }}" target="_blank">
                                 <i class="fa-solid fa-eye"></i>
                                 View
                             </a>
@@ -34,10 +34,17 @@
                                 Edit
                             </a>
                         </li>
+                        
                         <li>
                             <a class="opacity-25 pe-none dropdown-item d-flex gap-2 align-items-center" href="#">
                                 <i class="fa-solid fa-wrench"></i>
                                 Manage
+                            </a>
+                        </li>
+                        <li>
+                            <a class="{% if artist.isVerified %}opacity-25 pe-none{% endif %} dropdown-item d-flex gap-2 align-items-center" href="#">
+                                <i class="fa-solid fa-check"></i>
+                                Request Verification
                             </a>
                         </li>
                     </ul>

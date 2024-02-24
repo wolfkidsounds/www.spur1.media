@@ -1,7 +1,7 @@
 {% extends 'section/main/_template/_clean.html.twig' %}
 {% block content %}
     <div class="section mb-3">
-        <h3> {{ 'New Content'|trans }}</h3>
+        <h3 class="fw-bold font-gothic"> {{ 'New Content'|trans }}</h3>
         <div class="row flex-row flex-nowrap" data-controller="blurryload">
             {% for post in posts %}
                 {% include('section/main/_component/_card.html.twig') %}
@@ -11,7 +11,7 @@
     </div>
 
     <div class="section mb-3">
-        <h3> {{ 'New Artists'|trans }}</h3>
+        <h3 class="fw-bold font-gothic"> {{ 'New Artists'|trans }}</h3>
         <div class="row flex-row flex-nowrap" data-controller="blurryload">
             {% for artist in artists %}
                 {{ component('Card:Large', { 
@@ -21,6 +21,24 @@
                     path_url: 'app_artist_single',
                     small_text: 'Artist',
                     large_text: artist.Name,
+                    style: 'thumbnail',
+                }) }}
+            {% else %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="section mb-3">
+        <h3 class="fw-bold font-gothic"> {{ 'New Crews'|trans }}</h3>
+        <div class="row flex-row flex-nowrap" data-controller="blurryload">
+            {% for crew in crews %}
+                {{ component('Card:Large', { 
+                    post:crew,
+                    col_size: 2,
+                    gap_size: 3,
+                    path_url: 'app_crew_single',
+                    small_text: 'Crew',
+                    large_text: crew.Name,
                     style: 'thumbnail',
                 }) }}
             {% else %}

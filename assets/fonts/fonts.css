@@ -10,3 +10,7 @@
 .font-gothic {
     font-family: "Gothic" !important;
 }
+
+i.w-16 {
+    width: 16px;
+}

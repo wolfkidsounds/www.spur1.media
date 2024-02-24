@@ -22,3 +22,7 @@
 .brands-linktree:before {
     content: "\e901";
 }
+
+.brands-hearthis:before {
+    content: "\e902";
+}

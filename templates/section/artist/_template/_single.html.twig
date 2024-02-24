@@ -12,10 +12,10 @@
 {% block single_content_area %}
     <div class="row">
         <div class="d-flex align-items-center">
-            <h3 class="font-gothic fs-1 me-2">{{ post.Name }}
+            <h3 class="font-gothic fs-1 d-flex  align-items-center">{{ post.Name }}
                 {% if post.isVerified %}
                     <span
-                        class="position-absolute top-0"
+                        class="ms-2 d-inline-flex align-items-center"
                         data-bs-toggle="tooltip" 
                         data-bs-title="Verified"
                         {{ stimulus_controller('verified-badge') }}

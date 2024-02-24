@@ -23,6 +23,21 @@
     {% set card_small_text = 'Podcast' %}
 {% endif %}
 
+{% if constant('class', post) == 'App\\Entity\\NebenDerSpur' %}
+    {% set path_url = 'app_main_neben-der-spur_single' %}
+    {% set card_small_text = 'Neben Der Spur' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\RecSession' %}
+    {% set path_url = 'app_main_rec-session_single' %}
+    {% set card_small_text = 'Rec Session' %}
+{% endif %}
+
+{% if constant('class', post) == 'App\\Entity\\Interview' %}
+    {% set path_url = 'app_main_interview_single' %}
+    {% set card_small_text = 'Interview' %}
+{% endif %}
+
 {{ component('Card:Large', { 
     post: post,
     col_size: 2,

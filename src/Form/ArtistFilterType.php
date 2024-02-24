@@ -30,12 +30,14 @@ class ArtistFilterType extends AbstractType
                     'placeholder' => 'Search...',
                 ]
             ])
+
             ->add('verified', CheckboxType::class, [
                 'required' => false,
                 'label'    => 'Show verified Artists only',
                 'attr' => [
                 ],
             ])
+
             ->add('artisttype', EntityType::class, [
                 'label' => 'Artist Type',
                 'required' => false,
@@ -48,6 +50,7 @@ class ArtistFilterType extends AbstractType
                     'placeholder' => 'Artist Type',
                 ]
             ])
+
             ->add('acttype', EntityType::class, [
                 'label' => 'Type of Act',
                 'required' => false,
@@ -55,9 +58,9 @@ class ArtistFilterType extends AbstractType
                 'choice_label' => 'Name',
                 'multiple' => true,
                 'attr' => [
-                    'class' => 'opacity-25 pe-none',
-                    //'data-controller' => 'select2',
-                    //'data-select' => 'true',
+                    'class' => '',
+                    'data-controller' => 'select2',
+                    'data-select' => 'true',
                     'placeholder' => 'Act Type',
                 ]
             ])
@@ -68,9 +71,9 @@ class ArtistFilterType extends AbstractType
                 'choice_label' => 'Name',
                 'multiple' => true,
                 'attr' => [
-                    'class' => 'opacity-25 pe-none',
-                    //'data-controller' => 'select2',
-                    //'data-select' => 'true',
+                    'class' => '',
+                    'data-controller' => 'select2',
+                    'data-select' => 'true',
                     'placeholder' => 'Gender',
                 ]
             ])
@@ -81,9 +84,9 @@ class ArtistFilterType extends AbstractType
                 'choice_label' => 'Name',
                 'multiple' => true,
                 'attr' => [
-                    'class' => 'opacity-25 pe-none',
-                    //'data-controller' => 'select2',
-                    //'data-select' => 'true',
+                    'class' => '',
+                    'data-controller' => 'select2',
+                    'data-select' => 'true',
                     'placeholder' => 'Crew',
                 ]
             ])

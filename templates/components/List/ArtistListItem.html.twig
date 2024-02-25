@@ -27,16 +27,15 @@
             <div class="row">
                 <div class="col">
                     <div class="d-flex gap-1 align-items-center">
-                    <p class="p-0 m-0 small">Type:</p>
-                        {% for type in this.artist.ArtistType %}
+                        {% if this.artist.ArtistType %}
                             <span 
-                                data-filter-artisttype="{{ type.Name|lower }}"
+                                data-filter-artisttype="{{ this.artist.ArtistType.Name|lower }}"
                                 class="badge bg-secondary rounded-1">
-                                {{ type.Name }}
+                                {{ this.artist.ArtistType.Name }}
                             </span>
                         {% else %}
                             <span class="badge bg-secondary rounded-1">/</span>
-                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col">

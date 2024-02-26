@@ -58,18 +58,6 @@
                 </div>
                 <div class="col">
                     <div class="d-flex gap-1 align-items-center">
-                    <p class="p-0 m-0 small">Crews:</p>
-                        {% for crew in this.artist.Crews %}
-                            <span 
-                                data-filter-crew="{{ crew.Name|lower }}"
-                                class="badge bg-secondary rounded-1">{{ crew.Name }}</span>
-                        {% else %}
-                            <span class="badge bg-secondary rounded-1">/</span>
-                        {% endfor %}
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="d-flex gap-1 align-items-center">
                     <p class="p-0 m-0 small">Gender:</p>
                         {% for gender in this.artist.Gender %}
                             <span 
@@ -84,6 +72,32 @@
                         {% else %}
                             <span class="badge bg-secondary rounded-1">/</span>
                         {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">Crews:</p>
+                        {% for crew in this.artist.Crews %}
+                            <span 
+                                data-filter-crew="{{ crew.Name|lower }}"
+                                class="badge bg-secondary rounded-1">{{ crew.Name }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="d-flex gap-1 align-items-center">
+                    <p class="p-0 m-0 small">City:</p>
+                        {% if this.artist.City %}
+                            <span 
+                                data-filter-artisttype="{{ this.artist.City|lower }}"
+                                class="badge bg-secondary rounded-1">
+                                {{ this.artist.City }}
+                            </span>
+                        {% else %}
+                            <span class="badge bg-secondary rounded-1">/</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>

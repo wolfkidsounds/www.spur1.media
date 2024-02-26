@@ -9,7 +9,9 @@ use App\Entity\User;
 use App\Entity\Radio;
 use App\Entity\Artist;
 use App\Entity\ArtistType;
+use App\Entity\City;
 use App\Entity\Club;
+use App\Entity\Country;
 use App\Entity\Gender;
 use App\Entity\Interview;
 use App\Entity\Podcast;
@@ -21,6 +23,7 @@ use App\Entity\TagFormat;
 use App\Entity\Windowlicker;
 use App\Entity\OrbiterSession;
 use App\Entity\RecSession;
+use App\Entity\State;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -64,27 +67,6 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-gauge');
-
-        yield MenuItem::section('System');
-        yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class)
-            ->setPermission('ROLE_ADMIN');
-        yield MenuItem::subMenu('Settings', 'fa fa-gear')
-            ->setPermission('ROLE_ACCESS_MEDIA')
-            ->setSubItems([
-                MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-                MenuItem::linkToCrud('Tag-Formats', 'fa fa-tag', TagFormat::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-                MenuItem::linkToCrud('Link Type', 'fa fa-link', LinkType::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-                MenuItem::linkToCrud('Genders', 'fa fa-venus-mars', Gender::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-                MenuItem::linkToCrud('Locations', 'fa fa-location-dot', Location::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-                MenuItem::linkToCrud('Clubs', 'fa fa-industry', Club::class)
-                    ->setPermission('ROLE_ACCESS_MEDIA'),
-        ]);
-        
 
         if($this->featureManager->isEnabled('content') || $this->featureManager->isEnabled('debug')) {
             yield MenuItem::section('Content')
@@ -158,6 +140,32 @@ class DashboardController extends AbstractDashboardController
             ->setPermission('ROLE_ACCESS_CLOUD');
         yield MenuItem::linkToRoute('Spur1-API', 'fa fa-server', 'admin_api')
             ->setPermission('ROLE_ACCESS_API');
+
+        yield MenuItem::section('Settings');
+        yield MenuItem::subMenu('Tags', 'fa fa-tags')
+            ->setPermission('ROLE_ACCESS_MEDIA')
+            ->setSubItems([
+                MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class),
+                MenuItem::linkToCrud('Tag-Formats', 'fa fa-tag', TagFormat::class)
+            ]);
+        yield MenuItem::subMenu('Geo Locations', 'fa fa-location-dot')
+            ->setPermission('ROLE_ACCESS_MEDIA')
+            ->setSubItems([
+                MenuItem::linkToCrud('Countries', 'fa fa-location-dot', Country::class),
+                MenuItem::linkToCrud('States', 'fa fa-location-dot', State::class),
+                MenuItem::linkToCrud('Cities', 'fa fa-location-dot', City::class),
+            ]);
+        yield MenuItem::subMenu('Content Settings', 'fa fa-gear')
+            ->setPermission('ROLE_ACCESS_MEDIA')
+            ->setSubItems([
+                MenuItem::linkToCrud('Link Type', 'fa fa-link', LinkType::class),
+                MenuItem::linkToCrud('Genders', 'fa fa-venus-mars', Gender::class),
+                MenuItem::linkToCrud('Clubs', 'fa fa-industry', Club::class),
+            ]);
+
+        yield MenuItem::section('System');
+        yield MenuItem::linkToCrud('Users', 'fa fa-users', User::class)
+            ->setPermission('ROLE_ADMIN');
     }
 
     public function configureUserMenu(UserInterface $user): UserMenu

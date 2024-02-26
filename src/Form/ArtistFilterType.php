@@ -6,6 +6,8 @@ use App\Entity\Crew;
 use App\Entity\Gender;
 use App\Entity\ActType;
 use App\Entity\ArtistType;
+use App\Entity\City;
+use App\Entity\State;
 use Doctrine\DBAL\Types\BooleanType;
 use Symfony\Component\Form\AbstractType;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -64,6 +66,20 @@ class ArtistFilterType extends AbstractType
                     'placeholder' => 'Act Type',
                 ]
             ])
+
+            ->add('city', EntityType::class, [
+                'label' => 'City',
+                'required' => false,
+                'class' => City::class,
+                'multiple' => true,
+                'attr' => [
+                    'class' => '',
+                    'data-controller' => 'select2',
+                    'data-select' => 'true',
+                    'placeholder' => 'City',
+                ]
+            ])
+
             ->add('gender', EntityType::class, [
                 'label' => 'Gender',
                 'required' => false,
@@ -77,6 +93,7 @@ class ArtistFilterType extends AbstractType
                     'placeholder' => 'Gender',
                 ]
             ])
+
             ->add('crew', EntityType::class, [
                 'label' => 'Crew',
                 'required' => false,
@@ -90,19 +107,29 @@ class ArtistFilterType extends AbstractType
                     'placeholder' => 'Crew',
                 ]
             ])
+
+            ->add('reset', ResetType::class, [
+                'label' => 'Reset Filters',
+                'row_attr' => [
+                    'class' => 'd-inline-block me-3',
+                ],
+                'attr' => [
+                    'class' => 'btn btn-danger text-white rounded-1',
+                ]
+            ])
+
             ->add('submit', SubmitType::class, [
                 'label' => 'Apply Filters',
+                'row_attr' => [
+                    'class' => 'd-inline-block',
+                ],
                 'attr' => [
                     'class' => 'btn btn-secondary text-white rounded-1',
                     'data-action' => 'artist-filter#submitForm',
                 ]
             ])
-            ->add('reset', ResetType::class, [
-                'label' => 'Reset Filters',
-                'attr' => [
-                    'class' => 'btn btn-danger text-white rounded-1',
-                ]
-            ])
+
+            
         ;
     }
 

@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
-use DateTime;
 use App\Entity\Post;
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ArtistRepository;
-use DateTimeImmutable;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -68,6 +66,9 @@ class Artist
 
     #[ORM\ManyToMany(targetEntity: ActType::class)]
     private Collection $ActType;
+
+    #[ORM\ManyToOne]
+    private ?City $City = null;
 
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
@@ -362,6 +363,18 @@ class Artist
     public function removeActType(ActType $actType): static
     {
         $this->ActType->removeElement($actType);
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->City;
+    }
+
+    public function setCity(?City $City): static
+    {
+        $this->City = $City;
 
         return $this;
     }

@@ -13,7 +13,6 @@
         "doctrine/orm": "^2.17",
         "easycorp/easyadmin-bundle": "^4.8",
         "knplabs/knp-menu-bundle": "^3.3",
-        "menarasolutions/geographer": "^0.3.13",
         "nelmio/cors-bundle": "^2.4",
         "novaway/feature-flag-bundle": "3.*",
         "phpdocumentor/reflection-docblock": "^5.3",

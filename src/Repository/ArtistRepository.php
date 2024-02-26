@@ -29,7 +29,7 @@ class ArtistRepository extends ServiceEntityRepository
     /**
      * @return Artist[] Returns an array of Artist objects
      */
-    public function searchArtists(?string $name, ?bool $verified, ?Collection $artistTypes, ?Collection $actTypes, ?Collection $genders, ?Collection $crews, ?int $limit = 10): ?array
+    public function searchArtists(?string $name, ?bool $verified, ?Collection $artistTypes, ?Collection $actTypes, ?Collection $genders, ?Collection $crews, ?Collection $cities, ?int $limit = 10): ?array
     {
         $query = $this->createQueryBuilder('artist');
 
@@ -89,6 +89,18 @@ class ArtistRepository extends ServiceEntityRepository
 
             $query->andWhere('crew.id IN (:crewIds)')
                 ->setParameter('crewIds', $crewIds);
+        }
+
+        if ($cities !== null && !$cities->isEmpty()) {
+            $query->join('artist.City', 'city');
+            $cityIds = [];
+
+            foreach ($cities as $city) {
+                $cityIds[] = $city->getId();
+            }
+
+            $query->andWhere('city.id IN (:cityIds)')
+                ->setParameter('cityIds', $cityIds);
         }
 
         return $query

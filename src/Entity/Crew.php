@@ -51,6 +51,9 @@ class Crew
     #[ORM\Column(nullable: true)]
     private ?bool $isVerified = false;
 
+    #[ORM\ManyToOne]
+    private ?City $City = null;
+
     #[ORM\PrePersist]
     #[ORM\PreUpdate]
     public function updatedTimestamps(): void
@@ -267,6 +270,18 @@ class Crew
     public function setIsVerified(?bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->City;
+    }
+
+    public function setCity(?City $City): static
+    {
+        $this->City = $City;
 
         return $this;
     }

@@ -27,6 +27,7 @@ class ArtistController extends BaseController
                 $data['acttype'],
                 $data['gender'],
                 $data['crew'],
+                $data['city'],
             );
 
             return $this->render('section/artist/page/artist/_preview.html.twig', [
@@ -35,7 +36,7 @@ class ArtistController extends BaseController
             ]);
         }
 
-        $posts = $this->getRandomArtists($repository, 5);
+        $posts = $this->getRandomArtists($repository, 10);
         return $this->render('section/artist/page/artist/index.html.twig', [
             'posts' => $posts,
             'form' => $form,

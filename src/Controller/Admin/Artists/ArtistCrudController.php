@@ -2,16 +2,16 @@
 
 namespace App\Controller\Admin\Artists;
 
-use App\Entity\Link;
 use App\Entity\Artist;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use Adeliom\EasyMediaBundle\Admin\Field\EasyMediaField;
+use App\Controller\Admin\Geographer\CityCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
+use App\Controller\Admin\Geographer\CountryCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\CollectionField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -41,13 +41,20 @@ class ArtistCrudController extends AbstractCrudController
         yield FormField::addFieldset('Details');
         yield AssociationField::new('ArtistType')
             ->hideOnIndex()
+            ->autocomplete()
             ->setColumns(2);
         yield AssociationField::new('ActType')
             ->hideOnIndex()
-            ->setColumns(3);
+            ->autocomplete()
+            ->setColumns(2);
         yield AssociationField::new('Gender')
             ->hideOnIndex()
-            ->setColumns(3);
+            ->autocomplete()
+            ->setColumns(2);
+        yield AssociationField::new('City')
+            ->hideOnIndex()
+            ->autocomplete()
+            ->setColumns(2);
 
         yield FormField::addRow();
         yield TextEditorField::new('Description')

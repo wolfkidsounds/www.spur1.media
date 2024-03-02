@@ -1,0 +1,9 @@
+input.disabled {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
+}
+
+input.disabled:focus {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
+}

@@ -29,3 +29,7 @@ services:
         arguments: ["@knp_menu.factory"]
         tags:
             - { name: knp_menu.menu_builder, method: navSidebar, alias: navSidebar }
+
+    App\Service\NotificationService:
+        class: App\Service\NotificationService
+        arguments: ['@doctrine.orm.default_entity_manager']

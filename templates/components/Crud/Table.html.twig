@@ -1,0 +1,36 @@
+<ul id="list" class="list-group" {{ stimulus_controller('tooltip') }}>
+    {% for post in posts %}
+        {% if constant('class', post) == 'App\\Entity\\Artist' %}
+            <ul id="list" class="list-group" data-controller="tooltip">
+                {{ component('Crud:SinglePost', {
+                    post:post,
+                    path_url: this.path_url,
+                }) }}
+            </ul>
+        {% endif %}
+
+        {% if constant('class', post) == 'App\\Entity\\Crew' %}
+            <ul id="list" class="list-group" data-controller="tooltip">
+                {{ component('Crud:SinglePost', {
+                    post:post,
+                    path_url: this.path_url,
+                }) }}
+            </ul>
+        {% endif %}
+
+        {% if constant('class', post) == 'App\\Entity\\Notification' %}
+            <div class="list-group">
+                {{ component('Crud:Notification', {
+                    post:post,                  
+                }) }}
+            </div>
+        {% endif %}
+    {% else %}
+        <a  class="d-flex p-3 list-group-item list-group-item-action animate__animated animate__fadeIn pe-none"
+            href="#">
+            <div class="w-100 d-flex gap-3">
+                <div class="">{{ this.noItemsText }}</div>
+            </div>
+        </a>
+    {% endfor %}
+</ul>

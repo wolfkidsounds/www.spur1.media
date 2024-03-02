@@ -1,18 +1,7 @@
-<header class="header bg-light d-flex justify-content-between pe-3">
-    <div class="header-start d-flex justify-self-start align-items-center gap-3 px-3">
-        <div class="d-flex align-items-center">
-        {% block header_sidebar_button %}
-            {% include('_partial/header/_header_sidebar_button.html.twig') %}
-        {% endblock %}
-        </div>
-
-        <div class="">
-        {% block header_logo %}
-            {% include('_partial/header/_header_logo.html.twig') %}
-        {% endblock %}
-        </div>
-    </div>
-
+<header 
+    class="header bg-light d-flex justify-content-between pe-3"
+    data-sidebar-state='open'>
+    <div class=""></div>
     <div class="header-middle d-flex justify-self-center w-25 px-3">
     {% block header_search %}
         {% include('_partial/header/_header_search.html.twig') %}

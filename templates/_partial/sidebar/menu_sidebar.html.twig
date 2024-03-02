@@ -84,9 +84,9 @@
         <a class="nav-link nav-btn{%- if matcher.isCurrent(item) %} active{% endif %} {% if item.extras.class is defined %} {{ item.extras.class }}{% endif %}" href="{{ item.uri }}" {{ knp_menu.attributes(item.linkAttributes) }}>
             {% if item.extras.icon is defined %}
                 <span class="p-2"><i class="{{ item.extras.icon }} me-2"></i></span>
-                {{ block('label')|upper }}
+                <span class="hide-closed">{{ block('label')|upper }}</span>
             {% else %}
-                {{ block('label')|upper }}
+                <span class="hide-closed">{{ block('label')|upper }}</span>
             {% endif %}
         </a>
     {% endblock %}

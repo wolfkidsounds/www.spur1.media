@@ -1,0 +1,12 @@
+{% extends 'section/main/_template/_crud.html.twig' %}
+{% set crud = {
+    'posts': posts,
+    'title': 'Notifications',
+    'path_url': 'app_notification',
+    'actions': {
+    },
+    'table': {
+        'fields': 'Title, Level, Text, Icon',
+    },
+    'noItemsText': 'There are no Notifications available.'
+} %}

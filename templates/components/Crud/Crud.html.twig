@@ -1,0 +1,31 @@
+<article class="w-100">
+    <section class="content-header d-flex justify-content-between mb-3">
+        {% block content_title %}
+            <div class="content-header-title">
+                {{ component('Crud:Title', {
+                    title: this.title,
+                }) }}
+            </div>
+        {% endblock %}
+        {% block content_actions %}
+            <div class="page-actions mb-3">
+                {{ component('Crud:Actions', {
+                    actions: this.actions,
+                    title: this.title,
+                    path_url: this.path_url,
+                }) }}
+            </div>
+        {% endblock %}
+    </section>
+    <section id="main" class="content-body">
+        {% block content_table %}
+            {{ component('Crud:Table', {
+                posts: this.posts,
+                table: this.table,
+                path_url: this.path_url,
+                title: this.title,
+                noItemsText: this.noItemsText,
+            }) }}
+        {% endblock %}
+    </section>
+</article>

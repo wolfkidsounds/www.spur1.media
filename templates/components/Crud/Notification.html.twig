@@ -1,0 +1,24 @@
+<li class="list-group-item list-group-item-action {% if this.post.Status.value == 'read' %}disabled pe-none opacity-50{% endif %} mb-2">
+    <div class="d-flex align-items-center justify-content-between gap-3">
+        <div class="">
+            {{ component('Crud:Icon', { 
+                level: this.post.Level,
+                subtle: false,
+            }) }}
+        </div>
+        <div class="text-wrap small flex-grow-1">{{ this.post.Text|raw }}</div>
+        <div class="small fw-light">{{ this.post.createdAt|time_diff }}</div>
+        <div class="">
+            <a 
+                href="#" 
+                {{ stimulus_controller('notification', {
+                    'url': path('app_main_user_notification_mark', { 'id':this.post.id }),
+                    'token': csrf_token('mark-as-read')
+                }) }}
+                data-action="notification#markAsRead" 
+                class="{% if this.post.Status.value == 'read' %}pe-none{% endif %}">
+                    <i class="fa-solid fa-bell {% if this.post.Status.value == 'read' %}text-secondary{% endif %}"></i>
+            </a>
+        </div>
+    </div>
+</li>

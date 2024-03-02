@@ -1,11 +1,63 @@
 {% if app.user %}
 <div class="dropdown text-end me-2">
-    <a href="" class="nav-item btn d-flex link-dark text-decoration-none" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa-solid fa-bell"></i>
+    <a href="" class="nav-item btn d-flex link-dark text-decoration-none" id="headerDropdownNotification" data-bs-toggle="dropdown" aria-expanded="false">
+        {% set hasUnreadNotification = false %}
+        {% for notification in app.user.Notifications %}
+            {% if notification.Status.value == 'unread' %}
+                {% set hasUnreadNotification = true %}
+            {% endif %}
+        {% endfor %}
+        <i class="fa-solid fa-bell {% if hasUnreadNotification == true %}text-primary{% endif %}"></i>
     </a>
+
+    <ul id="headerDropdownNotification" class="dropdown-menu rounded shadow mt-3" aria-labelledby="headerDropdownNotification" data-popper-placement="bottom-end" style="min-width:600px;">
+        <li class=" dropdown-header">
+            <h6 class=""><i class="me-2 fa-solid fa-bell"></i>{{ 'Notifications'|trans }}</h6>
+        </li>
+        <li class="divider seperator"><hr class="dropdown-divider"></li>
+        {% if hasUnreadNotification == true %}
+            {% for notification in app.user.Notifications %}
+                {% if notification.Status.value == 'unread' %}
+                    {{ component('Notification', {
+                        post:notification,                  
+                    }) }}
+                {% endif %}
+            {% endfor %}
+            <li class="divider seperator"><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+                <div class="d-flex justify-content-between gap-3">
+                    <a class="text-body" href="{{ path('app_main_user_notification') }}">
+                        {{ 'View All Notifications'|trans }}
+                    </a>
+                    <a 
+                        class="text-body" 
+                        href="#"
+                        {{ stimulus_controller('notification', {
+                            'url': path('app_main_user_notification_mark', { 'id':0 }),
+                            'token': csrf_token('mark-as-read')
+                        }) }}
+                        data-action="notification#markAsRead">
+                        {{ 'Mark All As Read'|trans }}
+                    </a>
+                </div>
+            </li>
+        {% else %}
+            <li class="dropdown-item">
+                {{ 'There are no notifications available'|trans }}
+            </li>
+            <li class="divider seperator"><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+                <div class="d-flex justify-content-center">
+                    <a class="text-body" href="{{ path('app_main_user_notification') }}">
+                        {{ 'View All Notifications'|trans }}
+                    </a>
+                </div>
+            </li>
+        {% endif %}
+    </ul>
 </div>
 <div class="dropdown text-end">
-    <a href="" class="nav-item d-flex align-items-center link-dark text-decoration-none" id="sidebarDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+    <a href="" class="nav-item d-flex align-items-center link-dark text-decoration-none" id="headerDropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
         {% if app.user.Image %}
             <img src="{{ easy_media_path(app.User.Image)|imagine_filter('thumbnail') }}" alt="User Avatar" width="32" height="32" class="rounded">
         {% else %}
@@ -13,8 +65,8 @@
         {% endif %}
     </a>
     
-    <ul class="dropdown-menu rounded shadow mt-3" aria-labelledby="sidebarDropdownUser" data-popper-placement="bottom-end">
-        <li class="nav-item">
+    <ul id="headerDropdownUser" class="dropdown-menu rounded shadow mt-3" aria-labelledby="headerDropdownUser" data-popper-placement="bottom-end">
+        <li class="dropdown-item">
             <div class="dropdown-header">
                 <h6 class="">{{ app.user.Name }}</h6>
                 <p class="text-small mb-0">{{ app.user.email }}</p>
@@ -36,6 +88,13 @@
             <li class="nav-item">
                 <a class="dropdown-item " href="{{ path('app_main_user_artists') }}">
                     <i class="me-2 fa-solid fa-music"></i>{{ 'My Artists'|trans }}
+                </a>
+            </li>
+        {% endif %}
+        {% if is_granted('ROLE_CREW') %}
+            <li class="nav-item">
+                <a class="dropdown-item " href="{{ path('app_main_user_crews') }}">
+                    <i class="me-2 fa-solid fa-music"></i>{{ 'My Crews'|trans }}
                 </a>
             </li>
         {% endif %}

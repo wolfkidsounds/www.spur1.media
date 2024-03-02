@@ -1,8 +1,28 @@
 {% block sidebar %}
-    <div data-sidebar-state="open" class="sidebar bg-light d-flex flex-column flex-shrink-0 py-3">
-        {% block sidebar_menu %}
-            {% set navSidebar = knp_menu_get('navSidebar') %}
-            {{ knp_menu_render(navSidebar, {'template': '_partial/sidebar/menu_sidebar.html.twig'}) }}
-        {% endblock %}
+    <div id="sidebar"
+        class="sidebar bg-light py-3"
+        data-controller="sidebar"
+        data-sidebar-state='open'
+        data-sidebar-target="sidebar">
+        <div id="sidebar-header" class="d-flex px-3 mb-3">
+            <a 
+                id="triggerSidebar" 
+                href="#" 
+                class="nav-link text-color-spur1-gray d-flex align-items-center text-decoration-none rounded-1 me-2"
+                data-sidebar-target="sidebarButton"
+                data-action="sidebar#toggleSidebar">
+                <span class="px-2 py-1"><i class="fa-solid fa-bars"></i></span>
+            </a>
+            <a href="#" class="hide-closed text-color-spur1-gray d-flex align-items-center gap-3 text-decoration-none">
+                <i class="fa-brands s1-logo w-16 fs-3"></i>
+                <span class="fs-4 font-gothic">SPUR1-MEDIA</span>
+            </a>
+        </div>
+        <div class="d-flex flex-column flex-shrink-0" {{ stimulus_controller('tooltip') }}>
+            {% block sidebar_menu %}
+                {% set navSidebar = knp_menu_get('navSidebar') %}
+                {{ knp_menu_render(navSidebar, {'template': '_partial/sidebar/menu_sidebar.html.twig'}) }}
+            {% endblock %}
+        </div>
     </div>
 {% endblock %}

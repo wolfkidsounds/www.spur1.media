@@ -1,0 +1,17 @@
+{% if this.level.value == 'error' %}
+    {% set level = 'danger' %}
+{% else %}
+    {% set level = this.level.value %}
+{% endif %}
+
+{% if this.level.value == 'info' or this.level.value == 'success' %}
+    {% set icon = 'info' %}
+{% elseif this.level.value == 'warning' %}
+    {% set icon = 'question' %}
+{% else %}
+    {% set icon = 'exclamation' %}
+{% endif %}
+
+<span class="d-flex align-items-center justify-content-center badge rounded rounded-circle bg-{{ level }}{% if this.subtle %}-subtle{% endif %}" style="width:24px; height:24px;">
+    <i class="fa-solid fa-{{ icon }}"></i>
+</span>

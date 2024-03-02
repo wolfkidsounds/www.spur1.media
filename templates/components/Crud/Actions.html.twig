@@ -1,0 +1,10 @@
+<div class="global-actions">
+    {% for action in this.actions|keys %}
+        <a 
+            class="action-{{ action|lower }} btn btn-secondary btn-sm" 
+            href="{{ path(path_url ~ '_action', { 'action':action|lower }) }}" 
+            data-action-name="{{ action|lower }}"
+            data-bs-toggle="modal"
+            data-bs-target="#{{ action|lower }}{{ this.title }}Modal"><span class="action-label text-white">{{ action|capitalize }} {{ this.title }}</span></a>
+    {% endfor %}
+</div>

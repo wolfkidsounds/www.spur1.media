@@ -1,0 +1,11 @@
+{# _template/_crud.html.twig #}
+{% block content %}
+    {{ component('Crud:Crud', { 
+        posts: crud.posts,
+        title: crud.title,
+        path_url: crud.path_url,
+        actions: crud.actions,
+        table: crud.table,
+        noItemsText: crud.noItemsText,
+    }) }}
+{% endblock %}

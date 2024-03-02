@@ -1,57 +1,92 @@
-{% extends 'section/main/_template/_clean.html.twig' %}
-{% block content %}
-<div class="row mb-3"><h3>{{ 'My Artists'|trans }}</h3></div>
+{% extends 'section/main/_template/_crud.html.twig' %}
+{% set crud = {
+    'posts': posts,
+    'title': 'Artist',
+    'path_url': 'app_artist',
+    'actions': {
+        'add': 'Add',
+        'claim': 'Claim',
+    },
+    'table': {
+        'fields': 'Name, isVerified, Image, createdAt',
+    },
+    'noItemsText': 'There are no Artists registered with your account. Try adding a new Artist or claiming an exisiting one.'
+} %}
 
-{% if user.Artists|length > 0 %}
-    <div class="list-group">
-        {% for artist in user.Artists %}
-        <div class="list-group-item list-group-item-action d-flex gap-3 p-2">
-            <img src="{{ easy_media_path(artist.Image)|imagine_filter('thumbnail_small') }}" width="36" height="36" class="rounded flex-shrink-0">
-            <div class="d-flex gap-2 w-100 justify-content-between align-items-center">
-                <h6 class="mb-0">{{ artist.Name }}
-                    {% if artist.isVerified %}
-                        <span 
-                            data-bs-toggle="tooltip" 
-                            data-bs-title="Verified"
-                            {{ stimulus_controller('tooltip') }}
-                        >
-                            <i class="fa-solid fa-circle-check text-info me-2"></i>
-                        </span>
-                    {% endif %}
-                </h6>
-                <div class="btn-group">
-                    <button class="btn btn-sm border-none rounded text-color-spur1-gray" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-ellipsis"></i></button>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_single', { 'slug':artist.Slug }) }}" target="_blank">
-                                <i class="fa-solid fa-eye"></i>
-                                View
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item d-flex gap-2 align-items-center" href="{{ path('app_artist_edit', { 'id':artist.Id }) }}">
-                                <i class="fa-solid fa-pen"></i>
-                                Edit
-                            </a>
-                        </li>
-                        
-                        <li>
-                            <a class="opacity-25 pe-none dropdown-item d-flex gap-2 align-items-center" href="#">
-                                <i class="fa-solid fa-wrench"></i>
-                                Manage
-                            </a>
-                        </li>
-                        <li>
-                            <a class="{% if artist.isVerified %}opacity-25 pe-none{% endif %} dropdown-item d-flex gap-2 align-items-center" href="#">
-                                <i class="fa-solid fa-check"></i>
-                                Request Verification
-                            </a>
-                        </li>
-                    </ul>
+{% block modal %}
+
+    <!-- Add Artist Modal -->
+    <div class="modal fade small" id="addArtistModal" tabindex="-1" aria-labelledby="addArtistModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                {{ form_start(addForm) }}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="addArtistModalLabel">{{ 'Add Artist'|trans }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            </div> 
+                <div class="modal-body p-4">
+                        <fieldset class="mb-3">
+                            <div class="form-fieldset-title border-bottom">
+                                <span class=""><h5>{{ 'General Information'|trans }}</h5></span>
+                            </div>
+                            <div class="p-2">
+                                {{ form_row(addForm.Name) }}
+                                {{ form_row(addForm.Slug) }}
+                            </div>
+                        </fieldset>
+                        <fieldset class="mb-3">
+                            <div class="form-fieldset-title border-bottom">
+                                <span class=""><h5>{{ 'Details'|trans }}</h5></span>
+                            </div>
+                            <div class="p-2">
+                                {{ form_row(addForm.Image) }}
+
+                                <div class="row row-cols-4">
+                                    {{ form_row(addForm.ArtistType) }}
+                                    {{ form_row(addForm.ActType) }}
+                                    {{ form_row(addForm.Gender) }}
+                                    {{ form_row(addForm.City) }}
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="mb-3">
+                            <div class="form-fieldset-title border-bottom">
+                                <span class=""><h5>{{ 'Groups'|trans }}</h5></span>
+                            </div>
+                            <div class="p-2">
+                                {{ form_row(addForm.Crews) }}
+                            </div>
+                        </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close'|trans }}</button>
+                    <button type="button" class="btn btn-primary text-white">{{ 'Add'|trans }}</button>
+                </div>
+                {{ form_end(addForm) }}
+            </div>
         </div>
-        {% endfor %}
     </div>
-{% endif %}
+
+    <!-- Claim Artist Modal -->
+    <div class="modal fade" id="claimArtistModal" tabindex="-1" aria-labelledby="claimArtistModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                {{ form_start(claimForm) }}
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="claimArtistModalLabel">{{ 'Claim Artist'|trans }}</h1>
+                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3">
+                    {{ form_row(claimForm.Artist) }}
+                    {{ form_row(claimForm.Info) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close'|trans }}</button>
+                    <button type="button" class="btn btn-primary text-white">{{ 'Claim'|trans }}</button>
+                </div>
+                {{ form_end(claimForm) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

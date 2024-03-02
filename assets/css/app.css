@@ -8,6 +8,8 @@
 @import './app/_partials/simplebar.css';
 @import './app/_partials/buttons.css';
 
+@import './app/form/disabled.css';
+
 @import './app/debug.css';
 
 :root {
@@ -16,7 +18,7 @@
     --spur1-gray: #3c3c3b;
 }
 
-* {
+.min-width-0 {
     min-width: 0;
 }
 

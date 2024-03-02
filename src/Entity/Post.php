@@ -7,11 +7,11 @@ use App\Entity\Artist;
 use DateTimeImmutable;
 use App\Entity\Podcast;
 use App\Entity\Interview;
+use App\Config\PostStatus;
 use App\Entity\RecSession;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PostRepository;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping\InheritanceType;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\MappedSuperclass;
@@ -44,6 +44,9 @@ class Post
     #[ORM\GeneratedValue]
     #[ORM\Column]
     protected ?int $id = null;
+
+    #[ORM\Column(nullable: true, enumType: PostStatus::class)]
+    protected ?PostStatus $Status = PostStatus::Draft;
 
     #[ORM\Column(length: 255)]
     protected ?string $Title = null;
@@ -321,6 +324,18 @@ class Post
     public function setAudioFile($AudioFile): static
     {
         $this->AudioFile = $AudioFile;
+
+        return $this;
+    }
+
+    public function getStatus(): ?PostStatus
+    {
+        return $this->Status;
+    }
+
+    public function setStatus(?PostStatus $Status): static
+    {
+        $this->Status = $Status;
 
         return $this;
     }

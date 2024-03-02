@@ -9,8 +9,11 @@ use App\Repository\CrewRepository;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: CrewRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+#[UniqueEntity('Name')]
 class Crew
 {
     #[ORM\Id]

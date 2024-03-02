@@ -47,11 +47,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Post::class)]
     private Collection $Posts;
 
+    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Notification::class, orphanRemoval: true)]
+    private Collection $Notifications;
+
     public function __construct()
     {
         $this->Artists = new ArrayCollection();
         $this->Crews = new ArrayCollection();
         $this->Posts = new ArrayCollection();
+        $this->Notifications = new ArrayCollection();
     }
 
     public function __toString()
@@ -243,6 +247,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($post->getUser() === $this) {
                 $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->Notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->Notifications->contains($notification)) {
+            $this->Notifications->add($notification);
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->Notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
             }
         }
 

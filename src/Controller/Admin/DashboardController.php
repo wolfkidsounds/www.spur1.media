@@ -10,6 +10,7 @@ use App\Entity\Radio;
 use App\Entity\Artist;
 use App\Entity\ArtistType;
 use App\Entity\City;
+use App\Entity\ClaimRequest;
 use App\Entity\Club;
 use App\Entity\Country;
 use App\Entity\Gender;
@@ -19,11 +20,13 @@ use App\Entity\LinkType;
 use App\Entity\Location;
 use App\Entity\Teletime;
 use App\Entity\NebenDerSpur;
+use App\Entity\Notification;
 use App\Entity\TagFormat;
 use App\Entity\Windowlicker;
 use App\Entity\OrbiterSession;
 use App\Entity\RecSession;
 use App\Entity\State;
+use App\Entity\VerificationRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -93,23 +96,7 @@ class DashboardController extends AbstractDashboardController
                         ->setPermission('ROLE_ACCESS_MEDIA_INTERVIEW'),
             ]);
 
-            yield MenuItem::subMenu('Spur1-Records', 'fa fa-record-vinyl')
-                ->setPermission('ROLE_ACCESS_RECORDS')
-                ->setSubItems([
-                    MenuItem::linkToRoute('Spur1-Records', 'fa fa-record-vinyl', 'admin_records')
-                        ->setPermission('ROLE_ACCESS_RECORDS'),
-                    MenuItem::linkToRoute('Spur1-Backstage', 'fa fa-chart-pie', 'admin_backstage')
-                        ->setPermission('ROLE_ACCESS_BACKSTAGE'),
-            ]);
-
-            yield MenuItem::subMenu('Spur1-Events', 'fa fa-calendar-days')
-                ->setPermission('ROLE_ACCESS_EVENTS')
-                ->setSubItems([
-                    MenuItem::linkToRoute('Spur1-Events', 'fa fa-calendar-days', 'admin_events')
-                        ->setPermission('ROLE_ACCESS_EVENTS'),
-            ]);
-
-            yield MenuItem::subMenu('Spur1-Artists', 'fa fa-database')
+            yield MenuItem::subMenu('Spur1-Artists', 'fa fa-user')
                 ->setPermission('ROLE_ACCESS_ARTISTS')
                 ->setSubItems([
                     MenuItem::linkToCrud('Artists', 'fa fa-user', Artist::class)
@@ -122,41 +109,27 @@ class DashboardController extends AbstractDashboardController
                         ->setPermission('ROLE_ACCESS_ARTISTS'),
                     
             ]);
-
-            yield MenuItem::subMenu('Spur1-Player', 'fa fa-play')
-                ->setPermission('ROLE_ACCESS_PLAYER')
-                ->setSubItems([
-                    MenuItem::linkToRoute('Spur1-Player', 'fa fa-play', 'admin_play')
-                        ->setPermission('ROLE_ACCESS_PLAYER'),
-            ]);
         }
 
-        yield MenuItem::section('Design & Media');
+        yield MenuItem::section('Notification & Requests');
+        yield MenuItem::linkToCrud('Notifications', 'fa fa-bell', Notification::class);
+        yield MenuItem::linkToCrud('Verification Requests', 'fa fa-circle-check', VerificationRequest::class);
+        yield MenuItem::linkToCrud('Claim Requests', 'fa fa-user-lock', ClaimRequest::class);
+
+        yield MenuItem::section('Media & Settings');
         yield MenuItem::linkToRoute('Media Files', 'fa fa-picture-o', 'media.index');
-
-        yield MenuItem::section('Cloud')
-            ->setPermission('ROLE_ACCESS_CLOUD');
-        yield MenuItem::linkToRoute('Spur1-Cloud', 'fa fa-cloud', 'admin_cloud')
-            ->setPermission('ROLE_ACCESS_CLOUD');
-        yield MenuItem::linkToRoute('Spur1-API', 'fa fa-server', 'admin_api')
-            ->setPermission('ROLE_ACCESS_API');
-
-        yield MenuItem::section('Settings');
         yield MenuItem::subMenu('Tags', 'fa fa-tags')
-            ->setPermission('ROLE_ACCESS_MEDIA')
             ->setSubItems([
                 MenuItem::linkToCrud('Tags', 'fa fa-tags', Tag::class),
                 MenuItem::linkToCrud('Tag-Formats', 'fa fa-tag', TagFormat::class)
             ]);
         yield MenuItem::subMenu('Geo Locations', 'fa fa-location-dot')
-            ->setPermission('ROLE_ACCESS_MEDIA')
             ->setSubItems([
                 MenuItem::linkToCrud('Countries', 'fa fa-location-dot', Country::class),
                 MenuItem::linkToCrud('States', 'fa fa-location-dot', State::class),
                 MenuItem::linkToCrud('Cities', 'fa fa-location-dot', City::class),
             ]);
         yield MenuItem::subMenu('Content Settings', 'fa fa-gear')
-            ->setPermission('ROLE_ACCESS_MEDIA')
             ->setSubItems([
                 MenuItem::linkToCrud('Link Type', 'fa fa-link', LinkType::class),
                 MenuItem::linkToCrud('Genders', 'fa fa-venus-mars', Gender::class),

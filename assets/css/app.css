@@ -54,3 +54,7 @@ body {
 .bg-white {
     background:#fff !important;
 }
+
+.transition {
+    transition: all .3s ease-in-out;
+}

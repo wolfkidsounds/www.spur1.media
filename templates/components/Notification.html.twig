@@ -15,7 +15,7 @@
             <a 
                 href="#" 
                 {{ stimulus_controller('notification', {
-                    'url': path('app_main_user_notification_mark', { 'id':this.post.id }),
+                    'url': path('app_user_notification_mark', { 'id':this.post.id }),
                     'token': csrf_token('mark-as-read')
                 }) }}
                 data-action="notification#markAsRead" 

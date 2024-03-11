@@ -37,6 +37,9 @@ class ClaimRequest
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $Mail = null;
+
     #[ORM\PrePersist]
     public function updatedTimestamps(): void
     {
@@ -120,6 +123,18 @@ class ClaimRequest
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->Mail;
+    }
+
+    public function setMail(?string $Mail): static
+    {
+        $this->Mail = $Mail;
 
         return $this;
     }

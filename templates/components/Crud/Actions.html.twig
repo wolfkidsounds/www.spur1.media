@@ -1,10 +1,15 @@
 <div class="global-actions">
-    {% for action in this.actions|keys %}
+    {% for action in this.actions %}
         <a 
-            class="action-{{ action|lower }} btn btn-secondary btn-sm" 
-            href="{{ path(path_url ~ '_action', { 'action':action|lower }) }}" 
-            data-action-name="{{ action|lower }}"
-            data-bs-toggle="modal"
-            data-bs-target="#{{ action|lower }}{{ this.title }}Modal"><span class="action-label text-white">{{ action|capitalize }} {{ this.title }}</span></a>
+            class="action-{{ action.title|lower }} btn btn-secondary btn-sm"
+
+            {{ stimulus_controller('modal', {
+                'url': path(action.path),
+                'resolve': action.name
+            })}}
+
+            data-action="modal#openModal"
+            data-bs-target="modal">
+            <span class="action-label text-white">{{ action.title|capitalize }} {{ this.title }}</span></a>
     {% endfor %}
 </div>

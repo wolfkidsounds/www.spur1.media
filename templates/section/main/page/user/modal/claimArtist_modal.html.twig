@@ -1,0 +1,32 @@
+<!-- Claim Artist Modal -->
+{{ form_start(form) }}
+<div class="modal-header animate__animated animate__fadeIn">
+    <h1 class="modal-title fs-5">{{ 'Claim Artist'|trans }}</h1>
+    <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body p-4 animate__animated animate__fadeIn transition">
+    <fieldset class="mb-3">
+        <div class="form-fieldset-title border-bottom">
+            <span class=""><h5>{{ 'Artist'|trans }}</h5></span>
+        </div>
+        <div class="p-2">
+            {{ form_row(form.Artist) }}
+        </div>
+        <div class="p-2">
+            {{ form_row(form.Info) }}
+        </div>
+    </fieldset>
+    <fieldset class="mb-3">
+        <div class="form-fieldset-title border-bottom">
+            <span class=""><h5>{{ 'Contact Information'|trans }}</h5></span>
+        </div>
+        <div class="p-2">
+            {{ form_row(form.Mail) }}
+        </div>
+    </fieldset>
+</div>
+<div class="modal-footer animate__animated animate__fadeIn">
+    {{ form_row(form.Cancel) }}
+    {{ form_row(form.Submit) }}
+</div>
+{{ form_end(form) }}

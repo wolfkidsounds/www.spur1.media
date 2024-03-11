@@ -1,92 +1,27 @@
 {% extends 'section/main/_template/_crud.html.twig' %}
 {% set crud = {
-    'posts': posts,
-    'title': 'Artist',
-    'path_url': 'app_artist',
-    'actions': {
-        'add': 'Add',
-        'claim': 'Claim',
+    posts: posts,
+    title: 'Artist',
+    path_url: 'app_artist',
+    actions: {
+        claim: {
+            title: 'Claim',
+            name: 'claim',
+            path: 'app_user_artists'
+        },
     },
-    'table': {
-        'fields': 'Name, isVerified, Image, createdAt',
+    table: {
+        fields: 'Name, isVerified, Image, createdAt',
     },
-    'noItemsText': 'There are no Artists registered with your account. Try adding a new Artist or claiming an exisiting one.'
+    noItemsText: 'There are no Artists registered with your account. Try adding a new Artist or claiming an exisiting one.'
 } %}
 
-{% block modal %}
+{#
 
-    <!-- Add Artist Modal -->
-    <div class="modal fade small" id="addArtistModal" tabindex="-1" aria-labelledby="addArtistModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                {{ form_start(addForm) }}
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="addArtistModalLabel">{{ 'Add Artist'|trans }}</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                        <fieldset class="mb-3">
-                            <div class="form-fieldset-title border-bottom">
-                                <span class=""><h5>{{ 'General Information'|trans }}</h5></span>
-                            </div>
-                            <div class="p-2">
-                                {{ form_row(addForm.Name) }}
-                                {{ form_row(addForm.Slug) }}
-                            </div>
-                        </fieldset>
-                        <fieldset class="mb-3">
-                            <div class="form-fieldset-title border-bottom">
-                                <span class=""><h5>{{ 'Details'|trans }}</h5></span>
-                            </div>
-                            <div class="p-2">
-                                {{ form_row(addForm.Image) }}
+add: {
+    title: 'Add',
+    name: 'add',
+    path: 'app_user_artists'
+},
 
-                                <div class="row row-cols-4">
-                                    {{ form_row(addForm.ArtistType) }}
-                                    {{ form_row(addForm.ActType) }}
-                                    {{ form_row(addForm.Gender) }}
-                                    {{ form_row(addForm.City) }}
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="mb-3">
-                            <div class="form-fieldset-title border-bottom">
-                                <span class=""><h5>{{ 'Groups'|trans }}</h5></span>
-                            </div>
-                            <div class="p-2">
-                                {{ form_row(addForm.Crews) }}
-                            </div>
-                        </fieldset>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close'|trans }}</button>
-                    <button type="button" class="btn btn-primary text-white">{{ 'Add'|trans }}</button>
-                </div>
-                {{ form_end(addForm) }}
-            </div>
-        </div>
-    </div>
-
-    <!-- Claim Artist Modal -->
-    <div class="modal fade" id="claimArtistModal" tabindex="-1" aria-labelledby="claimArtistModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                {{ form_start(claimForm) }}
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="claimArtistModalLabel">{{ 'Claim Artist'|trans }}</h1>
-                    <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-3">
-                    {{ form_row(claimForm.Artist) }}
-                    {{ form_row(claimForm.Info) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close'|trans }}</button>
-                    <button type="button" class="btn btn-primary text-white">{{ 'Claim'|trans }}</button>
-                </div>
-                {{ form_end(claimForm) }}
-            </div>
-        </div>
-    </div>
-
-{% endblock %}
+#}

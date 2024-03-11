@@ -4,6 +4,8 @@ namespace App\Controller\Main;
 
 use App\Entity\User;
 use App\Entity\Artist;
+use App\Config\ClaimStatus;
+use App\Entity\ClaimRequest;
 use App\Form\AddArtistFormType;
 use App\Form\ClaimArtistFormType;
 use App\Config\NotificationStatus;
@@ -19,7 +21,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class UserController extends MainController
 {
-    #[Route('/members', name: 'app_main_user_index', methods: ['GET'])]
+    #[Route('/members', name: 'app_members', methods: ['GET'])]
     public function user_index(UserRepository $repository): Response
     {
         $posts = $repository->findBy([], ['Date' => 'DESC']);
@@ -30,7 +32,7 @@ class UserController extends MainController
         ]);
     }
 
-    #[Route('/member/{slug}', name: 'app_main_user_single', methods: ['GET'])]
+    #[Route('/member/{slug}', name: 'app_members_slug', methods: ['GET'])]
     public function user_single(string $slug, UserRepository $repository): Response
     {
         $post = $repository->findOneBy(['Slug' => $slug]);
@@ -41,59 +43,112 @@ class UserController extends MainController
         ]);
     }
 
-    #[Route('/user/artists', name: 'app_main_user_artists', methods: ['GET'])]
-    public function user_artists(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/user/artists/', name: 'app_user_artists', methods: ['GET', 'POST'])]
+    public function user_artists(Request $request): Response
     {
         /** @var User $user */
         $user = $this->getUser();
         $posts = $user->getArtists();
 
-        $artist = new Artist();
-        $artist->addOwner($user);
+        if ( $request->isXmlHttpRequest() )
+        {
+            $action = $request->request->get('action');
 
-        $addForm = $this->createForm(AddArtistFormType::class, $artist);
-        $addForm->handleRequest($request);
+            if($action == 'add') {
+                $artist = new Artist();
+                $form = $this->createForm(AddArtistFormType::class, $artist, [
+                    'action' => $this->generateUrl('app_user_artists_add'),
+                    'method' => 'POST',
+                ]);
 
-        $claimForm = $this->createForm(ClaimArtistFormType::class);
-        $claimForm->handleRequest($request);
+                $template = 'addArtist_modal.html.twig';
+            }
 
-        if($addForm->isSubmitted() && $addForm->isValid()) {
-            $entityManager->persist($artist);
-            $entityManager->flush();
-        }
+            if($action == 'claim') {
+                $claimRequest = new ClaimRequest();
 
-        if($claimForm->isSubmitted() && $claimForm->isValid()) {
-            $entityManager->persist($artist);
-            $entityManager->flush();
+                $form = $this->createForm(ClaimArtistFormType::class, $claimRequest, [
+                    'action' => $this->generateUrl('app_user_artists_claim'),
+                    'method' => 'POST',
+                ]);
+
+                $template = 'claimArtist_modal.html.twig';
+            }
+
+            return $this->render('section/main/page/user/modal/' . $template, [
+                'form' => $form,
+            ]);
+
         }
 
         return $this->render('section/main/page/user/my-artists.html.twig', [
-            'addForm' => $addForm,
-            'claimForm' => $claimForm,
-            'user' => $user,
             'posts' => $posts,
             'title' => 'My Artists',
         ]);
     }
 
-    #[Route('/user/artists/{action}', name: 'app_artist_action', methods: ['GET'])]
-    public function user_artist_action(string $action, ArtistRepository $artistRepository): Response
+    #[Route('/user/artists/claim', name: 'app_user_artists_claim', methods: ['POST'])]
+    public function userArtistsClaimRequest(Request $request, EntityManagerInterface $entityManager)
     {
-        return $this->redirectToRoute('app_artist_index');
-    }
+        /** @var User $user */
+        $user = $this->getUser();
 
-    #[Route('/user/artists/{action}/{id}', name: 'app_artist_action_id', methods: ['GET', 'POST'])]
-    public function user_artist_action_id(string $action = 'add', int $id = null, ArtistRepository $artistRepository): Response
-    {
-        if($action === 'view' && $id !== null) {
-            $artist = $artistRepository->findOneBy(['id' => $id]);
-            return $this->redirectToRoute('app_artist_single', ['slug' => $artist->getSlug()]);
+        $claimRequest = new ClaimRequest();
+        $claimRequest->setUser($user);
+        $claimRequest->setStatus(ClaimStatus::Requested);
+
+        dump($claimRequest);
+
+        $form = $this->createForm(ClaimArtistFormType::class, $claimRequest);
+        $form->handleRequest($request);
+
+        dump($form);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            dump($form);
+            $entityManager->persist($claimRequest);
+            $entityManager->flush();
+            $this->addFlash('success', 'This worked, the request was received successfully.');
+
+            $data = [
+                'url' => $this->generateUrl('app_user_artists'),
+            ];
+
+            return $this->json($data);
+
+        } else {
+            $this->addFlash('error', 'Oh no something went wrong during submission.');
+
+            $data = [
+                'url' => $this->generateUrl('app_user_artists'),
+            ];
+
+            return $this->json($data);
         }
-        
-        return $this->redirectToRoute('app_artist_index');
+
     }
 
-    #[Route('/user/crews', name: 'app_main_user_crews', methods: ['GET'])]
+    #[Route('/user/artists/add', name: 'app_user_artists_add', methods: ['POST'])]
+    public function userArtistsAdd(Request $request, EntityManagerInterface $entityManager)
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+
+        $artist = new Artist();
+        $artist->addOwner($user);
+
+        $form = $this->createForm(AddArtistFormType::class, $artist);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($artist);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_user_artists');
+    }
+
+    #[Route('/user/crews', name: 'app_user_crews', methods: ['GET'])]
     public function user_crews(): Response
     {
         /** @var User $user */
@@ -107,7 +162,8 @@ class UserController extends MainController
         ]);
     }
 
-    #[Route('/user/notification', name: 'app_main_user_notification', methods: ['GET'])]
+    // NOTIFICATIONS
+    #[Route('/user/notifications', name: 'app_user_notifications', methods: ['GET'])]
     public function user_notifications(NotificationRepository $notificationRepository): Response
     {
         /** @var User $user */
@@ -121,7 +177,7 @@ class UserController extends MainController
         ]);
     }
 
-    #[Route('/user/notification/mark-as-read/{id}', name: 'app_main_user_notification_mark', methods: ['POST'])]
+    #[Route('/user/notification/mark-as-read/{id}', name: 'app_user_notification_mark', methods: ['POST'])]
     public function user_notifications_mark(Request $request, CsrfTokenManagerInterface $csrfTokenManager, int $id = null, EntityManagerInterface $entityManager): Response
     {
         $csrfToken = $request->headers->get('X-CSRF-Token');
@@ -137,7 +193,7 @@ class UserController extends MainController
 
         if($id === null)
         {
-            return $this->redirectToRoute('app_main_user_notification');
+            return $this->redirectToRoute('app_user_notifications');
         }
 
         if ($id === 0) {
@@ -148,7 +204,7 @@ class UserController extends MainController
             $entityManager->persist($notification);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_main_user_notification');
+            return $this->redirectToRoute('app_user_notifications');
         }
 
         if($id !== 0 && $id !== null) 
@@ -167,9 +223,9 @@ class UserController extends MainController
                 $entityManager->flush();
             }
                   
-            return $this->redirectToRoute('app_main_user_notification');
+            return $this->redirectToRoute('app_user_notifications');
         }
 
-        return $this->redirectToRoute('app_main_user_notification');
+        return $this->redirectToRoute('app_user_notifications');
     }
 }

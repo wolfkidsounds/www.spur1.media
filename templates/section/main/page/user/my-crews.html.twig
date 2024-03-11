@@ -1,14 +1,22 @@
 {% extends 'section/main/_template/_crud.html.twig' %}
 {% set crud = {
-    'posts': posts,
-    'title': 'Crew',
-    'path_url': 'app_crew',
-    'actions': {
-        'add': 'Add',
-        'claim': 'Claim',
+    posts: posts,
+    title: 'Crew',
+    path_url: 'app_crew',
+    actions: {
+        add: {
+            title: 'Add',
+            name: 'add',
+            path: 'app_user_crews'
+        },
+        claim: {
+            title: 'Claim',
+            name: 'claim',
+            path: 'app_user_crews'
+        },
     },
-    'table': {
-        'fields': 'Name, isVerified, Image, createdAt',
+    table: {
+        fields: 'Name, isVerified, Image, createdAt',
     },
-    'noItemsText': 'There are no Crews registered with your account. Try adding a new Crew or claiming an exisiting one.'
+    noItemsText: 'There are no Crews registered with your account. Try adding a new Crew or claiming an exisiting one.'
 } %}

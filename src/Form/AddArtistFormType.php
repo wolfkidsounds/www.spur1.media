@@ -10,19 +10,28 @@ use App\Form\LinkType;
 use App\Entity\ActType;
 use App\Entity\ArtistType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type\TextEditorType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AddArtistFormType extends AbstractType
 {
+    private $router;
+
+    public function __construct(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -32,15 +41,6 @@ class AddArtistFormType extends AbstractType
                     'class' => 'form-control form-control-sm',
                     'placeholder' => 'Name',
                 ]
-            ])
-            ->add('Slug', TextType::class, [
-                'label' => false,
-                'row_attr' => [],
-                'attr' => [
-                    'class' => 'form-control form-control-sm disabled',
-                    'readonly' => true,
-                    'placeholder' => 'Slug',
-                ],
             ])
             ->add('Image', FileType::class, [
                 'attr' => [
@@ -100,6 +100,26 @@ class AddArtistFormType extends AbstractType
                     'class' => 'form-control form-control-sm',
                     'placeholder' => 'Select City',
                 ]
+            ])
+
+            ->add('Submit', ButtonType::class, [
+                'label' => 'Add',
+                'attr' => [
+                    'type' => 'button',
+                    'class' => 'btn btn-primary text-white',
+                    'data-controller' => 'modal',
+                    'data-action' => 'modal#submitForm',
+                    'data-modal-resolve-value' => 'add',
+                ]
+            ])
+
+            ->add('Cancel', ButtonType::class, [
+                'label' => 'Close',
+                'attr' => [
+                    'type' => 'button',
+                    'class' => 'btn btn-secondary text-white',
+                    'data-bs-dismiss' => 'modal',
+                ]                
             ])
         ;
     }

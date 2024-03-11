@@ -5,6 +5,7 @@ namespace App\Controller\Admin\Request;
 use App\Config\ClaimStatus;
 use App\Entity\ClaimRequest;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -33,20 +34,30 @@ class ClaimRequestCrudController extends AbstractCrudController
             ->autocomplete();
         
         yield TextAreaField::new('Info')
-            ->setDisabled(true)
+            ->setDisabled()
+            ->setColumns(8)
+            ->hideOnIndex();
+        
+        yield FormField::addRow();
+        yield EmailField::new('Mail')
+            ->setDisabled()
             ->setColumns(8)
             ->hideOnIndex();
         
         yield FormField::addFieldset('Request Response');
         yield ChoiceField::new('Status')
             ->setColumns(6)
-            ->renderAsBadges();
+            ->renderAsBadges([
+                'ACCEPTED' => 'success',
+                'REQUESTED' => 'warning',
+                'DENIED' => 'danger',
+            ]);
 
         yield FormField::addRow();
         yield TextEditorField::new('Reason')
             ->setColumns(6)
             ->hideOnIndex();
-        
+
         yield DateTimeField::new('createdAt')
             ->setDisabled()
             ->hideOnForm();

@@ -26,14 +26,14 @@
             <li class="divider seperator"><hr class="dropdown-divider"></li>
             <li class="dropdown-item">
                 <div class="d-flex justify-content-between gap-3">
-                    <a class="text-body" href="{{ path('app_main_user_notification') }}">
+                    <a class="text-body" href="{{ path('app_user_notifications') }}">
                         {{ 'View All Notifications'|trans }}
                     </a>
                     <a 
                         class="text-body" 
                         href="#"
                         {{ stimulus_controller('notification', {
-                            'url': path('app_main_user_notification_mark', { 'id':0 }),
+                            'url': path('app_user_notification_mark', { 'id':0 }),
                             'token': csrf_token('mark-as-read')
                         }) }}
                         data-action="notification#markAsRead">
@@ -48,7 +48,7 @@
             <li class="divider seperator"><hr class="dropdown-divider"></li>
             <li class="dropdown-item">
                 <div class="d-flex justify-content-center">
-                    <a class="text-body" href="{{ path('app_main_user_notification') }}">
+                    <a class="text-body" href="{{ path('app_user_notifications') }}">
                         {{ 'View All Notifications'|trans }}
                     </a>
                 </div>
@@ -74,7 +74,7 @@
         </li>
         <li class="divider seperator"><hr class="dropdown-divider"></li>
         <li class="nav-item">
-            <a class="dropdown-item" href="{{ path('app_main_user_single', { 'slug': app.user.Slug }) }}">
+            <a class="dropdown-item" href="{{ path('app_members_slug', { 'slug': app.user.Slug }) }}">
                 <i class="me-2 fa-solid fa-user"></i>{{ 'Profile'|trans }}
             </a>
         </li>
@@ -86,14 +86,14 @@
         <li class="divider seperator"><hr class="dropdown-divider"></li>
         {% if is_granted('ROLE_ARTIST') %}
             <li class="nav-item">
-                <a class="dropdown-item " href="{{ path('app_main_user_artists') }}">
+                <a class="dropdown-item " href="{{ path('app_user_artists') }}">
                     <i class="me-2 fa-solid fa-music"></i>{{ 'My Artists'|trans }}
                 </a>
             </li>
         {% endif %}
         {% if is_granted('ROLE_CREW') %}
             <li class="nav-item">
-                <a class="dropdown-item " href="{{ path('app_main_user_crews') }}">
+                <a class="dropdown-item " href="{{ path('app_user_crews') }}">
                     <i class="me-2 fa-solid fa-music"></i>{{ 'My Crews'|trans }}
                 </a>
             </li>
